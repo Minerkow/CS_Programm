@@ -1,6 +1,8 @@
 #pragma once
 
-enum AvlError_t {AVL_OK = 0,
-                 AVL_NOT_INIT,
-                 AVL_NULL_POINTER_ARG,
+enum AvlError_t {AVLERR_OK = 0,
+                 AVLERR_NOT_INIT,
+                 AVLERR_NULL_POINTER_ARG,
+                 AVLERR_ARG_ERROR,
+                 AVLERR,
                  };
