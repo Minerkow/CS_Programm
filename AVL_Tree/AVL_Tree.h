@@ -20,12 +20,14 @@ struct Node_t {
 
 struct AVL_Tree {
     struct Node_t* top_;
+
+    enum AvlError_t avlErno_;
     size_t size_;
 };
 
-//TODO:enum AvlError_t avlInit(struct AVL_Tree* avlTree, int (*Compare)(const void*, const void*));//TODO
+//enum AvlError_t avlInitByArray(struct AVL_Tree* avlTree);//TODO
 
-//TODO:bool avlLoadFromArray(struct AVL_Tree* avlTree, void* array, size_t arraySize, size_t objectSize);
+int avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t arraySize);
 
 //*Insert data in tree and return iterator on them,
 //*if such data is already stored in the tree, return an iterator on it.
@@ -50,3 +52,7 @@ struct AVL_Iterator_t avlInsert(struct AVL_Tree* avlTree, int data);
 //*if the data is in the table, it returns an iterator on it,
 //*otherwise it returns a null iterator
 struct AVL_Iterator_t avlFind(struct AVL_Tree* avlTree, int data);
+
+//*check on empty
+bool avlEmpty(struct AVL_Tree* avlTree);
+
