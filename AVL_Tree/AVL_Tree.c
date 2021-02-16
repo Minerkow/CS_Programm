@@ -8,20 +8,23 @@
 #define unit_static static
 #endif
 
-unit_static enum AvlError_t avlSmallLeftRotation_ (struct Node_t* top); //TODO:Unit tests
+unit_static struct Node_t* avlSmallLeftRotation_ (struct AVL_Tree* avlTree, struct Node_t* top); //TODO:Unit tests
 
-unit_static enum AvlError_t avlBigLeftRotation_ (struct Node_t* top); //TODO:Unit tests
+unit_static struct Node_t* avlBigLeftRotation_ (struct AVL_Tree* avlTree, struct Node_t* top); //TODO:Unit tests
 
-unit_static enum AvlError_t avlSmallRightRotation_ (struct Node_t* top); //TODO:Unit tests
+unit_static struct Node_t* avlSmallRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* top); //TODO:Unit tests
 
-unit_static enum AvlError_t avlBigRightRotation_ (struct Node_t* top); //TODO
+unit_static struct Node_t* avlBigRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* top); //TODO
 
 unit_static int avlGetBalanceFactor_(struct Node_t* top);
 
 unit_static struct Node_t* avlCreateNode_(int data);
 
-unit_static enum AvlError_t avlBalancing_(struct Node_t* top);
+unit_static struct Node_t* avlBalancing_(struct AVL_Tree* avlTree, struct Node_t* top);
 
+unit_static void avlNodeBalancing_(struct Node_t* node);
+
+void avlPrintTree_ (struct Node_t* top);
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 int avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t arraySize) {
@@ -46,15 +49,10 @@ struct AVL_Iterator_t avlInsert(struct AVL_Tree* avlTree, int data) {
         avlTree->top_ = avlCreateNode_(data);
         avlTree->top_->balance_factor = 0;
         avlTree->top_->prev_ = NULL;
-        if (!avlTree->top_) {
-            res.it_ = avlTree->top_;
-            avlTree->size_ = 1;
-            return res;
-        } else {
-            res.it_ = NULL;
-            avlTree->avlErno_ = AVLERR_NULL_POINTER_ARG;
-            return res;
-        }
+        avlTree->avlErno_ = AVLERR_OK;
+        res.it_ = avlTree->top_;
+        avlTree->size_ = 1;
+        return res;
     }
     struct Node_t* tmp = avlTree->top_;
     struct Node_t* current = avlTree->top_;
@@ -84,10 +82,11 @@ struct AVL_Iterator_t avlInsert(struct AVL_Tree* avlTree, int data) {
         current->left_ = newNode;
     }
     res.it_ = newNode;
-    current->balance_factor = avlGetBalanceFactor_(current->right_) - avlGetBalanceFactor_(current->left_);
+    avlNodeBalancing_(current);
 
     while (current != NULL) {
-        enum AvlError_t err = avlBalancing_(current);
+        current = avlBalancing_(avlTree, current);
+        enum AvlError_t err = avlTree->avlErno_;
         if (err != AVLERR_OK) {
             fprintf(stderr, "Insert ERROR\n");
             avlTree->avlErno_ = err;
@@ -143,25 +142,26 @@ struct Node_t* avlCreateNode_(int data) {
     return node;
 }
 
-enum AvlError_t avlBalancing_(struct Node_t* top) {
+struct Node_t* avlBalancing_(struct AVL_Tree* avlTree, struct Node_t* top) {
     if (!top) {
         return AVLERR_NULL_POINTER_ARG;
     }
+    avlNodeBalancing_(top);
     if (top->balance_factor == 2) {
         if (top->right_->balance_factor >= 0) {
-            return avlSmallLeftRotation_(top);
+            return avlSmallLeftRotation_(avlTree, top);
         } else {
-            return avlBigLeftRotation_(top);
+            return avlBigLeftRotation_(avlTree, top);
         }
     }
     if (top->balance_factor == -2) {
         if (top->right_->balance_factor >= 0) {
-            return avlSmallRightRotation_(top);
+            return avlSmallRightRotation_(avlTree, top);
         } else {
-            return avlBigRightRotation_(top);
+            return avlBigRightRotation_(avlTree, top);
         }
     }
-    return AVLERR_OK;
+    return top;
 }
 
 
@@ -172,10 +172,11 @@ enum AvlError_t avlBalancing_(struct Node_t* top) {
 ///            /  \                       /  \
 ///           nC    nR                   nL  nC
 ///
-enum AvlError_t avlSmallLeftRotation_ (struct Node_t* top) {
+struct Node_t* avlSmallLeftRotation_ (struct AVL_Tree* avlTree, struct Node_t* top) {
     if (!top) {
         fprintf(stderr, "\nError line - %d\n", __LINE__);
-        return AVLERR_NULL_POINTER_ARG;
+        avlTree->avlErno_ = AVLERR_NULL_POINTER_ARG;
+        return NULL;
     }
 
     struct Node_t* nA = top;
@@ -183,7 +184,8 @@ enum AvlError_t avlSmallLeftRotation_ (struct Node_t* top) {
     struct Node_t* nL = top->left_;
     if (!nB) {
         fprintf(stderr, "\nError line - %d\n", __LINE__);
-        return AVLERR_ARG_ERROR;
+        avlTree->avlErno_ = AVLERR_ARG_ERROR;
+        return NULL;
     }
 
     struct Node_t* nC = nB->left_;
@@ -195,12 +197,18 @@ enum AvlError_t avlSmallLeftRotation_ (struct Node_t* top) {
     nA->prev_ = nB;
     nA->right_ = nC;
 
-    nC->prev_ = nA;
+    if (nC != NULL) {
+        nC->prev_ = nA;
+    }
 
-    nA->balance_factor = avlGetBalanceFactor_(nC) - avlGetBalanceFactor_(nL);
-    nB->balance_factor = avlGetBalanceFactor_(nR) - avlGetBalanceFactor_(nA);
+    avlNodeBalancing_(nA);
+    avlNodeBalancing_(nB);
 
-    return AVLERR_OK;
+    if (nB->prev_ == NULL) {
+        avlTree->top_ = nB;
+    }
+
+    return nB;
 }
 
 ///
@@ -212,10 +220,11 @@ enum AvlError_t avlSmallLeftRotation_ (struct Node_t* top) {
 ///      /  \
 ///     nM  nN
 ///
-enum AvlError_t avlBigLeftRotation_ (struct Node_t* top) {
+struct Node_t* avlBigLeftRotation_ (struct AVL_Tree* avlTree, struct Node_t* top) {
     if (!top) {
         fprintf(stderr, "\nError line - %d\n", __LINE__);
-        return AVLERR_NULL_POINTER_ARG;
+        avlTree->avlErno_ = AVLERR_NULL_POINTER_ARG;
+        return NULL;
     }
 
     struct Node_t* nA = top;
@@ -224,7 +233,8 @@ enum AvlError_t avlBigLeftRotation_ (struct Node_t* top) {
 
     if (!nB) {
         fprintf(stderr, "\nError line - %d\n", __LINE__);
-        return AVLERR_ARG_ERROR;
+        avlTree->avlErno_ = AVLERR_ARG_ERROR;
+        return NULL;
     }
 
     struct Node_t* nC = nB->left_;
@@ -232,7 +242,8 @@ enum AvlError_t avlBigLeftRotation_ (struct Node_t* top) {
 
     if (!nC) {
         fprintf(stderr, "\nError line - %d\n", __LINE__);
-        return AVLERR_ARG_ERROR;
+        avlTree->avlErno_ = AVLERR_ARG_ERROR;
+        return NULL;
     }
 
     struct Node_t* nM = nC->left_;
@@ -251,11 +262,15 @@ enum AvlError_t avlBigLeftRotation_ (struct Node_t* top) {
     nM->prev_ = nA;
     nN->prev_ = nC;
 
-    nA->balance_factor = avlGetBalanceFactor_(nL) - avlGetBalanceFactor_(nM);
-    nB->balance_factor = avlGetBalanceFactor_(nR) - avlGetBalanceFactor_(nN);
-    nC->balance_factor = avlGetBalanceFactor_(nB) - avlGetBalanceFactor_(nA);
+    avlNodeBalancing_(nA);
+    avlNodeBalancing_(nB);
+    avlNodeBalancing_(nC);
 
-    return AVLERR_OK;
+    if (nC->prev_ == NULL) {
+        avlTree->top_ = nC;
+    }
+
+    return nC;
 }
 
 
@@ -266,10 +281,11 @@ enum AvlError_t avlBigLeftRotation_ (struct Node_t* top) {
 ///    /  \                                     /  \
 ///   nL   nC                                  nC   nR
 ///
-enum AvlError_t avlSmallRightRotation_ (struct Node_t* top) {
+struct Node_t* avlSmallRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* top) {
     if (!top) {
         fprintf(stderr, "\nError line - %d\n", __LINE__);
-        return AVLERR_NULL_POINTER_ARG;
+        avlTree->avlErno_ = AVLERR_NULL_POINTER_ARG;
+        return NULL;
     }
 
     struct Node_t *nA = top;
@@ -278,7 +294,8 @@ enum AvlError_t avlSmallRightRotation_ (struct Node_t* top) {
 
     if (!nB) {
         fprintf(stderr, "\nError line - %d\n", __LINE__);
-        return AVLERR_ARG_ERROR;
+        avlTree->avlErno_ = AVLERR_ARG_ERROR;
+        return NULL;
     }
 
     struct Node_t* nC = nB->right_;
@@ -292,10 +309,14 @@ enum AvlError_t avlSmallRightRotation_ (struct Node_t* top) {
 
     nC->prev_ = nA;
 
-    nA->balance_factor = avlGetBalanceFactor_(nR) - avlGetBalanceFactor_(nC);
-    nB->balance_factor = avlGetBalanceFactor_(nA) - avlGetBalanceFactor_(nL);
+    avlNodeBalancing_(nA);
+    avlNodeBalancing_(nB);
 
-    return AVLERR_OK;
+    if (nB->prev_ == NULL) {
+        avlTree->top_ = nB;
+    }
+
+    return nB;
 }
 
 
@@ -309,10 +330,11 @@ enum AvlError_t avlSmallRightRotation_ (struct Node_t* top) {
 ///      /  \
 ///     nM  nN
 ///
-enum AvlError_t avlBigRightRotation_ (struct Node_t* top) {
+struct Node_t* avlBigRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* top) {
     if (!top) {
         fprintf(stderr, "\nError line - %d\n", __LINE__);
-        return AVLERR_NULL_POINTER_ARG;
+        avlTree->avlErno_ = AVLERR_NULL_POINTER_ARG;
+        return NULL;
     }
 
     struct Node_t* nA = top;
@@ -321,7 +343,8 @@ enum AvlError_t avlBigRightRotation_ (struct Node_t* top) {
 
     if (!nB) {
         fprintf(stderr, "\nError line - %d\n", __LINE__);
-        return AVLERR_ARG_ERROR;
+        avlTree->avlErno_ = AVLERR_ARG_ERROR;
+        return NULL;
     }
 
     struct Node_t* nL = nB->left_;
@@ -329,7 +352,8 @@ enum AvlError_t avlBigRightRotation_ (struct Node_t* top) {
 
     if (!nC) {
         fprintf(stderr, "\nError line - %d\n", __LINE__);
-        return AVLERR_ARG_ERROR;
+        avlTree->avlErno_ = AVLERR_ARG_ERROR;
+        return NULL;
     }
 
     struct Node_t* nM = nC->left_;
@@ -348,11 +372,15 @@ enum AvlError_t avlBigRightRotation_ (struct Node_t* top) {
     nA->prev_ = nC;
     nB->prev_ = nC;
 
-    nB->balance_factor = avlGetBalanceFactor_(nM) - avlGetBalanceFactor_(nL);
-    nA->balance_factor = avlGetBalanceFactor_(nR) - avlGetBalanceFactor_(nN);
-    nC->balance_factor = avlGetBalanceFactor_(nA) - avlGetBalanceFactor_(nB);
+    avlNodeBalancing_(nB);
+    avlNodeBalancing_(nA);
+    avlNodeBalancing_(nC);
 
-    return AVLERR_OK;
+    if (nC->prev_ == NULL) {
+        avlTree->top_ = nC;
+    }
+
+    return nC;
 }
 
 int avlGetBalanceFactor_(struct Node_t* top) {
@@ -360,5 +388,79 @@ int avlGetBalanceFactor_(struct Node_t* top) {
         return 0;
     } else {
         return top->balance_factor;
+    }
+}
+
+void avlPerror(struct AVL_Tree* avlTree) {
+    switch (avlTree->avlErno_) {
+        case AVLERR_NOT_INIT:
+            fprintf(stderr, "AVL: AVL Tree don't init\n"); return;
+        case AVLERR_NULL_POINTER_ARG:
+            fprintf(stderr, "AVL: NULL argument is supplied as an argument\n"); return;
+        case AVLERR_ARG_ERROR:
+            fprintf(stderr, "AVL: Invalid argument passed\n"); return;
+        case AVLERR:
+            fprintf(stderr, "AVL: Error\n"); return;
+        case AVLERR_INSERT:
+            fprintf(stderr, "AVL: Insert ERROR\n"); return;
+        case AVLERR_TREE_ALREADY_INIT:
+            fprintf(stderr, "AVL: AVL Tree already init\n"); return;
+        default:
+            return;
+    }
+}
+
+void avlInit(struct AVL_Tree* avlTree) {
+    if (avlTree == NULL) {
+        avlTree->avlErno_ = AVLERR_OK;
+        avlTree->size_ = 0;
+        avlTree->top_ = NULL;
+    } else {
+        avlTree->avlErno_ = AVLERR_NOT_INIT;
+    }
+}
+
+void avlNodeBalancing_(struct Node_t* node) {
+    node->balance_factor = avlGetBalanceFactor_(node->right_) - avlGetBalanceFactor_(node->left_);
+    if (node->right_ != NULL) {
+        node->balance_factor++;
+    }
+    if (node->left_ != NULL) {
+        node->balance_factor--;
+    }
+}
+
+void avlPrintTree_ (struct Node_t* top) {
+    if (top == NULL){
+        fprintf (stderr, "Error: top is NULL, line - %d\n", __LINE__);
+        return;
+    }
+    if (top->left_ == NULL && top->right_ == NULL)
+        return;
+
+    printf("%d ", top->data_);
+
+    if (top->left_ == NULL) {
+        printf ("NULL ");
+        //return;
+    } else {
+        printf("%d ", top->left_->data_);
+    }
+
+    if (top->right_ == NULL)
+    {
+        //printf ("_%d_", top->right->lexem.lex.num);
+        printf("NULL ");
+        //return;
+    } else {
+        printf("%d ", top->right_->data_);
+    }
+
+    printf ("\n");
+    if (top->left_ != NULL) {
+        avlPrintTree_(top->left_);
+    }
+    if (top->right_ != NULL) {
+        avlPrintTree_(top->right_);
     }
 }

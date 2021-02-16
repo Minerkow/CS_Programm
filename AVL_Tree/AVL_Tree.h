@@ -26,6 +26,7 @@ struct AVL_Tree {
 };
 
 //enum AvlError_t avlInitByArray(struct AVL_Tree* avlTree);//TODO
+void avlInit(struct AVL_Tree* avlTree);
 
 int avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t arraySize);
 
@@ -55,4 +56,8 @@ struct AVL_Iterator_t avlFind(struct AVL_Tree* avlTree, int data);
 
 //*check on empty
 bool avlEmpty(struct AVL_Tree* avlTree);
+
+void avlPerror(struct AVL_Tree* avlTree);
+
+void avlPrintTree_ (struct Node_t* top);
 

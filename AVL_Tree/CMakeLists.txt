@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
-project(AVL_Tree C)
+project(AVL_Tree)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
-set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
+#set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+#set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
 find_package(GTest REQUIRED)
 find_package(Threads REQUIRED)
