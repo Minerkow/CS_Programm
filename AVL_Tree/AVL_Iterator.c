@@ -1,6 +1,29 @@
 #include "AVL_Iterator.h"
 #include "AVL_Tree.h"
 
+struct AVL_Iterator_t {
+    struct Node_t* it_;
+};
+
+struct Node_t {
+    struct Node_t* left_;
+    struct Node_t* right_;
+    struct Node_t* prev_;
+
+    int balance_factor;
+
+    int data_;
+};
+
+struct AVL_Tree {
+    struct Node_t* top_;
+
+    enum AvlError_t avlErno_;
+    size_t size_;
+};
+
+//------------------------------------------------------------------------------------------
+
 bool avlEmptyIt (struct AVL_Iterator_t it) {
     if (it.it_ == NULL) {
         return true;
@@ -15,12 +38,16 @@ struct AVL_Iterator_t avlNextIt(struct AVL_Iterator_t it) {
         res.it_ = NULL;
         return res;
     }
-    if (it.it_->prev_->left_ == it.it_) {
-        res.it_ = it.it_->prev_;
-        return res;
-    }
     if (it.it_->prev_ == NULL) {
         res.it_ = it.it_->right_;
+        return res;
+    }
+    if (it.it_->right_ != NULL) {
+        res.it_ = it.it_->right_;
+        return res;
+    }
+    if (it.it_->prev_->left_ == it.it_) {
+        res.it_ = it.it_->prev_;
         return res;
     }
     if (it.it_->prev_->right_ == it.it_) {
@@ -32,7 +59,7 @@ struct AVL_Iterator_t avlNextIt(struct AVL_Iterator_t it) {
             res.it_ = NULL;
             return res;
         }
-        res.it_ = tmp->prev_->right_;
+        res.it_ = tmp->prev_;
         return res;
     }
     assert(1 && "Ooooops");
@@ -44,6 +71,10 @@ struct AVL_Iterator_t avlPrevIt(struct AVL_Iterator_t it) {
     res.it_ == NULL;
     if (avlEmptyIt(it)) {
         return it;
+    }
+    if (it.it_->prev_ == NULL) {
+        res.it_ = it.it_->left_;
+        return res;
     }
     if (it.it_->prev_->right_ == it.it_) {
         res.it_ = it.it_->prev_;
@@ -70,6 +101,9 @@ struct AVL_Iterator_t avlPrevIt(struct AVL_Iterator_t it) {
 }
 
 int avlGetDataByIt(struct AVL_Iterator_t it) {
+    if (avlEmptyIt(it)) {
+        return NAN;
+    }
     return it.it_->data_;
 }
 
@@ -89,7 +123,7 @@ struct AVL_Iterator_t avlBeginIt(struct AVL_Tree* avlTree) {
     return res;
 }
 
-struct AVL_Iterator_t avlEndIT(struct AVL_Tree* avlTree) {
+struct AVL_Iterator_t avlEndIt(struct AVL_Tree* avlTree) {
     struct Node_t* tmp = avlTree->top_;
     while (tmp->right_ != NULL) {
         tmp =tmp->right_;
