@@ -6,7 +6,6 @@
 #include <assert.h>
 #include <string.h>
 #include <math.h>
-#include "AVL_Iterator.h"
 #include "Error.h"
 
 struct AVL_Tree;
@@ -17,15 +16,16 @@ struct Node_t;
 struct AVL_Tree* avlInit();
 
 //*Load data to AVL_Tree from array
-int avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t arraySize);
+enum AvlError_t avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t arraySize);
 
 //*Insert data in tree and return iterator on them,
 //*if such data is already stored in the tree, return an iterator on it.
-void avlInsert(struct AVL_Tree* avlTree, int data);
+enum AvlError_t avlInsert(struct AVL_Tree* avlTree, int data);
 
 //*Erase elem by value
-void avlEraseByValue(struct AVL_Tree* avlTree, int data);
+enum AvlError_t avlEraseByValue(struct AVL_Tree* avlTree, int data);
 
+//*Return size of avlTree, if avlTree not init return NAN
 size_t avlSize(struct AVL_Tree* avlTree);
 
 //*Clear all tree
@@ -35,7 +35,7 @@ int avlClear(struct AVL_Tree* avlTree);
 bool avlEmpty(struct AVL_Tree* avlTree);
 
 //*Check on ERROR
-void avlPerror(struct AVL_Tree* avlTree);
+void avlPerror(enum AvlError_t err);
 
 //*Return max elem
 int avlGetMaxElem(struct AVL_Tree* avlTree);
@@ -43,9 +43,13 @@ int avlGetMaxElem(struct AVL_Tree* avlTree);
 //*Return min elem
 int avlGetMinElem(struct AVL_Tree* avlTree);
 
+//*Save in array first lenArray elem,
+//*else return NULL
+enum AvlError_t avlSaveInArray(struct AVL_Tree* avlTree, int* array, size_t lenArray);
 
+void avlForEach(void (*foo)(struct Node_t* it, void* data), void* data);
 
-#ifdef DEBUG
-void avlPrintTree_ (struct Node_t* top);
-#endif
+//#ifdef DEBUG
+void avlPrintTree_(struct AVL_Tree* avlTree);
+//#endif
 

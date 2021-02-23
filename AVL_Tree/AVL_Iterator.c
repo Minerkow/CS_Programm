@@ -1,6 +1,10 @@
-#include "AVL_Iterator.h"
 #include "AVL_Tree.h"
 
+//*Return begin iterator
+static struct Node_t* avlBeginIt(struct AVL_Tree* avlTree);
+
+//*Return end iterator
+static struct Node_t* avlEndIt_(struct AVL_Tree* avlTree);
 
 //*If the next element exists returns an iterator to it,
 //*else returns a empty iterator
@@ -9,22 +13,6 @@ static struct Node_t* avlNextIt_(struct Node_t* it);
 //*If the prev element exists returns an iterator to it,
 //*else returns a empty iterator
 static struct Node_t* avlPrevIt_(struct Node_t* it);
-
-//*If iterator is empty return FALSE,
-//*else returns TRUE
-static bool avlEmptyIt_ (struct Node_t* it);
-
-//*Check iterators for equality
-static bool avlEqualIt_(struct Node_t* it1, struct Node_t* it2);
-
-//*Return Data by iterator
-static int avlGetDataByIt_(struct Node_t* it);
-
-//*Return begin iterator
-static struct Node_t* avlBeginIt_(struct AVL_Tree* avlTree);
-
-//*Return end iterator
-static struct Node_t* avlEndIt_(struct AVL_Tree* avlTree);
 
 //-----------------------------------------------------------------------------------------------------------
 
@@ -41,13 +29,12 @@ struct Node_t {
 struct AVL_Tree {
     struct Node_t* top_;
 
-    enum AvlError_t avlErno_;
     size_t size_;
 };
 
 //------------------------------------------------------------------------------------------
 
-bool avlEmptyIt_(struct Node_t* it) {
+bool avlEmptyIt(struct Node_t* it) {
     if (it == NULL) {
         return true;
     }
@@ -60,6 +47,9 @@ struct Node_t* avlNextIt_(struct Node_t* it) {
     }
     if (it->prev_ == NULL) {
         it = it->right_;
+        while (it->left_) {
+            it = it->left_;
+        }
         return it;
     }
     if (it->right_ != NULL) {
@@ -118,23 +108,22 @@ struct Node_t* avlPrevIt_(struct Node_t* it) {
     return it;
 }
 
-int avlGetDataByIt_(struct Node_t* it) {
+int avlGetDataByIt(struct Node_t* it) {
     if (it == NULL) {
         return NAN;
     }
     return it->data_;
 }
 
-bool avlEqualIt_(struct Node_t* it1, struct Node_t* it2) {
+bool avlEqualIt(struct Node_t* it1, struct Node_t* it2) {
     if (it1 == it2) {
         return true;
     }
     return false;
 }
 
-struct Node_t* avlBeginIt_(struct AVL_Tree* avlTree) {
+struct Node_t* avlBeginIt(struct AVL_Tree* avlTree) {
     if (avlTree == NULL) {
-        avlTree->avlErno_ = AVLERR_NULL_POINTER_ARG;
         return NULL;
     }
     struct Node_t* tmp = avlTree->top_;
@@ -146,7 +135,6 @@ struct Node_t* avlBeginIt_(struct AVL_Tree* avlTree) {
 
 struct Node_t* avlEndIt_(struct AVL_Tree* avlTree) {
     if (avlTree == NULL) {
-        avlTree->avlErno_ = AVLERR_NULL_POINTER_ARG;
         return NULL;
     }
     struct Node_t* tmp = avlTree->top_;
@@ -158,16 +146,37 @@ struct Node_t* avlEndIt_(struct AVL_Tree* avlTree) {
 
 int avlGetMaxElem(struct AVL_Tree* avlTree) {
     struct Node_t* it = avlEndIt_(avlTree);
-    if (avlTree->avlErno_ != AVLERR_OK) {
+    if (!it) {
         return NAN;
     }
     return it->data_;
 }
 
 int avlGetMinElem(struct AVL_Tree* avlTree) {
-    struct Node_t* it = avlBeginIt_(avlTree);
-    if (avlTree->avlErno_ != AVLERR_OK) {
+    struct Node_t* it = avlBeginIt(avlTree);
+    if (!it) {
         return NAN;
     }
     return it->data_;
+}
+
+enum AvlError_t avlSaveInArray(struct AVL_Tree* avlTree, int* array, size_t lenArray) {
+    if (!avlTree) {
+        return AVLERR_NOT_INIT;
+    }
+    if (lenArray == 0) {
+        return AVLERR_OK;
+    }
+    if (array == NULL) {
+        return AVLERR_NULL_POINTER_ARG;
+    }
+    struct Node_t* it = avlBeginIt(avlTree);
+    for (size_t i = 0; i < lenArray; ++i) {
+        if (it == NULL) {
+            break;
+        }
+        array[i] = avlGetDataByIt(it);
+        it = avlNextIt_(it);
+    }
+    return AVLERR_OK;
 }

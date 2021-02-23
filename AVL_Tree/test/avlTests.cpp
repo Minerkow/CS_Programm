@@ -13,52 +13,50 @@ TEST(AVL_Tree, avlEmptyTest) {
     ASSERT_TRUE(avlEmpty(avlTree));
 }
 
-TEST(AVL_Tree, avlInsert2) {
+TEST(AVL_Tree, avlInsert1) {
     AVL_Tree* avlTree = avlInit();
-    std::vector<int> res;
-    std::vector<int> truerRes = {-1, 0, 1, 2, 3};
-    AVL_Iterator_t* it = avlCreateIt();
     avlInsert(avlTree, 1);
-    avlInsert(avlTree, 2);
-    avlInsert(avlTree, 3);
-    avlInsert(avlTree, 0);
-    avlInsert(avlTree, -1);
-    avlBeginIt(avlTree, it);
-    for (size_t i = 0; i < avlSize(avlTree); ++i) {
-        res.push_back(avlGetDataByIt(it));
-        it = avlNextIt(it);
-    }
-    ASSERT_EQ(res, truerRes);
+    ASSERT_EQ(avlGetMaxElem(avlTree), avlGetMinElem(avlTree));
 }
-//
-//TEST(AVL_Tree, avlLoadFromArray) {
+
+TEST(AVL_Tree, avlInsert2) {
+    int err = avlInsert(NULL, 1);
+    ASSERT_EQ(err, AVLERR_NOT_INIT);
+}
+
+
+//TEST(AVL_Tree, avlLoadFromArray1) {
 //    AVL_Tree* avlTree = avlInit();
-//    std::vector<int> data = {3, 2, 4, 5, 1};
-//    std::vector<int> res;
-//    std::vector<int> trueRes = {5, 4, 3, 2, 0};
-//    AVL_Iterator_t* it = avlCreateIt();
-//    avlLoadFromArray(avlTree, data.data(), data.size());
-//    avlEndIt(avlTree, it);
-//    for (size_t i = 0; i < avlSize(avlTree); ++i) {
-//        res.push_back(avlGetDataByIt(it));
-//        it = avlPrevIt(it);
+//    std::vector<int> input;
+//    std::srand(std::time(0));
+//    for (int i = 0; i < 10; ++i) {
+//        input.push_back(std::rand() % 10);
 //    }
-//    ASSERT_EQ(res, trueRes);
+//    std::vector<int> trueRes = input;
+//    std::sort(trueRes.begin(), trueRes.end());
+//    std::vector<int> res(input.size());
+//    avlLoadFromArray(avlTree, input.data(), input.size());
+//    avlSaveInArray(avlTree, res.data(), res.size());
+//    ASSERT_EQ(trueRes, res);
 //}
-//
-//TEST(AVL_Tree, avlEraseByValue) {
-//    struct AVL_Tree* avlTree = avlInit();
-//    std::vector<int> data = {3, 2, 4, 5, 1};
-//    std::vector<int> res;
-//    std::vector<int> trueRes = {1, 2, 4, 5};
-//    avlLoadFromArray(avlTree, data.data(), data.size());
-//    avlEraseByValue(avlTree, 3);
-//    AVL_Iterator_t* it = avlCreateIt();
-//    it = avlBeginIt(avlTree, it);
-//    for (size_t i = 0; i < avlSize(avlTree); ++i) {
-//        res.push_back(avlGetDataByIt(it));
-//        it = avlNextIt(it);
-//    }
-//
-//    ASSERT_EQ(res, trueRes);
-//}
+
+TEST(AVL_Tree, avlLoadFromArray2) {
+    AVL_Tree* avlTree = avlInit();
+    std::vector<int> input = {1, 2, 3, 4, 2};
+    std::vector<int> trueRes = {1, 2, 3, 4};
+    std::vector<int> res(trueRes.size());
+    avlLoadFromArray(avlTree, input.data(), input.size());
+    avlSaveInArray(avlTree, res.data(), res.size());
+    ASSERT_EQ(trueRes, res);
+}
+
+TEST(AVL_Tree, avlLoadFromArray3) {
+    AVL_Tree* avlTree = avlInit();
+    std::vector<int> input = { 0, 1, 1, 1, 3, 3, 4, 6, 7, 9 };
+    std::vector<int> trueRes = { 0, 1, 3, 4, 6, 7, 9 };
+    std::vector<int> res(trueRes.size());
+    avlLoadFromArray(avlTree, input.data(), input.size());
+    avlPrintTree_(avlTree);
+    avlSaveInArray(avlTree, res.data(), res.size());
+    ASSERT_EQ(trueRes, res);
+}
