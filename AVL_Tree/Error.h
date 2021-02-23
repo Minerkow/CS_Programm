@@ -7,5 +7,6 @@ enum AvlError_t {AVLERR_OK = 0,
                  AVLERR = -1,
                  AVLERR_INSERT,
                  AVLERR_TREE_ALREADY_INIT = 228,
-                 AVLERR_DATA_NOT_FOUND
+                 AVLERR_DATA_NOT_FOUND,
+                 AVLERR_CREATE_ITERATOR
                  };
