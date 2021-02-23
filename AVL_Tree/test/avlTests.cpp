@@ -25,20 +25,20 @@ TEST(AVL_Tree, avlInsert2) {
 }
 
 
-//TEST(AVL_Tree, avlLoadFromArray1) {
-//    AVL_Tree* avlTree = avlInit();
-//    std::vector<int> input;
-//    std::srand(std::time(0));
-//    for (int i = 0; i < 10; ++i) {
-//        input.push_back(std::rand() % 10);
-//    }
-//    std::vector<int> trueRes = input;
-//    std::sort(trueRes.begin(), trueRes.end());
-//    std::vector<int> res(input.size());
-//    avlLoadFromArray(avlTree, input.data(), input.size());
-//    avlSaveInArray(avlTree, res.data(), res.size());
-//    ASSERT_EQ(trueRes, res);
-//}
+TEST(AVL_Tree, avlLoadFromArray1) {
+    AVL_Tree* avlTree = avlInit();
+    std::vector<int> input;
+    std::srand(std::time(0));
+    for (int i = 0; i < 10; ++i) {
+        input.push_back(std::rand());
+    }
+    std::vector<int> trueRes = input;
+    std::sort(trueRes.begin(), trueRes.end());
+    std::vector<int> res(input.size());
+    avlLoadFromArray(avlTree, input.data(), input.size());
+    avlSaveInArray(avlTree, res.data(), res.size());
+    ASSERT_EQ(trueRes, res);
+}
 
 TEST(AVL_Tree, avlLoadFromArray2) {
     AVL_Tree* avlTree = avlInit();
@@ -51,6 +51,16 @@ TEST(AVL_Tree, avlLoadFromArray2) {
 }
 
 TEST(AVL_Tree, avlLoadFromArray3) {
+    AVL_Tree* avlTree = avlInit();
+    std::vector<int> input = { 0, 1, 3};
+    std::vector<int> trueRes = { 0, 1, 3};
+    std::vector<int> res(trueRes.size());
+    avlLoadFromArray(avlTree, input.data(), input.size());
+    avlSaveInArray(avlTree, res.data(), res.size());
+    ASSERT_EQ(trueRes, res);
+}
+
+TEST(AVL_Tree, avlLoadFromArray4) {
     AVL_Tree* avlTree = avlInit();
     std::vector<int> input = { 0, 1, 1, 1, 3, 3, 4, 6, 7, 9 };
     std::vector<int> trueRes = { 0, 1, 3, 4, 6, 7, 9 };

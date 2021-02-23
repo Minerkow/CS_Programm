@@ -59,13 +59,13 @@ enum AvlError_t avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t ar
         return AVLERR_OK;
     }
     for (size_t i = 0; i < arraySize; ++i) {
-        printf("Insert: %d\n", array[i]);
+//        printf("Insert: %d\n", array[i]);
         if (avlInsert(avlTree, array[i]) != AVLERR_OK) {
             fprintf(stderr, "AVL Insert ERROR");
             return AVLERR_INSERT;
         }
         avlPrintTree_(avlTree);
-        printf("\n");
+//        printf("\n");
     }
     return AVLERR_OK;
 }
@@ -465,11 +465,20 @@ struct Node_t* avlBigRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* to
 }
 
 int avlGetBalanceFactor_(struct Node_t* top) {
-    if (!top) {
+    int balanceFactor = 0;
+    if (top == NULL) {
         return 0;
     } else {
-        return avlNodeHeight_(top->right_) - avlNodeHeight_(top->left_);
+         balanceFactor = avlNodeHeight_(top->right_) -
+                    avlNodeHeight_(top->left_);
     }
+    if (top->right_ != NULL) {
+        balanceFactor++;
+    }
+    if (top->left_ != NULL) {
+        balanceFactor++;
+    }
+    return balanceFactor;
 }
 
 void avlPerror(enum AvlError_t err) {
@@ -499,8 +508,8 @@ enum AvlError_t avlNodeBalancing_(struct Node_t* node) {
     if (!node) {
         return AVLERR_BALANCE;
     }
-    node->height_ = avlGetBalanceFactor_(node->right_) + avlGetBalanceFactor_(node->left_);
-    if (avlGetBalanceFactor_(node->right_) > avlGetBalanceFactor_(node->left_)) {
+    if (avlGetBalanceFactor_(node->right_) >
+                        avlGetBalanceFactor_(node->left_)) {
         node->height_ = avlGetBalanceFactor_(node->right_) + 1;
     } else {
         node->height_ = avlGetBalanceFactor_(node->left_) + 1;
@@ -618,10 +627,9 @@ void avlForEach(void (*foo)(struct Node_t* it, void* data), void* data) {
 }
 
 int avlNodeHeight_(struct Node_t* top) {
-    if (!top) {
+    if (top == NULL) {
         return 0;
     } else {
         return top->height_;
     }
 }
-
