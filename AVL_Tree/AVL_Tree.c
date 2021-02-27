@@ -59,13 +59,12 @@ enum AvlError_t avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t ar
         return AVLERR_OK;
     }
     for (size_t i = 0; i < arraySize; ++i) {
-//        printf("Insert: %d\n", array[i]);
+        //printf("Insert: %d\n", array[i]);
         if (avlInsert(avlTree, array[i]) != AVLERR_OK) {
             fprintf(stderr, "AVL Insert ERROR");
             return AVLERR_INSERT;
         }
-        avlPrintTree_(avlTree);
-//        printf("\n");
+        //avlPrintTree_(avlTree);
     }
     return AVLERR_OK;
 }
@@ -101,11 +100,10 @@ enum AvlError_t avlInsert(struct AVL_Tree* avlTree, int data) {
     struct Node_t* newNode = avlCreateNode_(data);
     newNode->prev_ = current;
 
+    avlTree->size_++;
     if (data > current->data_) {
-        avlTree->size_++;
         current->right_ = newNode;
     } else {
-        avlTree->size_++;
         current->left_ = newNode;
     }
     int err = avlNodeBalancing_(current);
@@ -322,8 +320,12 @@ struct Node_t* avlBigLeftRotation_ (struct AVL_Tree* avlTree, struct Node_t* top
     nB->prev_ = nC;
     nB->left_ = nN;
 
-    nM->prev_ = nA;
-    nN->prev_ = nC;
+    if (nM != NULL) {
+        nM->prev_ = nA;
+    }
+    if (nN != NULL) {
+        nN->prev_ = nB;
+    }
 
     int err = avlNodeBalancing_(nA);
     if (err != AVLERR_OK) {
@@ -436,10 +438,14 @@ struct Node_t* avlBigRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* to
     nC->prev_ = top->prev_;
 
     nB->right_ = nM;
-    nM->prev_ = nB;
+    if (nM != NULL) {
+        nM->prev_ = nB;
+    }
 
     nA->left_ = nN;
-    nN->prev_ = nA;
+    if (nN != NULL) {
+        nN->prev_ = nA;
+    }
 
     nA->prev_ = nC;
     nB->prev_ = nC;
@@ -476,7 +482,7 @@ int avlGetBalanceFactor_(struct Node_t* top) {
         balanceFactor++;
     }
     if (top->left_ != NULL) {
-        balanceFactor++;
+        balanceFactor--;
     }
     return balanceFactor;
 }
@@ -508,11 +514,11 @@ enum AvlError_t avlNodeBalancing_(struct Node_t* node) {
     if (!node) {
         return AVLERR_BALANCE;
     }
-    if (avlGetBalanceFactor_(node->right_) >
-                        avlGetBalanceFactor_(node->left_)) {
-        node->height_ = avlGetBalanceFactor_(node->right_) + 1;
+    if (avlNodeHeight_(node->right_) >
+                        avlNodeHeight_(node->left_)) {
+        node->height_ = avlNodeHeight_(node->right_) + 1;
     } else {
-        node->height_ = avlGetBalanceFactor_(node->left_) + 1;
+        node->height_ = avlNodeHeight_(node->left_) + 1;
     }
     return AVLERR_OK;
 }
@@ -557,7 +563,7 @@ void avlPrintNode_(struct Node_t* top) {
 
 size_t avlSize(struct AVL_Tree* avlTree) {
     if (avlTree == NULL) {
-        return NAN;
+        return 0;
     }
     return avlTree->size_;
 }
@@ -604,7 +610,9 @@ enum AvlError_t avlEraseByIt_(struct AVL_Tree* avlTree, struct Node_t* it) {
         struct Node_t* prev = current->prev_;
         ptr->data_ = current->data_;
         ptr->left_ = current->left_;
-        current->left_->prev_ = ptr;
+        if (current->left_ != NULL) {
+            current->left_->prev_ = ptr;
+        }
 
         free(current);
         avlTree->size_--;

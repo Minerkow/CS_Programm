@@ -1,0 +1,874 @@
+        -:    0:Source:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.c
+        -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/AVL_Tree.c.gcno
+        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/AVL_Tree.c.gcda
+        -:    0:Runs:1
+        -:    1:#include "AVL_Tree.h"
+        -:    2:#include "Error.h"
+        -:    3:
+        -:    4:
+        -:    5:struct Node_t {
+        -:    6:    struct Node_t* left_;
+        -:    7:    struct Node_t* right_;
+        -:    8:    struct Node_t* prev_;
+        -:    9:
+        -:   10:    int height_;
+        -:   11:
+        -:   12:    int data_;
+        -:   13:};
+        -:   14:
+        -:   15:struct AVL_Tree {
+        -:   16:    struct Node_t* top_;
+        -:   17:
+        -:   18:    size_t size_;
+        -:   19:};
+        -:   20:
+        -:   21://-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        -:   22:
+        -:   23:static struct Node_t* avlSmallLeftRotation_ (struct AVL_Tree* avlTree, struct Node_t* top); //TODO:Unit tests
+        -:   24:
+        -:   25:static struct Node_t* avlBigLeftRotation_ (struct AVL_Tree* avlTree, struct Node_t* top); //TODO:Unit tests
+        -:   26:
+        -:   27:static struct Node_t* avlSmallRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* top); //TODO:Unit tests
+        -:   28:
+        -:   29:static struct Node_t* avlBigRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* top); //TODO
+        -:   30:
+        -:   31:static int avlGetBalanceFactor_(struct Node_t* top);
+        -:   32:
+        -:   33:static struct Node_t* avlCreateNode_(int data);
+        -:   34:
+        -:   35:static struct Node_t* avlBalancing_(struct AVL_Tree* avlTree, struct Node_t* top);
+        -:   36:
+        -:   37:static enum AvlError_t avlNodeBalancing_(struct Node_t* node);
+        -:   38:
+        -:   39://*Erase elem by pointer
+        -:   40:static enum AvlError_t avlEraseByIt_(struct AVL_Tree* avlTree, struct Node_t* it);
+        -:   41:
+        -:   42://*If the data is in the table, it returns an iterator on it,
+        -:   43://*otherwise it returns a null iterator
+        -:   44:static struct Node_t* avlFind_(struct AVL_Tree* avlTree, int data);
+        -:   45:
+        -:   46:static void avlPrintNode_ (struct Node_t* top);
+        -:   47:
+        -:   48:static int avlNodeHeight_(struct Node_t* top);
+        -:   49://------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        -:   50:
+       10:   51:enum AvlError_t avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t arraySize) {
+       10:   52:    if (array == NULL) {
+       10:   52-block  0
+        1:   53:        return AVLERR_NULL_POINTER_ARG;
+        1:   53-block  0
+        -:   54:    }
+        9:   55:    if (avlTree == NULL) {
+        9:   55-block  0
+        1:   56:        return AVLERR_NOT_INIT;
+        1:   56-block  0
+        -:   57:    }
+        8:   58:    if (arraySize == 0) {
+        8:   58-block  0
+        1:   59:        return AVLERR_OK;
+        1:   59-block  0
+        -:   60:    }
+       89:   61:    for (size_t i = 0; i < arraySize; ++i) {
+        7:   61-block  0
+       82:   61-block  1
+       89:   61-block  2
+       82:   62:        printf("Insert: %d\n", array[i]);
+       82:   62-block  0
+       82:   63:        if (avlInsert(avlTree, array[i]) != AVLERR_OK) {
+    #####:   64:            fprintf(stderr, "AVL Insert ERROR");
+    %%%%%:   64-block  0
+    #####:   65:            return AVLERR_INSERT;
+        -:   66:        }
+        -:   67:        //avlPrintTree_(avlTree);
+        -:   68:    }
+        7:   69:    return AVLERR_OK;
+        7:   69-block  0
+        -:   70:}
+        -:   71:
+        -:   72:
+       85:   73:enum AvlError_t avlInsert(struct AVL_Tree* avlTree, int data) {
+       85:   74:    if (avlTree == NULL) {
+       85:   74-block  0
+        1:   75:        return AVLERR_NOT_INIT;
+        1:   75-block  0
+        -:   76:    }
+       84:   77:    if (avlTree->top_ == NULL) {
+       84:   77-block  0
+        9:   78:        avlTree->top_ = avlCreateNode_(data);
+        9:   78-block  0
+        9:   79:        avlTree->top_->height_ = 0;
+        9:   80:        avlTree->top_->prev_ = NULL;
+        9:   81:        avlTree->size_ = 1;
+        9:   82:        return AVLERR_OK;
+        -:   83:    }
+       75:   84:    struct Node_t* tmp = avlTree->top_;
+       75:   85:    struct Node_t* current = avlTree->top_;
+      280:   86:    while (tmp != NULL) {
+       75:   86-block  0
+      280:   86-block  1
+      221:   87:        current = tmp;
+      221:   88:        if (data > tmp->data_) {
+      221:   88-block  0
+      141:   89:            tmp = tmp->right_;
+      141:   90:            continue;
+      141:   90-block  0
+        -:   91:        }
+       80:   92:        if (data < tmp->data_) {
+       80:   92-block  0
+       64:   93:            tmp = tmp->left_;
+       64:   94:            continue;
+       64:   94-block  0
+        -:   95:        }
+       16:   96:        if (data == tmp->data_) {
+       16:   96-block  0
+       16:   97:            return AVLERR_OK;
+       16:   97-block  0
+        -:   98:        }
+        -:   99:    }
+       59:  100:    struct Node_t* newNode = avlCreateNode_(data);
+       59:  100-block  0
+       59:  101:    newNode->prev_ = current;
+        -:  102:
+       59:  103:    avlTree->size_++;
+       59:  104:    if (data > current->data_) {
+       41:  105:        current->right_ = newNode;
+       41:  105-block  0
+        -:  106:    } else {
+       18:  107:        current->left_ = newNode;
+       18:  107-block  0
+        -:  108:    }
+       59:  109:    int err = avlNodeBalancing_(current);
+       59:  109-block  0
+       59:  110:    if (err != AVLERR_OK) {
+    #####:  111:        return err;
+    %%%%%:  111-block  0
+        -:  112:    }
+        -:  113:
+      240:  114:    while (current != NULL) {
+       59:  114-block  0
+      240:  114-block  1
+      181:  115:        current = avlBalancing_(avlTree, current);
+      181:  115-block  0
+      181:  116:        if (current == NULL) {
+    #####:  117:            fprintf(stderr, "Insert ERROR\n");
+    %%%%%:  117-block  0
+    #####:  118:            return AVLERR_INSERT;
+        -:  119:        }
+      181:  120:        current = current->prev_;
+      181:  120-block  0
+        -:  121:    }
+       59:  122:    return AVLERR_OK;
+       59:  122-block  0
+        -:  123:}
+        -:  124:
+        2:  125:struct Node_t* avlFind_(struct AVL_Tree* avlTree, int data) {
+        -:  126:    struct Node_t* it;
+        2:  127:    if (avlTree == NULL) {
+        2:  127-block  0
+    #####:  128:        fprintf(stderr, "NULL argument in avlFind");
+    %%%%%:  128-block  0
+    #####:  129:        return NULL;
+        -:  130:    }
+        -:  131:
+        2:  132:    struct Node_t* tmp = avlTree->top_;
+        -:  133:
+        6:  134:    while (tmp != NULL) {
+        2:  134-block  0
+        6:  134-block  1
+        5:  135:        if (data > tmp->data_) {
+        5:  135-block  0
+    #####:  136:            tmp = tmp->right_;
+    #####:  137:            continue;
+    %%%%%:  137-block  0
+        -:  138:        }
+        5:  139:        if (data < tmp->data_) {
+        5:  139-block  0
+        4:  140:            tmp = tmp->left_;
+        4:  141:            continue;
+        4:  141-block  0
+        -:  142:        }
+        1:  143:        if (data == tmp->data_) {
+        1:  143-block  0
+        1:  144:            it = tmp;
+        1:  145:            return it;
+        1:  145-block  0
+        -:  146:        }
+        -:  147:    }
+        1:  148:    return NULL;
+        1:  148-block  0
+        -:  149:}
+        -:  150:
+        3:  151:bool avlEmpty(struct AVL_Tree* avlTree) {
+        3:  152:    if (avlTree == NULL) {
+        3:  152-block  0
+        1:  153:        return true;
+        1:  153-block  0
+        -:  154:    }
+        2:  155:    if (avlTree->top_ == NULL) {
+        2:  155-block  0
+        1:  156:        return true;
+        1:  156-block  0
+        -:  157:    }
+        1:  158:    return false;
+        1:  158-block  0
+        -:  159:}
+        -:  160:
+       68:  161:struct Node_t* avlCreateNode_(int data) {
+       68:  162:    struct Node_t* node = (struct Node_t*)calloc(1, sizeof(struct Node_t));
+       68:  163:    node->data_ = data;
+        -:  164:    //printf("%d\n", data);
+       68:  165:    return node;
+       68:  165-block  0
+        -:  166:}
+        -:  167:
+      183:  168:struct Node_t* avlBalancing_(struct AVL_Tree* avlTree, struct Node_t* top) {
+      183:  169:    if (!top) {
+      183:  169-block  0
+    #####:  170:        return NULL;
+    %%%%%:  170-block  0
+        -:  171:    }
+      183:  172:    int err = avlNodeBalancing_(top);
+      183:  172-block  0
+      183:  173:    if (err != AVLERR_OK) {
+    #####:  174:        return NULL;
+    %%%%%:  174-block  0
+        -:  175:    }
+        -:  176:
+      183:  177:    struct Node_t* previous = top->prev_;
+      183:  178:    int place = 0;
+      183:  179:    if (previous != NULL) {
+      183:  179-block  0
+      123:  180:        if (previous->right_ == top) {
+      123:  180-block  0
+       82:  181:            place = 1;
+       82:  181-block  0
+        -:  182:        } else {
+       41:  183:            place = -1;
+       41:  183-block  0
+        -:  184:        }
+        -:  185:    }
+      183:  186:    if (avlGetBalanceFactor_(top) == 2) {
+      183:  186-block  0
+       26:  187:        if (avlGetBalanceFactor_(top->right_) >= 0) {
+       26:  187-block  0
+       24:  188:            struct Node_t* newTop = avlSmallLeftRotation_(avlTree, top);
+       24:  188-block  0
+       24:  189:            if (place == 1) {
+       11:  190:                previous->right_ = newTop;
+       11:  190-block  0
+        -:  191:            }
+       24:  192:            if (place == -1) {
+       24:  192-block  0
+        2:  193:                previous->left_ = newTop;
+        2:  193-block  0
+        -:  194:            }
+       24:  195:            return newTop;
+       24:  195-block  0
+        -:  196:        } else {
+        2:  197:            struct Node_t* newTop = avlBigLeftRotation_(avlTree, top);
+        2:  197-block  0
+        2:  198:            if (place == 1) {
+    #####:  199:                previous->right_ = newTop;
+    %%%%%:  199-block  0
+        -:  200:            }
+        2:  201:            if (place == -1) {
+        2:  201-block  0
+        2:  202:                previous->left_ = newTop;
+        2:  202-block  0
+        -:  203:            }
+        2:  204:            return newTop;
+        2:  204-block  0
+        -:  205:        }
+        -:  206:    }
+      157:  207:    if (avlGetBalanceFactor_(top) == -2) {
+      157:  207-block  0
+        9:  208:        if (avlGetBalanceFactor_(top->right_) >= 0) {
+        9:  208-block  0
+        9:  209:            struct Node_t* newTop = avlSmallRightRotation_(avlTree, top);
+        9:  209-block  0
+        9:  210:            if (place == 1) {
+        4:  211:                previous->right_ = newTop;
+        4:  211-block  0
+        -:  212:            }
+        9:  213:            if (place == -1) {
+        9:  213-block  0
+        5:  214:                previous->left_ = newTop;
+        5:  214-block  0
+        -:  215:            }
+        9:  216:            return newTop;
+        9:  216-block  0
+        -:  217:        } else {
+    #####:  218:            struct Node_t* newTop = avlBigRightRotation_(avlTree, top);
+    %%%%%:  218-block  0
+    #####:  219:            if (place == 1) {
+    #####:  220:                previous->right_ = newTop;
+    %%%%%:  220-block  0
+        -:  221:            }
+    #####:  222:            if (place == -1) {
+    %%%%%:  222-block  0
+    #####:  223:                previous->left_ = newTop;
+    %%%%%:  223-block  0
+        -:  224:            }
+    #####:  225:            return newTop;
+    %%%%%:  225-block  0
+        -:  226:        }
+        -:  227:    }
+      148:  228:    return top;
+      148:  228-block  0
+        -:  229:}
+        -:  230:
+        -:  231:
+        -:  232:///
+        -:  233:///         nA                                nB
+        -:  234:///       /    \                            /    \
+        -:  235:///     nL      nB         ---->           nA    nR
+        -:  236:///            /  \                       /  \
+        -:  237:///           nC    nR                   nL  nC
+        -:  238:///
+       24:  239:struct Node_t* avlSmallLeftRotation_ (struct AVL_Tree* avlTree, struct Node_t* top) {
+        -:  240:
+       24:  241:    if (!top || !avlTree) {
+       24:  241-block  0
+       24:  241-block  1
+    #####:  242:        fprintf(stderr, "\nError line - %d\n", __LINE__);
+    %%%%%:  242-block  0
+    #####:  243:        return NULL;
+        -:  244:    }
+        -:  245:
+       24:  246:    struct Node_t* nA = top;
+       24:  247:    struct Node_t* nB = top->right_;
+       24:  248:    if (!nB) {
+       24:  248-block  0
+    #####:  249:        fprintf(stderr, "\nError line - %d\n", __LINE__);
+    %%%%%:  249-block  0
+    #####:  250:        return NULL;
+        -:  251:    }
+        -:  252:
+       24:  253:    struct Node_t* nC = nB->left_;
+        -:  254:
+       24:  255:    nB->prev_ = top->prev_;
+       24:  256:    nB->left_ = nA;
+        -:  257:
+       24:  258:    nA->prev_ = nB;
+       24:  259:    nA->right_ = nC;
+        -:  260:
+       24:  261:    if (nC != NULL) {
+       24:  261-block  0
+        6:  262:        nC->prev_ = nA;
+        6:  262-block  0
+        -:  263:    }
+        -:  264:
+       24:  265:    int err = avlNodeBalancing_(nA);
+       24:  265-block  0
+       24:  266:    if (err != AVLERR_OK) {
+    #####:  267:        return NULL;
+    %%%%%:  267-block  0
+        -:  268:    }
+       24:  269:    err = avlNodeBalancing_(nB);
+       24:  269-block  0
+       24:  270:    if (err != AVLERR_OK) {
+    #####:  271:        return NULL;
+    %%%%%:  271-block  0
+        -:  272:    }
+        -:  273:
+       24:  274:    if (nB->prev_ == NULL) {
+       24:  274-block  0
+       11:  275:        avlTree->top_ = nB;
+       11:  275-block  0
+        -:  276:    }
+        -:  277:
+       24:  278:    return nB;
+       24:  278-block  0
+        -:  279:}
+        -:  280:
+        -:  281:///
+        -:  282:///     nA                               nC
+        -:  283:///   /    \                           /    \
+        -:  284:///  nL     nB          ---->         nA     nB
+        -:  285:///        /  \                      /  \   /  \
+        -:  286:///       nC   nR                   nL  nM nN   nR
+        -:  287:///      /  \
+        -:  288:///     nM  nN
+        -:  289:///
+        2:  290:struct Node_t* avlBigLeftRotation_ (struct AVL_Tree* avlTree, struct Node_t* top) {
+        2:  291:    if (!top || !avlTree) {
+        2:  291-block  0
+        2:  291-block  1
+    #####:  292:        fprintf(stderr, "\nError line - %d\n", __LINE__);
+    %%%%%:  292-block  0
+    #####:  293:        return NULL;
+        -:  294:    }
+        -:  295:
+        2:  296:    struct Node_t* nA = top;
+        2:  297:    struct Node_t* nB = top->right_;
+        -:  298:
+        2:  299:    if (!nB) {
+        2:  299-block  0
+    #####:  300:        fprintf(stderr, "\nError line - %d\n", __LINE__);
+    %%%%%:  300-block  0
+    #####:  301:        return NULL;
+        -:  302:    }
+        -:  303:
+        2:  304:    struct Node_t* nC = nB->left_;
+        -:  305:
+        2:  306:    if (!nC) {
+        2:  306-block  0
+    #####:  307:        fprintf(stderr, "\nError line - %d\n", __LINE__);
+    %%%%%:  307-block  0
+    #####:  308:        return NULL;
+        -:  309:    }
+        -:  310:
+        2:  311:    struct Node_t* nM = nC->left_;
+        2:  312:    struct Node_t* nN = nC->right_;
+        -:  313:
+        2:  314:    nC->prev_ = top->prev_;
+        2:  315:    nC->left_ = nA;
+        2:  316:    nC->right_ = nB;
+        -:  317:
+        2:  318:    nA->prev_ = nC;
+        2:  319:    nA->right_ = nM;
+        -:  320:
+        2:  321:    nB->prev_ = nC;
+        2:  322:    nB->left_ = nN;
+        -:  323:
+        2:  324:    if (nM != NULL) {
+        2:  324-block  0
+    #####:  325:        nM->prev_ = nA;
+    %%%%%:  325-block  0
+        -:  326:    }
+        2:  327:    if (nN != NULL) {
+        2:  327-block  0
+        1:  328:        nN->prev_ = nC;
+        1:  328-block  0
+        -:  329:    }
+        -:  330:
+        2:  331:    int err = avlNodeBalancing_(nA);
+        2:  331-block  0
+        2:  332:    if (err != AVLERR_OK) {
+    #####:  333:        return NULL;
+    %%%%%:  333-block  0
+        -:  334:    }
+        2:  335:    err = avlNodeBalancing_(nB);
+        2:  335-block  0
+        2:  336:    if (err != AVLERR_OK) {
+    #####:  337:        return NULL;
+    %%%%%:  337-block  0
+        -:  338:    }
+        2:  339:    err = avlNodeBalancing_(nC);
+        2:  339-block  0
+        2:  340:    if (err != AVLERR_OK) {
+    #####:  341:        return NULL;
+    %%%%%:  341-block  0
+        -:  342:    }
+        -:  343:
+        2:  344:    if (nC->prev_ == NULL) {
+        2:  344-block  0
+    #####:  345:        avlTree->top_ = nC;
+    %%%%%:  345-block  0
+        -:  346:    }
+        -:  347:
+        2:  348:    return nC;
+        2:  348-block  0
+        -:  349:}
+        -:  350:
+        -:  351:
+        -:  352:///
+        -:  353:///         nA                                nB
+        -:  354:///       /    \                            /    \
+        -:  355:///     nB      nR         ---->           nL    nA
+        -:  356:///    /  \                                     /  \
+        -:  357:///   nL   nC                                  nC   nR
+        -:  358:///
+        9:  359:struct Node_t* avlSmallRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* top) {
+        9:  360:    if (!top || !avlTree) {
+        9:  360-block  0
+        9:  360-block  1
+    #####:  361:        fprintf(stderr, "\nError line - %d\n", __LINE__);
+    %%%%%:  361-block  0
+    #####:  362:        return NULL;
+        -:  363:    }
+        -:  364:
+        9:  365:    struct Node_t *nA = top;
+        9:  366:    struct Node_t *nB = top->left_;
+        -:  367:
+        9:  368:    if (!nB) {
+        9:  368-block  0
+    #####:  369:        fprintf(stderr, "\nError line - %d\n", __LINE__);
+    %%%%%:  369-block  0
+    #####:  370:        return NULL;
+        -:  371:    }
+        -:  372:
+        9:  373:    struct Node_t* nC = nB->right_;
+        -:  374:
+        9:  375:    nB->prev_ = top->prev_;
+        9:  376:    nB->right_ = nA;
+        -:  377:
+        9:  378:    nA->prev_ = nB;
+        9:  379:    nA->left_ = nC;
+        -:  380:
+        9:  381:    if (nC != NULL) {
+        9:  381-block  0
+        3:  382:        nC->prev_ = nA;
+        3:  382-block  0
+        -:  383:    }
+        -:  384:
+        9:  385:    int err = avlNodeBalancing_(nA);
+        9:  385-block  0
+        9:  386:    if (err != AVLERR_OK) {
+    #####:  387:        return NULL;
+    %%%%%:  387-block  0
+        -:  388:    }
+        9:  389:    err = avlNodeBalancing_(nB);
+        9:  389-block  0
+        9:  390:    if (err != AVLERR_OK) {
+    #####:  391:        return NULL;
+    %%%%%:  391-block  0
+        -:  392:    }
+        -:  393:
+        9:  394:    if (nB->prev_ == NULL) {
+        9:  394-block  0
+    #####:  395:        avlTree->top_ = nB;
+    %%%%%:  395-block  0
+        -:  396:    }
+        -:  397:
+        9:  398:    return nB;
+        9:  398-block  0
+        -:  399:}
+        -:  400:
+        -:  401:
+        -:  402:
+        -:  403:///
+        -:  404:///       nA                               nC
+        -:  405:///     /    \                           /    \
+        -:  406:///    nB     nR          ---->         nB     nA
+        -:  407:///   /  \                             /  \   /  \
+        -:  408:///  nL   nC                          nL  nM nN   nR
+        -:  409:///      /  \
+        -:  410:///     nM  nN
+        -:  411:///
+    #####:  412:struct Node_t* avlBigRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* top) {
+        -:  413:
+    #####:  414:    if (!top || !avlTree) {
+    %%%%%:  414-block  0
+    %%%%%:  414-block  1
+    #####:  415:        fprintf(stderr, "\nError line - %d\n", __LINE__);
+    %%%%%:  415-block  0
+    #####:  416:        return NULL;
+        -:  417:    }
+        -:  418:
+    #####:  419:    struct Node_t* nA = top;
+    #####:  420:    struct Node_t* nB = nA->left_;
+        -:  421:
+    #####:  422:    if (!nB) {
+    %%%%%:  422-block  0
+    #####:  423:        fprintf(stderr, "\nError line - %d\n", __LINE__);
+    %%%%%:  423-block  0
+    #####:  424:        return NULL;
+        -:  425:    }
+        -:  426:
+    #####:  427:    struct Node_t* nC = nB->right_;
+        -:  428:
+    #####:  429:    if (!nC) {
+    %%%%%:  429-block  0
+    #####:  430:        fprintf(stderr, "\nError line - %d\n", __LINE__);
+    %%%%%:  430-block  0
+    #####:  431:        return NULL;
+        -:  432:    }
+        -:  433:
+    #####:  434:    struct Node_t* nM = nC->left_;
+    #####:  435:    struct Node_t* nN = nC->right_;
+        -:  436:
+    #####:  437:    nC->right_ = nA;
+    #####:  438:    nC->left_ = nB;
+    #####:  439:    nC->prev_ = top->prev_;
+        -:  440:
+    #####:  441:    nB->right_ = nM;
+    #####:  442:    if (nM != NULL) {
+    %%%%%:  442-block  0
+    #####:  443:        nM->prev_ = nB;
+    %%%%%:  443-block  0
+        -:  444:    }
+        -:  445:
+    #####:  446:    nA->left_ = nN;
+    #####:  447:    if (nN != NULL) {
+    %%%%%:  447-block  0
+    #####:  448:        nN->prev_ = nA;
+    %%%%%:  448-block  0
+        -:  449:    }
+        -:  450:
+    #####:  451:    nA->prev_ = nC;
+    #####:  452:    nB->prev_ = nC;
+        -:  453:
+    #####:  454:    int err = avlNodeBalancing_(nB);
+    %%%%%:  454-block  0
+    #####:  455:    if (err != AVLERR_OK) {
+    #####:  456:        return NULL;
+    %%%%%:  456-block  0
+        -:  457:    }
+    #####:  458:    err = avlNodeBalancing_(nA);
+    %%%%%:  458-block  0
+    #####:  459:    if (err != AVLERR_OK) {
+    #####:  460:        return NULL;
+    %%%%%:  460-block  0
+        -:  461:    }
+    #####:  462:    err = avlNodeBalancing_(nC);
+    %%%%%:  462-block  0
+    #####:  463:    if (err != AVLERR_OK) {
+    #####:  464:        return NULL;
+    %%%%%:  464-block  0
+        -:  465:    }
+        -:  466:
+    #####:  467:    if (nC->prev_ == NULL) {
+    %%%%%:  467-block  0
+    #####:  468:        avlTree->top_ = nC;
+    %%%%%:  468-block  0
+        -:  469:    }
+        -:  470:
+    #####:  471:    return nC;
+    %%%%%:  471-block  0
+        -:  472:}
+        -:  473:
+      375:  474:int avlGetBalanceFactor_(struct Node_t* top) {
+      375:  475:    int balanceFactor = 0;
+      375:  476:    if (top == NULL) {
+      375:  476-block  0
+        7:  477:        return 0;
+        7:  477-block  0
+        -:  478:    } else {
+      368:  479:         balanceFactor = avlNodeHeight_(top->right_) -
+      368:  479-block  0
+      368:  480:                    avlNodeHeight_(top->left_);
+        -:  481:    }
+      368:  482:    if (top->right_ != NULL) {
+      318:  483:        balanceFactor++;
+      318:  483-block  0
+        -:  484:    }
+      368:  485:    if (top->left_ != NULL) {
+      368:  485-block  0
+      250:  486:        balanceFactor--;
+      250:  486-block  0
+        -:  487:    }
+      368:  488:    return balanceFactor;
+      368:  488-block  0
+        -:  489:}
+        -:  490:
+    #####:  491:void avlPerror(enum AvlError_t err) {
+    #####:  492:    switch (err) {
+    %%%%%:  492-block  0
+    #####:  493:        case AVLERR_NOT_INIT:
+    #####:  494:            fprintf(stderr, "AVL: AVL Tree don't init\n"); return;
+    %%%%%:  494-block  0
+    #####:  495:        case AVLERR_NULL_POINTER_ARG:
+    #####:  496:            fprintf(stderr, "AVL: NULL argument is supplied as an argument\n"); return;
+    %%%%%:  496-block  0
+    #####:  497:        case AVLERR:
+    #####:  498:            fprintf(stderr, "AVL: Error\n"); return;
+    %%%%%:  498-block  0
+    #####:  499:        case AVLERR_INSERT:
+    #####:  500:            fprintf(stderr, "AVL: Insert ERROR\n"); return;
+    %%%%%:  500-block  0
+    #####:  501:        default:
+    #####:  502:            return;
+    %%%%%:  502-block  0
+        -:  503:    }
+        -:  504:}
+        -:  505:
+       10:  506:struct AVL_Tree* avlInit() {
+       10:  507:    struct AVL_Tree* avlTree = calloc(1, sizeof(struct AVL_Tree));
+       10:  508:    if (avlTree == NULL) {
+       10:  508-block  0
+    #####:  509:        return NULL;
+    %%%%%:  509-block  0
+        -:  510:    }
+       10:  511:    return avlTree;
+       10:  511-block  0
+        -:  512:}
+        -:  513:
+      314:  514:enum AvlError_t avlNodeBalancing_(struct Node_t* node) {
+      314:  515:    if (!node) {
+      314:  515-block  0
+    #####:  516:        return AVLERR_BALANCE;
+    %%%%%:  516-block  0
+        -:  517:    }
+      628:  518:    if (avlNodeHeight_(node->right_) >
+      314:  518-block  0
+      314:  519:                        avlNodeHeight_(node->left_)) {
+       62:  520:        node->height_ = avlNodeHeight_(node->right_) + 1;
+       62:  520-block  0
+        -:  521:    } else {
+      252:  522:        node->height_ = avlNodeHeight_(node->left_) + 1;
+      252:  522-block  0
+        -:  523:    }
+      314:  524:    return AVLERR_OK;
+      314:  524-block  0
+        -:  525:}
+        -:  526:
+        1:  527:void avlPrintTree_(struct AVL_Tree* avlTree) {
+        1:  528:    avlPrintNode_(avlTree->top_);
+        1:  528-block  0
+        1:  529:}
+       31:  530:void avlPrintNode_(struct Node_t* top) {
+       31:  531:    if (top == NULL){
+       31:  531-block  0
+    #####:  532:        fprintf (stderr, "Error: top is NULL, line - %d\n", __LINE__);
+    %%%%%:  532-block  0
+    #####:  533:        return;
+        -:  534:    }
+       31:  535:    if (top->left_ == NULL && top->right_ == NULL)
+       31:  535-block  0
+       15:  535-block  1
+       14:  536:        return;
+       14:  536-block  0
+        -:  537:
+       17:  538:    printf("%d ", top->data_);
+       17:  538-block  0
+        -:  539:
+       17:  540:    if (top->left_ == NULL) {
+        1:  541:        printf ("NULL ");
+        1:  541-block  0
+        -:  542:        //return;
+        -:  543:    } else {
+       16:  544:        printf("%d ", top->left_->data_);
+       16:  544-block  0
+        -:  545:    }
+        -:  546:
+       17:  547:    if (top->right_ == NULL)
+       17:  547-block  0
+        -:  548:    {
+        -:  549:        //printf ("_%d_", top->right->lexem.lex.num);
+        3:  550:        printf("NULL ");
+        3:  550-block  0
+        -:  551:        //return;
+        -:  552:    } else {
+       14:  553:        printf("%d ", top->right_->data_);
+       14:  553-block  0
+        -:  554:    }
+        -:  555:
+       17:  556:    printf ("\n");
+       17:  556-block  0
+       17:  557:    if (top->left_ != NULL) {
+       16:  558:        avlPrintNode_(top->left_);
+       16:  558-block  0
+        -:  559:    }
+       17:  560:    if (top->right_ != NULL) {
+       17:  560-block  0
+       14:  561:        avlPrintNode_(top->right_);
+       14:  561-block  0
+        -:  562:    }
+        -:  563:}
+        -:  564:
+        2:  565:size_t avlSize(struct AVL_Tree* avlTree) {
+        2:  566:    if (avlTree == NULL) {
+        2:  566-block  0
+        1:  567:        return 0;
+        1:  567-block  0
+        -:  568:    }
+        1:  569:    return avlTree->size_;
+        1:  569-block  0
+        -:  570:}
+        -:  571:
+        3:  572:enum AvlError_t avlEraseByValue(struct AVL_Tree* avlTree, int data) {
+        3:  573:    if (avlTree == NULL) {
+        3:  573-block  0
+        1:  574:        return AVLERR_NULL_POINTER_ARG;
+        1:  574-block  0
+        -:  575:    }
+        2:  576:    struct Node_t* it = avlFind_(avlTree, data);
+        2:  576-block  0
+        2:  577:    if (it == NULL) {
+        1:  578:        return AVLERR_OK;
+        1:  578-block  0
+        -:  579:    }
+        1:  580:    return avlEraseByIt_(avlTree, it);
+        1:  580-block  0
+        -:  581:}
+        -:  582:
+        1:  583:enum AvlError_t avlEraseByIt_(struct AVL_Tree* avlTree, struct Node_t* it) {
+        1:  584:    if (avlTree == NULL || it == NULL) {
+        1:  584-block  0
+        1:  584-block  1
+    #####:  585:        return AVLERR_NULL_POINTER_ARG;
+    %%%%%:  585-block  0
+        -:  586:    }
+        1:  587:    struct Node_t* ptr = it;
+       1*:  588:    if (ptr->left_ == NULL && ptr->right_ == NULL) {
+        1:  588-block  0
+    %%%%%:  588-block  1
+    #####:  589:        if (ptr->prev_ == NULL) {
+    %%%%%:  589-block  0
+    #####:  590:            free(ptr);
+    #####:  591:            avlTree->size_--;
+    #####:  592:            avlTree->top_ = NULL;
+    #####:  593:            return AVLERR_OK;
+    %%%%%:  593-block  0
+        -:  594:        }
+    #####:  595:        if (ptr->prev_->left_ == ptr) {
+    %%%%%:  595-block  0
+    #####:  596:            ptr->prev_->left_ = NULL;
+    #####:  597:            free(ptr);
+    %%%%%:  597-block  0
+        -:  598:        } else {
+    #####:  599:            ptr->prev_->right_ = NULL;
+    #####:  600:            free(ptr);
+    %%%%%:  600-block  0
+        -:  601:        }
+        -:  602:    } else {
+        1:  603:        struct Node_t* tmp = ptr->left_;
+        1:  604:        struct Node_t* current = tmp;
+        2:  605:        while (tmp != NULL) {
+        1:  605-block  0
+        2:  605-block  1
+        1:  606:            current = tmp;
+        1:  607:            tmp = tmp->right_;
+        1:  607-block  0
+        -:  608:        }
+       1*:  609:        assert(current->right_ == NULL);
+        1:  609-block  0
+    %%%%%:  609-block  1
+        -:  610:
+        1:  611:        struct Node_t* prev = current->prev_;
+        1:  612:        ptr->data_ = current->data_;
+        1:  613:        ptr->left_ = current->left_;
+        1:  614:        if (current->left_ != NULL) {
+        1:  614-block  0
+    #####:  615:            current->left_->prev_ = ptr;
+    %%%%%:  615-block  0
+        -:  616:        }
+        -:  617:
+        1:  618:        free(current);
+        1:  619:        avlTree->size_--;
+        -:  620:
+        1:  621:        while (prev != ptr) {
+        1:  621-block  0
+        1:  621-block  1
+    #####:  622:            avlBalancing_(avlTree, prev);
+    %%%%%:  622-block  0
+    #####:  623:            prev = prev->prev_;
+        -:  624:        }
+        -:  625:    }
+        1:  626:    struct Node_t* tmp = ptr;
+        3:  627:    while (tmp != NULL) {
+        1:  627-block  0
+        3:  627-block  1
+        2:  628:        tmp = avlBalancing_(avlTree, tmp);
+        2:  628-block  0
+        2:  629:        tmp = tmp->prev_;
+        -:  630:    }
+        1:  631:    return AVLERR_OK;
+        1:  631-block  0
+        -:  632:}
+        -:  633:
+    #####:  634:void avlForEach(void (*foo)(struct Node_t* it, void* data), void* data) {
+        -:  635:
+    #####:  636:}
+        -:  637:
+     1678:  638:int avlNodeHeight_(struct Node_t* top) {
+     1678:  639:    if (top == NULL) {
+     1678:  639-block  0
+      462:  640:        return 0;
+      462:  640-block  0
+        -:  641:    } else {
+     1216:  642:        return top->height_;
+     1216:  642-block  0
+        -:  643:    }
+        -:  644:}

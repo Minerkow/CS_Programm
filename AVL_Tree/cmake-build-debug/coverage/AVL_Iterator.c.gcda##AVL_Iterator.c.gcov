@@ -1,0 +1,296 @@
+        -:    0:Source:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Iterator.c
+        -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/AVL_Iterator.c.gcno
+        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/AVL_Iterator.c.gcda
+        -:    0:Runs:1
+        -:    1:#include "AVL_Tree.h"
+        -:    2:
+        -:    3://*Return begin iterator
+        -:    4:static struct Node_t* avlBeginIt(struct AVL_Tree* avlTree);
+        -:    5:
+        -:    6://*Return end iterator
+        -:    7:static struct Node_t* avlEndIt_(struct AVL_Tree* avlTree);
+        -:    8:
+        -:    9://*If the next element exists returns an iterator to it,
+        -:   10://*else returns a empty iterator
+        -:   11:static struct Node_t* avlNextIt_(struct Node_t* it);
+        -:   12:
+        -:   13://*If the prev element exists returns an iterator to it,
+        -:   14://*else returns a empty iterator
+        -:   15:static struct Node_t* avlPrevIt_(struct Node_t* it);
+        -:   16:
+        -:   17://-----------------------------------------------------------------------------------------------------------
+        -:   18:
+        -:   19:struct Node_t {
+        -:   20:    struct Node_t* left_;
+        -:   21:    struct Node_t* right_;
+        -:   22:    struct Node_t* prev_;
+        -:   23:
+        -:   24:    int balance_factor;
+        -:   25:
+        -:   26:    int data_;
+        -:   27:};
+        -:   28:
+        -:   29:struct AVL_Tree {
+        -:   30:    struct Node_t* top_;
+        -:   31:
+        -:   32:    size_t size_;
+        -:   33:};
+        -:   34:
+        -:   35://------------------------------------------------------------------------------------------
+        -:   36:
+    #####:   37:bool avlEmptyIt(struct Node_t* it) {
+    #####:   38:    if (it == NULL) {
+    %%%%%:   38-block  0
+    #####:   39:        return true;
+    %%%%%:   39-block  0
+        -:   40:    }
+    #####:   41:    return false;
+    %%%%%:   41-block  0
+        -:   42:}
+        -:   43:
+       51:   44:struct Node_t* avlNextIt_(struct Node_t* it) {
+       51:   45:    if (it == NULL) {
+       51:   45-block  0
+    #####:   46:        return it;
+    %%%%%:   46-block  0
+        -:   47:    }
+       51:   48:    if (it->prev_ == NULL) {
+       51:   48-block  0
+        5:   49:        it = it->right_;
+        5:   50:        struct Node_t* tmp = it;
+       15:   51:        while (it != NULL) {
+        5:   51-block  0
+       15:   51-block  1
+       10:   52:            tmp = it;
+       10:   53:            it = it->left_;
+       10:   53-block  0
+        -:   54:        }
+        5:   55:        return tmp;
+        5:   55-block  0
+        -:   56:    }
+       46:   57:    if (it->right_ != NULL) {
+       46:   57-block  0
+       12:   58:        it = it->right_;
+       12:   59:        struct Node_t* tmp = it;
+       30:   60:        while (it != NULL) {
+       12:   60-block  0
+       30:   60-block  1
+       18:   61:            tmp = it;
+       18:   62:            it = it->left_;
+       18:   62-block  0
+        -:   63:        }
+       12:   64:        return tmp;
+       12:   64-block  0
+        -:   65:    }
+       34:   66:    if (it->prev_->left_ == it) {
+       34:   66-block  0
+       12:   67:        it = it->prev_;
+       12:   68:        return it;
+       12:   68-block  0
+        -:   69:    }
+       22:   70:    if (it->prev_->right_ == it) {
+       22:   70-block  0
+        9:   71:        struct Node_t* tmp = it->prev_;
+       15:   72:        while (tmp->prev_ != NULL && tmp->prev_->left_ != tmp) {
+        9:   72-block  0
+       15:   72-block  1
+       11:   72-block  2
+        6:   73:            tmp = tmp->prev_;
+        6:   73-block  0
+        -:   74:        }
+        9:   75:        if (tmp->prev_ == NULL) {
+        9:   75-block  0
+        4:   76:            it = NULL;
+        4:   77:            return it;
+        4:   77-block  0
+        -:   78:        }
+        5:   79:        it = tmp->prev_;
+        5:   80:        return it;
+        5:   80-block  0
+        -:   81:    }
+        -:   82:    assert(1 && "Ooooops");
+       13:   83:    return it;
+       13:   83-block  0
+        -:   84:}
+        -:   85:
+    #####:   86:struct Node_t* avlPrevIt_(struct Node_t* it) {
+    #####:   87:    if (it == NULL) {
+    %%%%%:   87-block  0
+    #####:   88:        return it;
+    %%%%%:   88-block  0
+        -:   89:    }
+    #####:   90:    if (it->prev_ == NULL) {
+    %%%%%:   90-block  0
+    #####:   91:        it = it->left_;
+    #####:   92:        struct Node_t* tmp = it;
+    #####:   93:        while (it != NULL) {
+    %%%%%:   93-block  0
+    %%%%%:   93-block  1
+    #####:   94:            tmp = it;
+    #####:   95:            it = it->right_;
+    %%%%%:   95-block  0
+        -:   96:        }
+    #####:   97:        return tmp;
+    %%%%%:   97-block  0
+        -:   98:    }
+    #####:   99:    if (it->left_ != NULL) {
+    %%%%%:   99-block  0
+    #####:  100:        it = it->left_;
+    #####:  101:        struct Node_t* tmp = it;
+    #####:  102:        while (it != NULL) {
+    %%%%%:  102-block  0
+    %%%%%:  102-block  1
+    #####:  103:            tmp = it;
+    #####:  104:            it = it->right_;
+    %%%%%:  104-block  0
+        -:  105:        }
+    #####:  106:        return tmp;
+    %%%%%:  106-block  0
+        -:  107:    }
+    #####:  108:    if (it->prev_->right_ == it) {
+    %%%%%:  108-block  0
+    #####:  109:        it = it->prev_;
+    #####:  110:        return it;
+    %%%%%:  110-block  0
+        -:  111:    }
+    #####:  112:    if (it->prev_ == NULL) {
+    %%%%%:  112-block  0
+    #####:  113:        it = it->left_;
+    #####:  114:        return it;
+    %%%%%:  114-block  0
+        -:  115:    }
+    #####:  116:    if (it->prev_->left_ == it) {
+    %%%%%:  116-block  0
+    #####:  117:        struct Node_t* tmp = it->prev_;
+    #####:  118:        while (tmp->prev_ != NULL && tmp->prev_->right_ == tmp) {
+    %%%%%:  118-block  0
+    %%%%%:  118-block  1
+    %%%%%:  118-block  2
+    #####:  119:            tmp = tmp->prev_;
+    %%%%%:  119-block  0
+        -:  120:        }
+    #####:  121:        if (tmp->prev_ == NULL) {
+    %%%%%:  121-block  0
+    #####:  122:            it = NULL;
+    #####:  123:            return it;
+    %%%%%:  123-block  0
+        -:  124:        }
+    #####:  125:        it = tmp->prev_->left_;
+    #####:  126:        return it;
+    %%%%%:  126-block  0
+        -:  127:    }
+        -:  128:    assert(1 && "Ooooops");
+    #####:  129:    return it;
+    %%%%%:  129-block  0
+        -:  130:}
+        -:  131:
+       51:  132:int avlGetDataByIt(struct Node_t* it) {
+       51:  133:    if (it == NULL) {
+       51:  133-block  0
+    #####:  134:        return NAN;
+    %%%%%:  134-block  0
+        -:  135:    }
+       51:  136:    return it->data_;
+       51:  136-block  0
+        -:  137:}
+        -:  138:
+    #####:  139:bool avlEqualIt(struct Node_t* it1, struct Node_t* it2) {
+    #####:  140:    if (it1 == it2) {
+    %%%%%:  140-block  0
+    #####:  141:        return true;
+    %%%%%:  141-block  0
+        -:  142:    }
+    #####:  143:    return false;
+    %%%%%:  143-block  0
+        -:  144:}
+        -:  145:
+        6:  146:struct Node_t* avlBeginIt(struct AVL_Tree* avlTree) {
+        6:  147:    if (avlTree == NULL) {
+        6:  147-block  0
+    #####:  148:        return NULL;
+    %%%%%:  148-block  0
+        -:  149:    }
+        6:  150:    struct Node_t* tmp = avlTree->top_;
+       15:  151:    while (tmp->left_ != NULL) {
+        6:  151-block  0
+       15:  151-block  1
+        9:  152:        tmp =tmp->left_;
+        9:  152-block  0
+        -:  153:    }
+        6:  154:    return tmp;
+        6:  154-block  0
+        -:  155:}
+        -:  156:
+        1:  157:struct Node_t* avlEndIt_(struct AVL_Tree* avlTree) {
+        1:  158:    if (avlTree == NULL) {
+        1:  158-block  0
+    #####:  159:        return NULL;
+    %%%%%:  159-block  0
+        -:  160:    }
+        1:  161:    struct Node_t* tmp = avlTree->top_;
+        1:  162:    while (tmp->right_ != NULL) {
+        1:  162-block  0
+        1:  162-block  1
+    #####:  163:        tmp =tmp->right_;
+    %%%%%:  163-block  0
+        -:  164:    }
+        1:  165:    return tmp;
+        1:  165-block  0
+        -:  166:}
+        -:  167:
+        1:  168:int avlGetMaxElem(struct AVL_Tree* avlTree) {
+        1:  169:    struct Node_t* it = avlEndIt_(avlTree);
+        1:  169-block  0
+        1:  170:    if (!it) {
+    #####:  171:        return NAN;
+    %%%%%:  171-block  0
+        -:  172:    }
+        1:  173:    return it->data_;
+        1:  173-block  0
+        -:  174:}
+        -:  175:
+        1:  176:int avlGetMinElem(struct AVL_Tree* avlTree) {
+        1:  177:    struct Node_t* it = avlBeginIt(avlTree);
+        1:  177-block  0
+        1:  178:    if (!it) {
+    #####:  179:        return NAN;
+    %%%%%:  179-block  0
+        -:  180:    }
+        1:  181:    return it->data_;
+        1:  181-block  0
+        -:  182:}
+        -:  183:
+        5:  184:enum AvlError_t avlSaveInArray(struct AVL_Tree* avlTree, int* array, size_t lenArray) {
+        5:  185:    if (!avlTree) {
+        5:  185-block  0
+    #####:  186:        return AVLERR_NOT_INIT;
+    %%%%%:  186-block  0
+        -:  187:    }
+        5:  188:    if (lenArray == 0) {
+        5:  188-block  0
+    #####:  189:        return AVLERR_OK;
+    %%%%%:  189-block  0
+        -:  190:    }
+        5:  191:    if (array == NULL) {
+        5:  191-block  0
+    #####:  192:        return AVLERR_NULL_POINTER_ARG;
+    %%%%%:  192-block  0
+        -:  193:    }
+        5:  194:    struct Node_t* it = avlBeginIt(avlTree);
+        5:  194-block  0
+        5:  195:    setvbuf(stdout, NULL, _IONBF, 0);
+       56:  196:    for (size_t i = 0; i < lenArray; ++i) {
+       56:  196-block  0
+       51:  197:        if (it == NULL) {
+       51:  197-block  0
+    #####:  198:            break;
+    %%%%%:  198-block  0
+        -:  199:        }
+       51:  200:        array[i] = avlGetDataByIt(it);
+       51:  200-block  0
+       51:  201:        fprintf(stdout, "%d ", array[i]);
+       51:  202:        it = avlNextIt_(it);
+        -:  203:    }
+        5:  204:    return AVLERR_OK;
+        5:  204-block  0
+        -:  205:}

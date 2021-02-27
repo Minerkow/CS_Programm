@@ -1,7 +1,7 @@
 #include "AVL_Tree.h"
 
 //*Return begin iterator
-static struct Node_t* avlBeginIt(struct AVL_Tree* avlTree);
+static struct Node_t* avlBeginIt_(struct AVL_Tree* avlTree);
 
 //*Return end iterator
 static struct Node_t* avlEndIt_(struct AVL_Tree* avlTree);
@@ -47,14 +47,21 @@ struct Node_t* avlNextIt_(struct Node_t* it) {
     }
     if (it->prev_ == NULL) {
         it = it->right_;
-        while (it->left_) {
+        struct Node_t* tmp = it;
+        while (it != NULL) {
+            tmp = it;
             it = it->left_;
         }
-        return it;
+        return tmp;
     }
     if (it->right_ != NULL) {
         it = it->right_;
-        return it;
+        struct Node_t* tmp = it;
+        while (it != NULL) {
+            tmp = it;
+            it = it->left_;
+        }
+        return tmp;
     }
     if (it->prev_->left_ == it) {
         it = it->prev_;
@@ -82,7 +89,21 @@ struct Node_t* avlPrevIt_(struct Node_t* it) {
     }
     if (it->prev_ == NULL) {
         it = it->left_;
-        return it;
+        struct Node_t* tmp = it;
+        while (it != NULL) {
+            tmp = it;
+            it = it->right_;
+        }
+        return tmp;
+    }
+    if (it->left_ != NULL) {
+        it = it->left_;
+        struct Node_t* tmp = it;
+        while (it != NULL) {
+            tmp = it;
+            it = it->right_;
+        }
+        return tmp;
     }
     if (it->prev_->right_ == it) {
         it = it->prev_;
@@ -122,7 +143,7 @@ bool avlEqualIt(struct Node_t* it1, struct Node_t* it2) {
     return false;
 }
 
-struct Node_t* avlBeginIt(struct AVL_Tree* avlTree) {
+struct Node_t* avlBeginIt_(struct AVL_Tree* avlTree) {
     if (avlTree == NULL) {
         return NULL;
     }
@@ -153,7 +174,7 @@ int avlGetMaxElem(struct AVL_Tree* avlTree) {
 }
 
 int avlGetMinElem(struct AVL_Tree* avlTree) {
-    struct Node_t* it = avlBeginIt(avlTree);
+    struct Node_t* it = avlBeginIt_(avlTree);
     if (!it) {
         return NAN;
     }
@@ -170,7 +191,7 @@ enum AvlError_t avlSaveInArray(struct AVL_Tree* avlTree, int* array, size_t lenA
     if (array == NULL) {
         return AVLERR_NULL_POINTER_ARG;
     }
-    struct Node_t* it = avlBeginIt(avlTree);
+    struct Node_t* it = avlBeginIt_(avlTree);
     for (size_t i = 0; i < lenArray; ++i) {
         if (it == NULL) {
             break;
