@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/c++/9/bits/cpp_type_traits.h
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// The  -*- C++ -*- type traits classes for internal use in libstdc++
         -:    2:
         -:    3:// Copyright (C) 2000-2019 Free Software Foundation, Inc.
@@ -429,9 +429,19 @@
         -:  425:  // remove the move_iterator wrapper.
         -:  426:  template<typename _Iterator>
         -:  427:    inline _Iterator
-       24:  428:    __miter_base(_Iterator __it)
-       24:  429:    { return __it; }
-       24:  429-block  0
+    #####:  428:    __miter_base(_Iterator __it)
+    #####:  429:    { return __it; }
+------------------
+_ZSt12__miter_baseIPiET_S1_:
+    #####:  428:    __miter_base(_Iterator __it)
+    #####:  429:    { return __it; }
+    %%%%%:  429-block  0
+------------------
+_ZSt12__miter_baseIPKiET_S2_:
+    #####:  428:    __miter_base(_Iterator __it)
+    #####:  429:    { return __it; }
+    %%%%%:  429-block  0
+------------------
         -:  430:
         -:  431:_GLIBCXX_END_NAMESPACE_VERSION
         -:  432:} // namespace

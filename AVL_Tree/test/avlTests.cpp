@@ -24,7 +24,7 @@ TEST(AVL_Tree, avlInsert2) {
 //-----------------------------------------------------------------------------------------------------------------
 
 TEST(AVL_Tree, avlLoadFromArray1) {
-    const size_t numNumbers = 10000;
+    const size_t numNumbers = 1000000;
     AVL_Tree* avlTree = avlInit();
     std::vector<int> input;
     std::set<int> garantSet;
@@ -41,6 +41,7 @@ TEST(AVL_Tree, avlLoadFromArray1) {
     avlLoadFromArray(avlTree, input.data(), input.size());
     avlSaveInArray(avlTree, res.data(), avlSize(avlTree));
     std::cout << std::endl;
+    //avlPrintTree_(avlTree);
     ASSERT_EQ(avlSize(avlTree), trueRes.size());
     ASSERT_EQ(trueRes, res);
 }
@@ -143,3 +144,10 @@ TEST(AVL_Tree, avlSaveInArray) {
     ASSERT_EQ(avlSaveInArray(avlTree, arr, 0), AVLERR_OK);
     ASSERT_EQ(avlSaveInArray(avlTree, NULL, 5), AVLERR_NULL_POINTER_ARG);
 }
+
+//TEST(AVL_Tree, balanceTest) {
+//    std::vector<int> input = {0, 8, 6, 3, 4, 1, 4};
+//    AVL_Tree* avlTree = avlInit();
+//    avlLoadFromArray(avlTree, input.data(), input.size());
+//    avlPrintTree_(avlTree);
+//}

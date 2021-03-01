@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/gtest/gtest-printers.h
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// Copyright 2007, Google Inc.
         -:    2:// All rights reserved.
         -:    3://
@@ -263,7 +263,7 @@
         -:  257:// Used to print a value that is not an STL-style container when the
         -:  258:// user doesn't define PrintTo() for it.
         -:  259:template <typename T>
-      62*:  260:void DefaultPrintNonContainerTo(const T& value, ::std::ostream* os) {
+    #####:  260:void DefaultPrintNonContainerTo(const T& value, ::std::ostream* os) {
         -:  261:  // With the following statement, during unqualified name lookup,
         -:  262:  // testing::internal2::operator<< appears as if it was declared in
         -:  263:  // the nearest enclosing namespace that contains both
@@ -290,8 +290,8 @@
         -:  284:  // impossible to define #1 (e.g. when foo is ::std, defining
         -:  285:  // anything in it is undefined behavior unless you are a compiler
         -:  286:  // vendor.).
-      62*:  287:  *os << value;
-      62*:  288:}
+    #####:  287:  *os << value;
+    #####:  288:}
 ------------------
 _ZN16testing_internal26DefaultPrintNonContainerToImEEvRKT_PSo:
     #####:  260:void DefaultPrintNonContainerTo(const T& value, ::std::ostream* os) {
@@ -358,7 +358,7 @@ _ZN16testing_internal26DefaultPrintNonContainerToI10AvlError_tEEvRKT_PSo:
     #####:  288:}
 ------------------
 _ZN16testing_internal26DefaultPrintNonContainerToIiEEvRKT_PSo:
-       62:  260:void DefaultPrintNonContainerTo(const T& value, ::std::ostream* os) {
+    #####:  260:void DefaultPrintNonContainerTo(const T& value, ::std::ostream* os) {
         -:  261:  // With the following statement, during unqualified name lookup,
         -:  262:  // testing::internal2::operator<< appears as if it was declared in
         -:  263:  // the nearest enclosing namespace that contains both
@@ -385,9 +385,9 @@ _ZN16testing_internal26DefaultPrintNonContainerToIiEEvRKT_PSo:
         -:  284:  // impossible to define #1 (e.g. when foo is ::std, defining
         -:  285:  // anything in it is undefined behavior unless you are a compiler
         -:  286:  // vendor.).
-       62:  287:  *os << value;
-       62:  287-block  0
-       62:  288:}
+    #####:  287:  *os << value;
+    %%%%%:  287-block  0
+    #####:  288:}
 ------------------
         -:  289:
         -:  290:}  // namespace testing_internal
@@ -413,8 +413,8 @@ _ZN16testing_internal26DefaultPrintNonContainerToIiEEvRKT_PSo:
         -:  310:template <typename ToPrint, typename OtherOperand>
         -:  311:class FormatForComparison {
         -:  312: public:
-       2*:  313:  static ::std::string Format(const ToPrint& value) {
-       2*:  314:    return ::testing::PrintToString(value);
+    #####:  313:  static ::std::string Format(const ToPrint& value) {
+    #####:  314:    return ::testing::PrintToString(value);
         -:  315:  }
 ------------------
 _ZN7testing8internal19FormatForComparisonIbiE6FormatB5cxx11ERKb:
@@ -448,9 +448,15 @@ _ZN7testing8internal19FormatForComparisonI10AvlError_tS2_E6FormatB5cxx11ERKS2_:
         -:  315:  }
 ------------------
 _ZN7testing8internal19FormatForComparisonISt6vectorIiSaIiEES4_E6FormatB5cxx11ERKS4_:
-        2:  313:  static ::std::string Format(const ToPrint& value) {
-        2:  314:    return ::testing::PrintToString(value);
-        2:  314-block  0
+    #####:  313:  static ::std::string Format(const ToPrint& value) {
+    #####:  314:    return ::testing::PrintToString(value);
+    %%%%%:  314-block  0
+        -:  315:  }
+------------------
+_ZN7testing8internal19FormatForComparisonImmE6FormatB5cxx11ERKm:
+    #####:  313:  static ::std::string Format(const ToPrint& value) {
+    #####:  314:    return ::testing::PrintToString(value);
+    %%%%%:  314-block  0
         -:  315:  }
 ------------------
 _ZN7testing8internal19FormatForComparisonI10AvlError_tiE6FormatB5cxx11ERKS2_:
@@ -532,9 +538,9 @@ _ZN7testing8internal19FormatForComparisonIiiE6FormatB5cxx11ERKi:
         -:  374://
         -:  375:// INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
         -:  376:template <typename T1, typename T2>
-       2*:  377:std::string FormatForComparisonFailureMessage(
+    #####:  377:std::string FormatForComparisonFailureMessage(
         -:  378:    const T1& value, const T2& /* other_operand */) {
-       2*:  379:  return FormatForComparison<T1, T2>::Format(value);
+    #####:  379:  return FormatForComparison<T1, T2>::Format(value);
         -:  380:}
 ------------------
 _ZN7testing8internal33FormatForComparisonFailureMessageIbiEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKT_RKT0_:
@@ -573,10 +579,17 @@ _ZN7testing8internal33FormatForComparisonFailureMessageI10AvlError_tS2_EENSt7__c
         -:  380:}
 ------------------
 _ZN7testing8internal33FormatForComparisonFailureMessageISt6vectorIiSaIiEES4_EENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKT_RKT0_:
-        2:  377:std::string FormatForComparisonFailureMessage(
+    #####:  377:std::string FormatForComparisonFailureMessage(
         -:  378:    const T1& value, const T2& /* other_operand */) {
-        2:  379:  return FormatForComparison<T1, T2>::Format(value);
-        2:  379-block  0
+    #####:  379:  return FormatForComparison<T1, T2>::Format(value);
+    %%%%%:  379-block  0
+        -:  380:}
+------------------
+_ZN7testing8internal33FormatForComparisonFailureMessageImmEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKT_RKT0_:
+    #####:  377:std::string FormatForComparisonFailureMessage(
+        -:  378:    const T1& value, const T2& /* other_operand */) {
+    #####:  379:  return FormatForComparison<T1, T2>::Format(value);
+    %%%%%:  379-block  0
         -:  380:}
 ------------------
 _ZN7testing8internal33FormatForComparisonFailureMessageI10AvlError_tiEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKT_RKT0_:
@@ -625,44 +638,44 @@ _ZN7testing8internal33FormatForComparisonFailureMessageIiiEENSt7__cxx1112basic_s
         -:  403:// Used to print an STL-style container when the user doesn't define
         -:  404:// a PrintTo() for it.
         -:  405:template <typename C>
-        2:  406:void DefaultPrintTo(WrapPrinterType<kPrintContainer> /* dummy */,
+    #####:  406:void DefaultPrintTo(WrapPrinterType<kPrintContainer> /* dummy */,
         -:  407:                    const C& container, ::std::ostream* os) {
-        2:  408:  const size_t kMaxCount = 32;  // The maximum number of elements to print.
-        2:  409:  *os << '{';
-        2:  409-block  0
-        2:  410:  size_t count = 0;
-       64:  411:  for (typename C::const_iterator it = container.begin();
-      126:  412:       it != container.end(); ++it, ++count) {
-       64:  412-block  0
-       62:  412-block  1
-       62:  413:    if (count > 0) {
-       62:  413-block  0
-       60:  414:      *os << ',';
-       60:  414-block  0
-       60:  415:      if (count == kMaxCount) {  // Enough has been printed.
-       60:  415-block  0
+    #####:  408:  const size_t kMaxCount = 32;  // The maximum number of elements to print.
+    #####:  409:  *os << '{';
+    %%%%%:  409-block  0
+    #####:  410:  size_t count = 0;
+    #####:  411:  for (typename C::const_iterator it = container.begin();
+    #####:  412:       it != container.end(); ++it, ++count) {
+    %%%%%:  412-block  0
+    %%%%%:  412-block  1
+    #####:  413:    if (count > 0) {
+    %%%%%:  413-block  0
+    #####:  414:      *os << ',';
+    %%%%%:  414-block  0
+    #####:  415:      if (count == kMaxCount) {  // Enough has been printed.
+    %%%%%:  415-block  0
     #####:  416:        *os << " ...";
     %%%%%:  416-block  0
     #####:  417:        break;
     %%%%%:  417-block  0
         -:  418:      }
         -:  419:    }
-       62:  420:    *os << ' ';
-       62:  420-block  0
+    #####:  420:    *os << ' ';
+    %%%%%:  420-block  0
         -:  421:    // We cannot call PrintTo(*it, os) here as PrintTo() doesn't
         -:  422:    // handle *it being a native array.
-       62:  423:    internal::UniversalPrint(*it, os);
-       62:  423-block  0
+    #####:  423:    internal::UniversalPrint(*it, os);
+    %%%%%:  423-block  0
         -:  424:  }
         -:  425:
-        2:  426:  if (count > 0) {
-        2:  426-block  0
-        2:  427:    *os << ' ';
-        2:  427-block  0
+    #####:  426:  if (count > 0) {
+    %%%%%:  426-block  0
+    #####:  427:    *os << ' ';
+    %%%%%:  427-block  0
         -:  428:  }
-        2:  429:  *os << '}';
-        2:  429-block  0
-        2:  430:}
+    #####:  429:  *os << '}';
+    %%%%%:  429-block  0
+    #####:  430:}
         -:  431:
         -:  432:// Used to print a pointer that is neither a char pointer nor a member
         -:  433:// pointer, when the user doesn't define PrintTo() for it.  (A member
@@ -698,10 +711,10 @@ _ZN7testing8internal33FormatForComparisonFailureMessageIiiEENSt7__cxx1112basic_s
         -:  463:// Used to print a non-container, non-pointer value when the user
         -:  464:// doesn't define PrintTo() for it.
         -:  465:template <typename T>
-      62*:  466:void DefaultPrintTo(WrapPrinterType<kPrintOther> /* dummy */,
+    #####:  466:void DefaultPrintTo(WrapPrinterType<kPrintOther> /* dummy */,
         -:  467:                    const T& value, ::std::ostream* os) {
-      62*:  468:  ::testing_internal::DefaultPrintNonContainerTo(value, os);
-      62*:  469:}
+    #####:  468:  ::testing_internal::DefaultPrintNonContainerTo(value, os);
+    #####:  469:}
 ------------------
 _ZN7testing8internal14DefaultPrintToImEEvNS0_15WrapPrinterTypeILNS0_18DefaultPrinterTypeE3EEERKT_PSo:
     #####:  466:void DefaultPrintTo(WrapPrinterType<kPrintOther> /* dummy */,
@@ -718,11 +731,11 @@ _ZN7testing8internal14DefaultPrintToI10AvlError_tEEvNS0_15WrapPrinterTypeILNS0_1
     #####:  469:}
 ------------------
 _ZN7testing8internal14DefaultPrintToIiEEvNS0_15WrapPrinterTypeILNS0_18DefaultPrinterTypeE3EEERKT_PSo:
-       62:  466:void DefaultPrintTo(WrapPrinterType<kPrintOther> /* dummy */,
+    #####:  466:void DefaultPrintTo(WrapPrinterType<kPrintOther> /* dummy */,
         -:  467:                    const T& value, ::std::ostream* os) {
-       62:  468:  ::testing_internal::DefaultPrintNonContainerTo(value, os);
-       62:  468-block  0
-       62:  469:}
+    #####:  468:  ::testing_internal::DefaultPrintNonContainerTo(value, os);
+    %%%%%:  468-block  0
+    #####:  469:}
 ------------------
         -:  470:
         -:  471:// Prints the given value using the << operator if it has one;
@@ -737,7 +750,7 @@ _ZN7testing8internal14DefaultPrintToIiEEvNS0_15WrapPrinterTypeILNS0_18DefaultPri
         -:  480:// or there is already a << operator but it doesn't do what the user
         -:  481:// wants).
         -:  482:template <typename T>
-      64*:  483:void PrintTo(const T& value, ::std::ostream* os) {
+    #####:  483:void PrintTo(const T& value, ::std::ostream* os) {
         -:  484:  // DefaultPrintTo() is overloaded.  The type of its first argument
         -:  485:  // determines which version will be picked.
         -:  486:  //
@@ -757,7 +770,7 @@ _ZN7testing8internal14DefaultPrintToIiEEvNS0_15WrapPrinterTypeILNS0_18DefaultPri
         -:  500:  // cause this warning, and use a separate overload of DefaultPrintTo for
         -:  501:  // function pointers so that the `*os << p` in the object pointer overload
         -:  502:  // doesn't cause that warning either.
-      64*:  503:  DefaultPrintTo(
+    #####:  503:  DefaultPrintTo(
         -:  504:      WrapPrinterType <
         -:  505:                  (sizeof(IsContainerTest<T>(0)) == sizeof(IsContainer)) &&
         -:  506:              !IsRecursiveContainer<T>::value
@@ -768,7 +781,43 @@ _ZN7testing8internal14DefaultPrintToIiEEvNS0_15WrapPrinterTypeILNS0_18DefaultPri
         -:  511:                      ? kPrintFunctionPointer
         -:  512:                      : kPrintPointer > (),
         -:  513:      value, os);
-      64*:  514:}
+    #####:  514:}
+------------------
+_ZN7testing8internal7PrintToISt6vectorIiSaIiEEEEvRKT_PSo:
+    #####:  483:void PrintTo(const T& value, ::std::ostream* os) {
+        -:  484:  // DefaultPrintTo() is overloaded.  The type of its first argument
+        -:  485:  // determines which version will be picked.
+        -:  486:  //
+        -:  487:  // Note that we check for container types here, prior to we check
+        -:  488:  // for protocol message types in our operator<<.  The rationale is:
+        -:  489:  //
+        -:  490:  // For protocol messages, we want to give people a chance to
+        -:  491:  // override Google Mock's format by defining a PrintTo() or
+        -:  492:  // operator<<.  For STL containers, other formats can be
+        -:  493:  // incompatible with Google Mock's format for the container
+        -:  494:  // elements; therefore we check for container types here to ensure
+        -:  495:  // that our format is used.
+        -:  496:  //
+        -:  497:  // Note that MSVC and clang-cl do allow an implicit conversion from
+        -:  498:  // pointer-to-function to pointer-to-object, but clang-cl warns on it.
+        -:  499:  // So don't use ImplicitlyConvertible if it can be helped since it will
+        -:  500:  // cause this warning, and use a separate overload of DefaultPrintTo for
+        -:  501:  // function pointers so that the `*os << p` in the object pointer overload
+        -:  502:  // doesn't cause that warning either.
+    #####:  503:  DefaultPrintTo(
+    %%%%%:  503-block  0
+        -:  504:      WrapPrinterType <
+        -:  505:                  (sizeof(IsContainerTest<T>(0)) == sizeof(IsContainer)) &&
+        -:  506:              !IsRecursiveContainer<T>::value
+        -:  507:          ? kPrintContainer
+        -:  508:          : !std::is_pointer<T>::value
+        -:  509:                ? kPrintOther
+        -:  510:                : std::is_function<typename std::remove_pointer<T>::type>::value
+        -:  511:                      ? kPrintFunctionPointer
+        -:  512:                      : kPrintPointer > (),
+        -:  513:      value, os);
+    #####:  514:}
+    %%%%%:  514-block  0
 ------------------
 _ZN7testing8internal7PrintToImEEvRKT_PSo:
     #####:  483:void PrintTo(const T& value, ::std::ostream* os) {
@@ -805,42 +854,6 @@ _ZN7testing8internal7PrintToImEEvRKT_PSo:
         -:  513:      value, os);
     #####:  514:}
     %%%%%:  514-block  0
-------------------
-_ZN7testing8internal7PrintToISt6vectorIiSaIiEEEEvRKT_PSo:
-        2:  483:void PrintTo(const T& value, ::std::ostream* os) {
-        -:  484:  // DefaultPrintTo() is overloaded.  The type of its first argument
-        -:  485:  // determines which version will be picked.
-        -:  486:  //
-        -:  487:  // Note that we check for container types here, prior to we check
-        -:  488:  // for protocol message types in our operator<<.  The rationale is:
-        -:  489:  //
-        -:  490:  // For protocol messages, we want to give people a chance to
-        -:  491:  // override Google Mock's format by defining a PrintTo() or
-        -:  492:  // operator<<.  For STL containers, other formats can be
-        -:  493:  // incompatible with Google Mock's format for the container
-        -:  494:  // elements; therefore we check for container types here to ensure
-        -:  495:  // that our format is used.
-        -:  496:  //
-        -:  497:  // Note that MSVC and clang-cl do allow an implicit conversion from
-        -:  498:  // pointer-to-function to pointer-to-object, but clang-cl warns on it.
-        -:  499:  // So don't use ImplicitlyConvertible if it can be helped since it will
-        -:  500:  // cause this warning, and use a separate overload of DefaultPrintTo for
-        -:  501:  // function pointers so that the `*os << p` in the object pointer overload
-        -:  502:  // doesn't cause that warning either.
-        2:  503:  DefaultPrintTo(
-        2:  503-block  0
-        -:  504:      WrapPrinterType <
-        -:  505:                  (sizeof(IsContainerTest<T>(0)) == sizeof(IsContainer)) &&
-        -:  506:              !IsRecursiveContainer<T>::value
-        -:  507:          ? kPrintContainer
-        -:  508:          : !std::is_pointer<T>::value
-        -:  509:                ? kPrintOther
-        -:  510:                : std::is_function<typename std::remove_pointer<T>::type>::value
-        -:  511:                      ? kPrintFunctionPointer
-        -:  512:                      : kPrintPointer > (),
-        -:  513:      value, os);
-        2:  514:}
-        2:  514-block  0
 ------------------
 _ZN7testing8internal7PrintToI10AvlError_tEEvRKT_PSo:
     #####:  483:void PrintTo(const T& value, ::std::ostream* os) {
@@ -879,7 +892,7 @@ _ZN7testing8internal7PrintToI10AvlError_tEEvRKT_PSo:
     %%%%%:  514-block  0
 ------------------
 _ZN7testing8internal7PrintToIiEEvRKT_PSo:
-       62:  483:void PrintTo(const T& value, ::std::ostream* os) {
+    #####:  483:void PrintTo(const T& value, ::std::ostream* os) {
         -:  484:  // DefaultPrintTo() is overloaded.  The type of its first argument
         -:  485:  // determines which version will be picked.
         -:  486:  //
@@ -899,8 +912,8 @@ _ZN7testing8internal7PrintToIiEEvRKT_PSo:
         -:  500:  // cause this warning, and use a separate overload of DefaultPrintTo for
         -:  501:  // function pointers so that the `*os << p` in the object pointer overload
         -:  502:  // doesn't cause that warning either.
-       62:  503:  DefaultPrintTo(
-       62:  503-block  0
+    #####:  503:  DefaultPrintTo(
+    %%%%%:  503-block  0
         -:  504:      WrapPrinterType <
         -:  505:                  (sizeof(IsContainerTest<T>(0)) == sizeof(IsContainer)) &&
         -:  506:              !IsRecursiveContainer<T>::value
@@ -911,8 +924,8 @@ _ZN7testing8internal7PrintToIiEEvRKT_PSo:
         -:  511:                      ? kPrintFunctionPointer
         -:  512:                      : kPrintPointer > (),
         -:  513:      value, os);
-       62:  514:}
-       62:  514-block  0
+    #####:  514:}
+    %%%%%:  514-block  0
 ------------------
         -:  515:
         -:  516:// The following list of PrintTo() overloads tells
@@ -1073,7 +1086,7 @@ _ZN7testing8internal7PrintToIiEEvRKT_PSo:
         -:  667:  // Note: we deliberately don't call this PrintTo(), as that name
         -:  668:  // conflicts with ::testing::internal::PrintTo in the body of the
         -:  669:  // function.
-      64*:  670:  static void Print(const T& value, ::std::ostream* os) {
+    #####:  670:  static void Print(const T& value, ::std::ostream* os) {
         -:  671:    // By default, ::testing::internal::PrintTo() is used for printing
         -:  672:    // the value.
         -:  673:    //
@@ -1082,10 +1095,24 @@ _ZN7testing8internal7PrintToIiEEvRKT_PSo:
         -:  676:    // be visible here.  Since it is more specific than the generic ones
         -:  677:    // in ::testing::internal, it will be picked by the compiler in the
         -:  678:    // following statement - exactly what we want.
-      64*:  679:    PrintTo(value, os);
-      64*:  680:  }
+    #####:  679:    PrintTo(value, os);
+    #####:  680:  }
 ------------------
 _ZN7testing8internal16UniversalPrinterIbE5PrintERKbPSo:
+    #####:  670:  static void Print(const T& value, ::std::ostream* os) {
+        -:  671:    // By default, ::testing::internal::PrintTo() is used for printing
+        -:  672:    // the value.
+        -:  673:    //
+        -:  674:    // Thanks to Koenig look-up, if T is a class and has its own
+        -:  675:    // PrintTo() function defined in its namespace, that function will
+        -:  676:    // be visible here.  Since it is more specific than the generic ones
+        -:  677:    // in ::testing::internal, it will be picked by the compiler in the
+        -:  678:    // following statement - exactly what we want.
+    #####:  679:    PrintTo(value, os);
+    %%%%%:  679-block  0
+    #####:  680:  }
+------------------
+_ZN7testing8internal16UniversalPrinterISt6vectorIiSaIiEEE5PrintERKS4_PSo:
     #####:  670:  static void Print(const T& value, ::std::ostream* os) {
         -:  671:    // By default, ::testing::internal::PrintTo() is used for printing
         -:  672:    // the value.
@@ -1113,20 +1140,6 @@ _ZN7testing8internal16UniversalPrinterImE5PrintERKmPSo:
     %%%%%:  679-block  0
     #####:  680:  }
 ------------------
-_ZN7testing8internal16UniversalPrinterISt6vectorIiSaIiEEE5PrintERKS4_PSo:
-        2:  670:  static void Print(const T& value, ::std::ostream* os) {
-        -:  671:    // By default, ::testing::internal::PrintTo() is used for printing
-        -:  672:    // the value.
-        -:  673:    //
-        -:  674:    // Thanks to Koenig look-up, if T is a class and has its own
-        -:  675:    // PrintTo() function defined in its namespace, that function will
-        -:  676:    // be visible here.  Since it is more specific than the generic ones
-        -:  677:    // in ::testing::internal, it will be picked by the compiler in the
-        -:  678:    // following statement - exactly what we want.
-        2:  679:    PrintTo(value, os);
-        2:  679-block  0
-        2:  680:  }
-------------------
 _ZN7testing8internal16UniversalPrinterI10AvlError_tE5PrintERKS2_PSo:
     #####:  670:  static void Print(const T& value, ::std::ostream* os) {
         -:  671:    // By default, ::testing::internal::PrintTo() is used for printing
@@ -1142,7 +1155,7 @@ _ZN7testing8internal16UniversalPrinterI10AvlError_tE5PrintERKS2_PSo:
     #####:  680:  }
 ------------------
 _ZN7testing8internal16UniversalPrinterIiE5PrintERKiPSo:
-       62:  670:  static void Print(const T& value, ::std::ostream* os) {
+    #####:  670:  static void Print(const T& value, ::std::ostream* os) {
         -:  671:    // By default, ::testing::internal::PrintTo() is used for printing
         -:  672:    // the value.
         -:  673:    //
@@ -1151,9 +1164,9 @@ _ZN7testing8internal16UniversalPrinterIiE5PrintERKiPSo:
         -:  676:    // be visible here.  Since it is more specific than the generic ones
         -:  677:    // in ::testing::internal, it will be picked by the compiler in the
         -:  678:    // following statement - exactly what we want.
-       62:  679:    PrintTo(value, os);
-       62:  679-block  0
-       62:  680:  }
+    #####:  679:    PrintTo(value, os);
+    %%%%%:  679-block  0
+    #####:  680:  }
 ------------------
         -:  681:
         -:  682:  GTEST_DISABLE_MSC_WARNINGS_POP_()
@@ -1270,11 +1283,17 @@ _ZN7testing8internal16UniversalPrinterIiE5PrintERKiPSo:
         -:  793:template <typename T>
         -:  794:class UniversalTersePrinter {
         -:  795: public:
-       2*:  796:  static void Print(const T& value, ::std::ostream* os) {
-       2*:  797:    UniversalPrint(value, os);
-       2*:  798:  }
+    #####:  796:  static void Print(const T& value, ::std::ostream* os) {
+    #####:  797:    UniversalPrint(value, os);
+    #####:  798:  }
 ------------------
 _ZN7testing8internal21UniversalTersePrinterIbE5PrintERKbPSo:
+    #####:  796:  static void Print(const T& value, ::std::ostream* os) {
+    #####:  797:    UniversalPrint(value, os);
+    %%%%%:  797-block  0
+    #####:  798:  }
+------------------
+_ZN7testing8internal21UniversalTersePrinterISt6vectorIiSaIiEEE5PrintERKS4_PSo:
     #####:  796:  static void Print(const T& value, ::std::ostream* os) {
     #####:  797:    UniversalPrint(value, os);
     %%%%%:  797-block  0
@@ -1285,12 +1304,6 @@ _ZN7testing8internal21UniversalTersePrinterImE5PrintERKmPSo:
     #####:  797:    UniversalPrint(value, os);
     %%%%%:  797-block  0
     #####:  798:  }
-------------------
-_ZN7testing8internal21UniversalTersePrinterISt6vectorIiSaIiEEE5PrintERKS4_PSo:
-        2:  796:  static void Print(const T& value, ::std::ostream* os) {
-        2:  797:    UniversalPrint(value, os);
-        2:  797-block  0
-        2:  798:  }
 ------------------
 _ZN7testing8internal21UniversalTersePrinterI10AvlError_tE5PrintERKS2_PSo:
     #####:  796:  static void Print(const T& value, ::std::ostream* os) {
@@ -1370,14 +1383,23 @@ _ZN7testing8internal21UniversalTersePrinterIiE5PrintERKiPSo:
         -:  862:// (const) char pointer, this prints both the pointer and the
         -:  863:// NUL-terminated string.
         -:  864:template <typename T>
-      64*:  865:void UniversalPrint(const T& value, ::std::ostream* os) {
+    #####:  865:void UniversalPrint(const T& value, ::std::ostream* os) {
         -:  866:  // A workarond for the bug in VC++ 7.1 that prevents us from instantiating
         -:  867:  // UniversalPrinter with T directly.
         -:  868:  typedef T T1;
-      64*:  869:  UniversalPrinter<T1>::Print(value, os);
-      64*:  870:}
+    #####:  869:  UniversalPrinter<T1>::Print(value, os);
+    #####:  870:}
 ------------------
 _ZN7testing8internal14UniversalPrintIbEEvRKT_PSo:
+    #####:  865:void UniversalPrint(const T& value, ::std::ostream* os) {
+        -:  866:  // A workarond for the bug in VC++ 7.1 that prevents us from instantiating
+        -:  867:  // UniversalPrinter with T directly.
+        -:  868:  typedef T T1;
+    #####:  869:  UniversalPrinter<T1>::Print(value, os);
+    %%%%%:  869-block  0
+    #####:  870:}
+------------------
+_ZN7testing8internal14UniversalPrintISt6vectorIiSaIiEEEEvRKT_PSo:
     #####:  865:void UniversalPrint(const T& value, ::std::ostream* os) {
         -:  866:  // A workarond for the bug in VC++ 7.1 that prevents us from instantiating
         -:  867:  // UniversalPrinter with T directly.
@@ -1395,15 +1417,6 @@ _ZN7testing8internal14UniversalPrintImEEvRKT_PSo:
     %%%%%:  869-block  0
     #####:  870:}
 ------------------
-_ZN7testing8internal14UniversalPrintISt6vectorIiSaIiEEEEvRKT_PSo:
-        2:  865:void UniversalPrint(const T& value, ::std::ostream* os) {
-        -:  866:  // A workarond for the bug in VC++ 7.1 that prevents us from instantiating
-        -:  867:  // UniversalPrinter with T directly.
-        -:  868:  typedef T T1;
-        2:  869:  UniversalPrinter<T1>::Print(value, os);
-        2:  869-block  0
-        2:  870:}
-------------------
 _ZN7testing8internal14UniversalPrintI10AvlError_tEEvRKT_PSo:
     #####:  865:void UniversalPrint(const T& value, ::std::ostream* os) {
         -:  866:  // A workarond for the bug in VC++ 7.1 that prevents us from instantiating
@@ -1414,13 +1427,13 @@ _ZN7testing8internal14UniversalPrintI10AvlError_tEEvRKT_PSo:
     #####:  870:}
 ------------------
 _ZN7testing8internal14UniversalPrintIiEEvRKT_PSo:
-       62:  865:void UniversalPrint(const T& value, ::std::ostream* os) {
+    #####:  865:void UniversalPrint(const T& value, ::std::ostream* os) {
         -:  866:  // A workarond for the bug in VC++ 7.1 that prevents us from instantiating
         -:  867:  // UniversalPrinter with T directly.
         -:  868:  typedef T T1;
-       62:  869:  UniversalPrinter<T1>::Print(value, os);
-       62:  869-block  0
-       62:  870:}
+    #####:  869:  UniversalPrinter<T1>::Print(value, os);
+    %%%%%:  869-block  0
+    #####:  870:}
 ------------------
         -:  871:
         -:  872:typedef ::std::vector< ::std::string> Strings;
@@ -1466,10 +1479,10 @@ _ZN7testing8internal14UniversalPrintIiEEvRKT_PSo:
         -:  912:#endif
         -:  913:
         -:  914:template <typename T>
-       2*:  915:::std::string PrintToString(const T& value) {
-       4*:  916:  ::std::stringstream ss;
-       2*:  917:  internal::UniversalTersePrinter<T>::Print(value, &ss);
-       4*:  918:  return ss.str();
+    #####:  915:::std::string PrintToString(const T& value) {
+    #####:  916:  ::std::stringstream ss;
+    #####:  917:  internal::UniversalTersePrinter<T>::Print(value, &ss);
+    #####:  918:  return ss.str();
         -:  919:}
         -:  920:
         -:  921:}  // namespace testing

@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/c++/9/bits/allocator.h
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// Allocators -*- C++ -*-
         -:    2:
         -:    3:// Copyright (C) 2001-2019 Free Software Foundation, Inc.
@@ -139,13 +139,21 @@
         -:  135:      // _GLIBCXX_RESOLVE_LIB_DEFECTS
         -:  136:      // 3035. std::allocator's constructors should be constexpr
         -:  137:      _GLIBCXX20_CONSTEXPR
-       17:  138:      allocator() _GLIBCXX_NOTHROW { }
-       17:  138-block  0
+    #####:  138:      allocator() _GLIBCXX_NOTHROW { }
+------------------
+_ZNSaISt13_Rb_tree_nodeIiEEC2Ev:
+    #####:  138:      allocator() _GLIBCXX_NOTHROW { }
+    %%%%%:  138-block  0
+------------------
+_ZNSaIiEC2Ev:
+    #####:  138:      allocator() _GLIBCXX_NOTHROW { }
+    %%%%%:  138-block  0
+------------------
         -:  139:
         -:  140:      _GLIBCXX20_CONSTEXPR
-       34:  141:      allocator(const allocator& __a) _GLIBCXX_NOTHROW
-       34:  142:      : __allocator_base<_Tp>(__a) { }
-       34:  142-block  0
+    #####:  141:      allocator(const allocator& __a) _GLIBCXX_NOTHROW
+    #####:  142:      : __allocator_base<_Tp>(__a) { }
+    %%%%%:  142-block  0
         -:  143:
         -:  144:#if __cplusplus >= 201103L
         -:  145:      // Avoid implicit deprecation.
@@ -156,8 +164,16 @@
         -:  150:	_GLIBCXX20_CONSTEXPR
         -:  151:	allocator(const allocator<_Tp1>&) _GLIBCXX_NOTHROW { }
         -:  152:
-       51:  153:      ~allocator() _GLIBCXX_NOTHROW { }
-       51:  153-block  0
+    #####:  153:      ~allocator() _GLIBCXX_NOTHROW { }
+------------------
+_ZNSaISt13_Rb_tree_nodeIiEED2Ev:
+    #####:  153:      ~allocator() _GLIBCXX_NOTHROW { }
+    %%%%%:  153-block  0
+------------------
+_ZNSaIiED2Ev:
+    #####:  153:      ~allocator() _GLIBCXX_NOTHROW { }
+    %%%%%:  153-block  0
+------------------
         -:  154:
         -:  155:      friend bool
         -:  156:      operator==(const allocator&, const allocator&) _GLIBCXX_NOTHROW

@@ -65,6 +65,7 @@ enum AvlError_t avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t ar
             return AVLERR_INSERT;
         }
         //avlPrintTree_(avlTree);
+        //fprintf(stdout, "\n");
     }
     return AVLERR_OK;
 }
@@ -76,7 +77,7 @@ enum AvlError_t avlInsert(struct AVL_Tree* avlTree, int data) {
     }
     if (avlTree->top_ == NULL) {
         avlTree->top_ = avlCreateNode_(data);
-        avlTree->top_->height_ = 0;
+        avlTree->top_->height_ = 1;
         avlTree->top_->prev_ = NULL;
         avlTree->size_ = 1;
         return AVLERR_OK;
@@ -161,6 +162,7 @@ bool avlEmpty(struct AVL_Tree* avlTree) {
 struct Node_t* avlCreateNode_(int data) {
     struct Node_t* node = (struct Node_t*)calloc(1, sizeof(struct Node_t));
     node->data_ = data;
+    node->height_ = 1;
     return node;
 }
 
@@ -182,7 +184,7 @@ struct Node_t* avlBalancing_(struct AVL_Tree* avlTree, struct Node_t* top) {
             place = -1;
         }
     }
-    if (avlGetBalanceFactor_(top) == 2) {
+    if (avlGetBalanceFactor_(top) >= 2) {
         if (avlGetBalanceFactor_(top->right_) >= 0) {
             struct Node_t* newTop = avlSmallLeftRotation_(avlTree, top);
             if (place == 1) {
@@ -203,7 +205,7 @@ struct Node_t* avlBalancing_(struct AVL_Tree* avlTree, struct Node_t* top) {
             return newTop;
         }
     }
-    if (avlGetBalanceFactor_(top) == -2) {
+    if (avlGetBalanceFactor_(top) <= -2) {
         if (avlGetBalanceFactor_(top->right_) >= 0) {
             struct Node_t* newTop = avlSmallRightRotation_(avlTree, top);
             if (place == 1) {
@@ -224,6 +226,7 @@ struct Node_t* avlBalancing_(struct AVL_Tree* avlTree, struct Node_t* top) {
             return newTop;
         }
     }
+    assert(1 && "Oooops");
     return top;
 }
 
@@ -433,9 +436,9 @@ struct Node_t* avlBigRightRotation_ (struct AVL_Tree* avlTree, struct Node_t* to
     struct Node_t* nM = nC->left_;
     struct Node_t* nN = nC->right_;
 
+    nC->prev_ = top->prev_;
     nC->right_ = nA;
     nC->left_ = nB;
-    nC->prev_ = top->prev_;
 
     nB->right_ = nM;
     if (nM != NULL) {
@@ -477,12 +480,6 @@ int avlGetBalanceFactor_(struct Node_t* top) {
     } else {
          balanceFactor = avlNodeHeight_(top->right_) -
                     avlNodeHeight_(top->left_);
-    }
-    if (top->right_ != NULL) {
-        balanceFactor++;
-    }
-    if (top->left_ != NULL) {
-        balanceFactor--;
     }
     return balanceFactor;
 }

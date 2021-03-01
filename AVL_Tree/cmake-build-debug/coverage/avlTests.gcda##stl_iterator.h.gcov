@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/c++/9/bits/stl_iterator.h
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// Iterators -*- C++ -*-
         -:    2:
         -:    3:// Copyright (C) 2001-2019 Free Software Foundation, Inc.
@@ -807,8 +807,17 @@
         -:  803:      : _M_current(_Iterator()) { }
         -:  804:
         -:  805:      explicit
-       81:  806:      __normal_iterator(const _Iterator& __i) _GLIBCXX_NOEXCEPT
-       81:  807:      : _M_current(__i) { }
+    #####:  806:      __normal_iterator(const _Iterator& __i) _GLIBCXX_NOEXCEPT
+    #####:  807:      : _M_current(__i) { }
+------------------
+_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC2ERKS2_:
+    #####:  806:      __normal_iterator(const _Iterator& __i) _GLIBCXX_NOEXCEPT
+    #####:  807:      : _M_current(__i) { }
+------------------
+_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEC2ERKS1_:
+    #####:  806:      __normal_iterator(const _Iterator& __i) _GLIBCXX_NOEXCEPT
+    #####:  807:      : _M_current(__i) { }
+------------------
         -:  808:
         -:  809:      // Allow iterator to const_iterator conversion
         -:  810:      template<typename _Iter>
@@ -820,20 +829,30 @@
         -:  816:
         -:  817:      // Forward iterator requirements
         -:  818:      reference
-       62:  819:      operator*() const _GLIBCXX_NOEXCEPT
-       62:  820:      { return *_M_current; }
-       62:  820-block  0
+    #####:  819:      operator*() const _GLIBCXX_NOEXCEPT
+    #####:  820:      { return *_M_current; }
+------------------
+_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEdeEv:
+    #####:  819:      operator*() const _GLIBCXX_NOEXCEPT
+    #####:  820:      { return *_M_current; }
+    %%%%%:  820-block  0
+------------------
+_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEdeEv:
+    #####:  819:      operator*() const _GLIBCXX_NOEXCEPT
+    #####:  820:      { return *_M_current; }
+    %%%%%:  820-block  0
+------------------
         -:  821:
         -:  822:      pointer
         -:  823:      operator->() const _GLIBCXX_NOEXCEPT
         -:  824:      { return _M_current; }
         -:  825:
         -:  826:      __normal_iterator&
-       62:  827:      operator++() _GLIBCXX_NOEXCEPT
+    #####:  827:      operator++() _GLIBCXX_NOEXCEPT
         -:  828:      {
-       62:  829:	++_M_current;
-       62:  830:	return *this;
-       62:  830-block  0
+    #####:  829:	++_M_current;
+    #####:  830:	return *this;
+    %%%%%:  830-block  0
         -:  831:      }
         -:  832:
         -:  833:      __normal_iterator
@@ -870,13 +889,24 @@
         -:  864:      { _M_current -= __n; return *this; }
         -:  865:
         -:  866:      __normal_iterator
-        -:  867:      operator-(difference_type __n) const _GLIBCXX_NOEXCEPT
-        -:  868:      { return __normal_iterator(_M_current - __n); }
+    #####:  867:      operator-(difference_type __n) const _GLIBCXX_NOEXCEPT
+    #####:  868:      { return __normal_iterator(_M_current - __n); }
+    %%%%%:  868-block  0
         -:  869:
         -:  870:      const _Iterator&
-      143:  871:      base() const _GLIBCXX_NOEXCEPT
-      143:  872:      { return _M_current; }
-      143:  872-block  0
+    #####:  871:      base() const _GLIBCXX_NOEXCEPT
+    #####:  872:      { return _M_current; }
+------------------
+_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEE4baseEv:
+    #####:  871:      base() const _GLIBCXX_NOEXCEPT
+    #####:  872:      { return _M_current; }
+    %%%%%:  872-block  0
+------------------
+_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv:
+    #####:  871:      base() const _GLIBCXX_NOEXCEPT
+    #####:  872:      { return _M_current; }
+    %%%%%:  872-block  0
+------------------
         -:  873:    };
         -:  874:
         -:  875:  // Note: In what follows, the left- and right-hand-side iterators are
@@ -911,11 +941,11 @@
         -:  904:
         -:  905:  template<typename _Iterator, typename _Container>
         -:  906:    inline bool
-       64:  907:    operator!=(const __normal_iterator<_Iterator, _Container>& __lhs,
+    #####:  907:    operator!=(const __normal_iterator<_Iterator, _Container>& __lhs,
         -:  908:	       const __normal_iterator<_Iterator, _Container>& __rhs)
         -:  909:    _GLIBCXX_NOEXCEPT
-       64:  910:    { return __lhs.base() != __rhs.base(); }
-       64:  910-block  0
+    #####:  910:    { return __lhs.base() != __rhs.base(); }
+    %%%%%:  910-block  0
         -:  911:
         -:  912:  // Random access iterator requirements
         -:  913:  template<typename _IteratorL, typename _IteratorR, typename _Container>
@@ -994,10 +1024,11 @@
         -:  986:
         -:  987:  template<typename _Iterator, typename _Container>
         -:  988:    inline typename __normal_iterator<_Iterator, _Container>::difference_type
-        -:  989:    operator-(const __normal_iterator<_Iterator, _Container>& __lhs,
+    #####:  989:    operator-(const __normal_iterator<_Iterator, _Container>& __lhs,
         -:  990:	      const __normal_iterator<_Iterator, _Container>& __rhs)
         -:  991:    _GLIBCXX_NOEXCEPT
-        -:  992:    { return __lhs.base() - __rhs.base(); }
+    #####:  992:    { return __lhs.base() - __rhs.base(); }
+    %%%%%:  992-block  0
         -:  993:
         -:  994:  template<typename _Iterator, typename _Container>
         -:  995:    inline __normal_iterator<_Iterator, _Container>
@@ -1015,10 +1046,10 @@
         -: 1007:
         -: 1008:  template<typename _Iterator, typename _Container>
         -: 1009:    _Iterator
-       15: 1010:    __niter_base(__gnu_cxx::__normal_iterator<_Iterator, _Container> __it)
+    #####: 1010:    __niter_base(__gnu_cxx::__normal_iterator<_Iterator, _Container> __it)
         -: 1011:    _GLIBCXX_NOEXCEPT_IF(std::is_nothrow_copy_constructible<_Iterator>::value)
-       15: 1012:    { return __it.base(); }
-       15: 1012-block  0
+    #####: 1012:    { return __it.base(); }
+    %%%%%: 1012-block  0
         -: 1013:
         -: 1014:#if __cplusplus >= 201103L
         -: 1015:
@@ -1063,8 +1094,8 @@
         -: 1054:      : _M_current() { }
         -: 1055:
         -: 1056:      explicit _GLIBCXX17_CONSTEXPR
-        -: 1057:      move_iterator(iterator_type __i)
-        -: 1058:      : _M_current(__i) { }
+    #####: 1057:      move_iterator(iterator_type __i)
+    #####: 1058:      : _M_current(__i) { }
         -: 1059:
         -: 1060:      template<typename _Iter>
         -: 1061:	_GLIBCXX17_CONSTEXPR
@@ -1072,8 +1103,9 @@
         -: 1063:	: _M_current(__i.base()) { }
         -: 1064:
         -: 1065:      _GLIBCXX17_CONSTEXPR iterator_type
-        -: 1066:      base() const
-        -: 1067:      { return _M_current; }
+    #####: 1066:      base() const
+    #####: 1067:      { return _M_current; }
+    %%%%%: 1067-block  0
         -: 1068:
         -: 1069:      _GLIBCXX17_CONSTEXPR reference
         -: 1070:      operator*() const
@@ -1248,8 +1280,9 @@
         -: 1239:    = typename conditional<__move_if_noexcept_cond<_Tp>::value,
         -: 1240:			   const _Tp*, move_iterator<_Tp*>>::type>
         -: 1241:    inline _GLIBCXX17_CONSTEXPR _ReturnType
-        -: 1242:    __make_move_if_noexcept_iterator(_Tp* __i)
-        -: 1243:    { return _ReturnType(__i); }
+    #####: 1242:    __make_move_if_noexcept_iterator(_Tp* __i)
+    #####: 1243:    { return _ReturnType(__i); }
+    %%%%%: 1243-block  0
         -: 1244:
         -: 1245:  // @} group iterators
         -: 1246:
@@ -1268,9 +1301,10 @@
         -: 1259:
         -: 1260:  template<typename _Iterator>
         -: 1261:    auto
-        -: 1262:    __miter_base(move_iterator<_Iterator> __it)
+    #####: 1262:    __miter_base(move_iterator<_Iterator> __it)
         -: 1263:    -> decltype(__miter_base(__it.base()))
-        -: 1264:    { return __miter_base(__it.base()); }
+    #####: 1264:    { return __miter_base(__it.base()); }
+    %%%%%: 1264-block  0
         -: 1265:
         -: 1266:#define _GLIBCXX_MAKE_MOVE_ITERATOR(_Iter) std::make_move_iterator(_Iter)
         -: 1267:#define _GLIBCXX_MAKE_MOVE_IF_NOEXCEPT_ITERATOR(_Iter) \

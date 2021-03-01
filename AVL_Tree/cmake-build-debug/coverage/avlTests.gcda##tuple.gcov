@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/c++/9/tuple
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// <tuple> -*- C++ -*-
         -:    2:
         -:    3:// Copyright (C) 2007-2019 Free Software Foundation, Inc.
@@ -77,8 +77,8 @@
         -:   73:    struct _Head_base<_Idx, _Head, true>
         -:   74:    : public _Head
         -:   75:    {
-        3:   76:      constexpr _Head_base()
-        3:   77:      : _Head() { }
+    #####:   76:      constexpr _Head_base()
+    #####:   77:      : _Head() { }
         -:   78:
         -:   79:      constexpr _Head_base(const _Head& __h)
         -:   80:      : _Head(__h) { }
@@ -114,15 +114,15 @@
         -:  110:	: _Head(std::forward<_UHead>(__uhead), *__a._M_a) { }
         -:  111:
         -:  112:      static constexpr _Head&
-        2:  113:      _M_head(_Head_base& __b) noexcept { return __b; }
+    #####:  113:      _M_head(_Head_base& __b) noexcept { return __b; }
 ------------------
 _ZNSt10_Head_baseILm1ESt14default_deleteINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEELb1EE7_M_headERS8_:
-        1:  113:      _M_head(_Head_base& __b) noexcept { return __b; }
-        1:  113-block  0
+    #####:  113:      _M_head(_Head_base& __b) noexcept { return __b; }
+    %%%%%:  113-block  0
 ------------------
 _ZNSt10_Head_baseILm1ESt14default_deleteINSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEEELb1EE7_M_headERS8_:
-        1:  113:      _M_head(_Head_base& __b) noexcept { return __b; }
-        1:  113-block  0
+    #####:  113:      _M_head(_Head_base& __b) noexcept { return __b; }
+    %%%%%:  113-block  0
 ------------------
         -:  114:
         -:  115:      static constexpr const _Head&
@@ -132,8 +132,8 @@ _ZNSt10_Head_baseILm1ESt14default_deleteINSt7__cxx1118basic_stringstreamIcSt11ch
         -:  119:  template<std::size_t _Idx, typename _Head>
         -:  120:    struct _Head_base<_Idx, _Head, false>
         -:  121:    {
-        3:  122:      constexpr _Head_base()
-        3:  123:      : _M_head_impl() { }
+    #####:  122:      constexpr _Head_base()
+    #####:  123:      : _M_head_impl() { }
         -:  124:
         -:  125:      constexpr _Head_base(const _Head& __h)
         -:  126:      : _M_head_impl(__h) { }
@@ -170,20 +170,20 @@ _ZNSt10_Head_baseILm1ESt14default_deleteINSt7__cxx1118basic_stringstreamIcSt11ch
         -:  157:	: _M_head_impl(std::forward<_UHead>(__uhead), *__a._M_a) { }
         -:  158:
         -:  159:      static constexpr _Head&
-       19:  160:      _M_head(_Head_base& __b) noexcept { return __b._M_head_impl; }
+    #####:  160:      _M_head(_Head_base& __b) noexcept { return __b._M_head_impl; }
 ------------------
 _ZNSt10_Head_baseILm0EPNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEELb0EE7_M_headERS7_:
-       18:  160:      _M_head(_Head_base& __b) noexcept { return __b._M_head_impl; }
-       18:  160-block  0
+    #####:  160:      _M_head(_Head_base& __b) noexcept { return __b._M_head_impl; }
+    %%%%%:  160-block  0
 ------------------
 _ZNSt10_Head_baseILm0EPNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEELb0EE7_M_headERS7_:
-        1:  160:      _M_head(_Head_base& __b) noexcept { return __b._M_head_impl; }
-        1:  160-block  0
+    #####:  160:      _M_head(_Head_base& __b) noexcept { return __b._M_head_impl; }
+    %%%%%:  160-block  0
 ------------------
         -:  161:
         -:  162:      static constexpr const _Head&
-        2:  163:      _M_head(const _Head_base& __b) noexcept { return __b._M_head_impl; }
-        2:  163-block  0
+    #####:  163:      _M_head(const _Head_base& __b) noexcept { return __b._M_head_impl; }
+    %%%%%:  163-block  0
         -:  164:
         -:  165:      _Head _M_head_impl;
         -:  166:    };
@@ -215,20 +215,20 @@ _ZNSt10_Head_baseILm0EPNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE
         -:  192:      typedef _Head_base<_Idx, _Head> _Base;
         -:  193:
         -:  194:      static constexpr _Head&
-       19:  195:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
+    #####:  195:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
 ------------------
 _ZNSt11_Tuple_implILm0EJPNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt14default_deleteIS5_EEE7_M_headERS9_:
-       18:  195:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
-       18:  195-block  0
+    #####:  195:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
+    %%%%%:  195-block  0
 ------------------
 _ZNSt11_Tuple_implILm0EJPNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEESt14default_deleteIS5_EEE7_M_headERS9_:
-        1:  195:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
-        1:  195-block  0
+    #####:  195:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
+    %%%%%:  195-block  0
 ------------------
         -:  196:
         -:  197:      static constexpr const _Head&
-        2:  198:      _M_head(const _Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
-        2:  198-block  0
+    #####:  198:      _M_head(const _Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
+    %%%%%:  198-block  0
         -:  199:
         -:  200:      static constexpr _Inherited&
         -:  201:      _M_tail(_Tuple_impl& __t) noexcept { return __t; }
@@ -236,9 +236,9 @@ _ZNSt11_Tuple_implILm0EJPNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIc
         -:  203:      static constexpr const _Inherited&
         -:  204:      _M_tail(const _Tuple_impl& __t) noexcept { return __t; }
         -:  205:
-        3:  206:      constexpr _Tuple_impl()
-        3:  207:      : _Inherited(), _Base() { }
-        3:  207-block  0
+    #####:  206:      constexpr _Tuple_impl()
+    #####:  207:      : _Inherited(), _Base() { }
+    %%%%%:  207-block  0
         -:  208:
         -:  209:      explicit
         -:  210:      constexpr _Tuple_impl(const _Head& __head, const _Tail&... __tail)
@@ -365,23 +365,23 @@ _ZNSt11_Tuple_implILm0EJPNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIc
         -:  331:      typedef _Head_base<_Idx, _Head> _Base;
         -:  332:
         -:  333:      static constexpr _Head&
-        2:  334:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
+    #####:  334:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
 ------------------
 _ZNSt11_Tuple_implILm1EJSt14default_deleteINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEEE7_M_headERS8_:
-        1:  334:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
-        1:  334-block  0
+    #####:  334:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
+    %%%%%:  334-block  0
 ------------------
 _ZNSt11_Tuple_implILm1EJSt14default_deleteINSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEEEEE7_M_headERS8_:
-        1:  334:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
-        1:  334-block  0
+    #####:  334:      _M_head(_Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
+    %%%%%:  334-block  0
 ------------------
         -:  335:
         -:  336:      static constexpr const _Head&
         -:  337:      _M_head(const _Tuple_impl& __t) noexcept { return _Base::_M_head(__t); }
         -:  338:
-        3:  339:      constexpr _Tuple_impl()
-        3:  340:      : _Base() { }
-        3:  340-block  0
+    #####:  339:      constexpr _Tuple_impl()
+    #####:  340:      : _Base() { }
+    %%%%%:  340-block  0
         -:  341:
         -:  342:      explicit
         -:  343:      constexpr _Tuple_impl(const _Head& __head)
@@ -959,9 +959,9 @@ _ZNSt11_Tuple_implILm1EJSt14default_deleteINSt7__cxx1118basic_stringstreamIcSt11
         -:  915:                                     __is_implicitly_default_constructible<_U1>,
         -:  916:                                     __is_implicitly_default_constructible<_U2>>
         -:  917:                                   ::value, bool>::type = true>
-        3:  918:	constexpr tuple()
-        3:  919:	: _Inherited() { }
-        3:  919-block  0
+    #####:  918:	constexpr tuple()
+    #####:  919:	: _Inherited() { }
+    %%%%%:  919-block  0
         -:  920:
         -:  921:      template <typename _U1 = _T1,
         -:  922:                typename _U2 = _T2,
@@ -1351,69 +1351,69 @@ _ZNSt11_Tuple_implILm1EJSt14default_deleteINSt7__cxx1118basic_stringstreamIcSt11
         -: 1306:
         -: 1307:  template<std::size_t __i, typename _Head, typename... _Tail>
         -: 1308:    constexpr _Head&
-       21: 1309:    __get_helper(_Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
-       21: 1310:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
+    #####: 1309:    __get_helper(_Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
+    #####: 1310:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
 ------------------
 _ZSt12__get_helperILm1ESt14default_deleteINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEJEERT0_RSt11_Tuple_implIXT_EJS8_DpT1_EE:
-        1: 1309:    __get_helper(_Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
-        1: 1310:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
-        1: 1310-block  0
+    #####: 1309:    __get_helper(_Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
+    #####: 1310:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
+    %%%%%: 1310-block  0
 ------------------
 _ZSt12__get_helperILm1ESt14default_deleteINSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEEEJEERT0_RSt11_Tuple_implIXT_EJS8_DpT1_EE:
-        1: 1309:    __get_helper(_Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
-        1: 1310:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
-        1: 1310-block  0
+    #####: 1309:    __get_helper(_Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
+    #####: 1310:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
+    %%%%%: 1310-block  0
 ------------------
 _ZSt12__get_helperILm0EPNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEJSt14default_deleteIS5_EEERT0_RSt11_Tuple_implIXT_EJS9_DpT1_EE:
-       18: 1309:    __get_helper(_Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
-       18: 1310:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
-       18: 1310-block  0
+    #####: 1309:    __get_helper(_Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
+    #####: 1310:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
+    %%%%%: 1310-block  0
 ------------------
 _ZSt12__get_helperILm0EPNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEEJSt14default_deleteIS5_EEERT0_RSt11_Tuple_implIXT_EJS9_DpT1_EE:
-        1: 1309:    __get_helper(_Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
-        1: 1310:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
-        1: 1310-block  0
+    #####: 1309:    __get_helper(_Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
+    #####: 1310:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
+    %%%%%: 1310-block  0
 ------------------
         -: 1311:
         -: 1312:  template<std::size_t __i, typename _Head, typename... _Tail>
         -: 1313:    constexpr const _Head&
-        2: 1314:    __get_helper(const _Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
-        2: 1315:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
-        2: 1315-block  0
+    #####: 1314:    __get_helper(const _Tuple_impl<__i, _Head, _Tail...>& __t) noexcept
+    #####: 1315:    { return _Tuple_impl<__i, _Head, _Tail...>::_M_head(__t); }
+    %%%%%: 1315-block  0
         -: 1316:
         -: 1317:  /// Return a reference to the ith element of a tuple.
         -: 1318:  template<std::size_t __i, typename... _Elements>
         -: 1319:    constexpr __tuple_element_t<__i, tuple<_Elements...>>&
-       21: 1320:    get(tuple<_Elements...>& __t) noexcept
-       21: 1321:    { return std::__get_helper<__i>(__t); }
+    #####: 1320:    get(tuple<_Elements...>& __t) noexcept
+    #####: 1321:    { return std::__get_helper<__i>(__t); }
 ------------------
 _ZSt3getILm1EJPNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt14default_deleteIS5_EEERNSt13tuple_elementIXT_ESt5tupleIJDpT0_EEE4typeERSD_:
-        1: 1320:    get(tuple<_Elements...>& __t) noexcept
-        1: 1321:    { return std::__get_helper<__i>(__t); }
-        1: 1321-block  0
+    #####: 1320:    get(tuple<_Elements...>& __t) noexcept
+    #####: 1321:    { return std::__get_helper<__i>(__t); }
+    %%%%%: 1321-block  0
 ------------------
 _ZSt3getILm1EJPNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEESt14default_deleteIS5_EEERNSt13tuple_elementIXT_ESt5tupleIJDpT0_EEE4typeERSD_:
-        1: 1320:    get(tuple<_Elements...>& __t) noexcept
-        1: 1321:    { return std::__get_helper<__i>(__t); }
-        1: 1321-block  0
+    #####: 1320:    get(tuple<_Elements...>& __t) noexcept
+    #####: 1321:    { return std::__get_helper<__i>(__t); }
+    %%%%%: 1321-block  0
 ------------------
 _ZSt3getILm0EJPNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt14default_deleteIS5_EEERNSt13tuple_elementIXT_ESt5tupleIJDpT0_EEE4typeERSD_:
-       18: 1320:    get(tuple<_Elements...>& __t) noexcept
-       18: 1321:    { return std::__get_helper<__i>(__t); }
-       18: 1321-block  0
+    #####: 1320:    get(tuple<_Elements...>& __t) noexcept
+    #####: 1321:    { return std::__get_helper<__i>(__t); }
+    %%%%%: 1321-block  0
 ------------------
 _ZSt3getILm0EJPNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEESt14default_deleteIS5_EEERNSt13tuple_elementIXT_ESt5tupleIJDpT0_EEE4typeERSD_:
-        1: 1320:    get(tuple<_Elements...>& __t) noexcept
-        1: 1321:    { return std::__get_helper<__i>(__t); }
-        1: 1321-block  0
+    #####: 1320:    get(tuple<_Elements...>& __t) noexcept
+    #####: 1321:    { return std::__get_helper<__i>(__t); }
+    %%%%%: 1321-block  0
 ------------------
         -: 1322:
         -: 1323:  /// Return a const reference to the ith element of a const tuple.
         -: 1324:  template<std::size_t __i, typename... _Elements>
         -: 1325:    constexpr const __tuple_element_t<__i, tuple<_Elements...>>&
-        2: 1326:    get(const tuple<_Elements...>& __t) noexcept
-        2: 1327:    { return std::__get_helper<__i>(__t); }
-        2: 1327-block  0
+    #####: 1326:    get(const tuple<_Elements...>& __t) noexcept
+    #####: 1327:    { return std::__get_helper<__i>(__t); }
+    %%%%%: 1327-block  0
         -: 1328:
         -: 1329:  /// Return an rvalue reference to the ith element of a tuple rvalue.
         -: 1330:  template<std::size_t __i, typename... _Elements>

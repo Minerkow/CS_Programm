@@ -1,35 +1,35 @@
         -:    0:Source:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/avlTests.cpp
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:#include <gtest/gtest.h>
         -:    2:extern "C" {
         -:    3:    #include "../AVL_Tree.h"
         -:    4:}
         -:    5:
-        1:    6:int main() {
-        1:    7:    testing::InitGoogleTest();
-        1:    7-block  0
-        1:    8:    return RUN_ALL_TESTS();
+    #####:    6:int main() {
+    #####:    7:    testing::InitGoogleTest();
+    %%%%%:    7-block  0
+    #####:    8:    return RUN_ALL_TESTS();
         -:    9:}
         -:   10:
         -:   11://---------------------------------------------------------------------------------------------------------------------------------------
         -:   12:
-        2:   13:TEST(AVL_Tree, avlInsert1) {
-        1:   14:    AVL_Tree* avlTree = avlInit();
-        1:   15:    avlInsert(avlTree, 1);
-       1*:   16:    ASSERT_EQ(avlGetMaxElem(avlTree), avlGetMinElem(avlTree));
+    #####:   13:TEST(AVL_Tree, avlInsert1) {
+    #####:   14:    AVL_Tree* avlTree = avlInit();
+    #####:   15:    avlInsert(avlTree, 1);
+    #####:   16:    ASSERT_EQ(avlGetMaxElem(avlTree), avlGetMinElem(avlTree));
         -:   17:}
 ------------------
 _ZN24AVL_Tree_avlInsert1_Test8TestBodyEv:
-        1:   13:TEST(AVL_Tree, avlInsert1) {
-        1:   14:    AVL_Tree* avlTree = avlInit();
-        1:   14-block  0
-        1:   15:    avlInsert(avlTree, 1);
-       1*:   16:    ASSERT_EQ(avlGetMaxElem(avlTree), avlGetMinElem(avlTree));
-        1:   16-block  0
-        1:   16-block  1
-        1:   16-block  2
+    #####:   13:TEST(AVL_Tree, avlInsert1) {
+    #####:   14:    AVL_Tree* avlTree = avlInit();
+    %%%%%:   14-block  0
+    #####:   15:    avlInsert(avlTree, 1);
+    #####:   16:    ASSERT_EQ(avlGetMaxElem(avlTree), avlGetMinElem(avlTree));
+    %%%%%:   16-block  0
+    %%%%%:   16-block  1
+    %%%%%:   16-block  2
     %%%%%:   16-block  3
     %%%%%:   16-block  4
     %%%%%:   16-block  5
@@ -44,22 +44,22 @@ _ZN24AVL_Tree_avlInsert1_Test8TestBodyEv:
         -:   17:}
 ------------------
 _ZN24AVL_Tree_avlInsert1_TestC2Ev:
-        1:   13:TEST(AVL_Tree, avlInsert1) {
-        1:   13-block  0
+    #####:   13:TEST(AVL_Tree, avlInsert1) {
+    %%%%%:   13-block  0
 ------------------
         -:   18:
-        2:   19:TEST(AVL_Tree, avlInsert2) {
-        1:   20:    int err = avlInsert(NULL, 1);
-       1*:   21:    ASSERT_EQ(err, AVLERR_NOT_INIT);
+    #####:   19:TEST(AVL_Tree, avlInsert2) {
+    #####:   20:    int err = avlInsert(NULL, 1);
+    #####:   21:    ASSERT_EQ(err, AVLERR_NOT_INIT);
         -:   22:}
 ------------------
 _ZN24AVL_Tree_avlInsert2_Test8TestBodyEv:
-        1:   19:TEST(AVL_Tree, avlInsert2) {
-        1:   20:    int err = avlInsert(NULL, 1);
-        1:   20-block  0
-       1*:   21:    ASSERT_EQ(err, AVLERR_NOT_INIT);
-        1:   21-block  0
-        1:   21-block  1
+    #####:   19:TEST(AVL_Tree, avlInsert2) {
+    #####:   20:    int err = avlInsert(NULL, 1);
+    %%%%%:   20-block  0
+    #####:   21:    ASSERT_EQ(err, AVLERR_NOT_INIT);
+    %%%%%:   21-block  0
+    %%%%%:   21-block  1
     %%%%%:   21-block  2
     %%%%%:   21-block  3
     %%%%%:   21-block  4
@@ -73,457 +73,615 @@ _ZN24AVL_Tree_avlInsert2_Test8TestBodyEv:
         -:   22:}
 ------------------
 _ZN24AVL_Tree_avlInsert2_TestC2Ev:
-        1:   19:TEST(AVL_Tree, avlInsert2) {
-        1:   19-block  0
+    #####:   19:TEST(AVL_Tree, avlInsert2) {
+    %%%%%:   19-block  0
 ------------------
         -:   23:
         -:   24://-----------------------------------------------------------------------------------------------------------------
         -:   25:
-        -:   26://TEST(AVL_Tree, avlLoadFromArray1) {
-        -:   27://    const size_t numNumbers = 40;
-        -:   28://    AVL_Tree* avlTree = avlInit();
-        -:   29://    std::vector<int> input;
-        -:   30://    std::set<int> garantSet;
-        -:   31://    std::srand(std::time(0));
-        -:   32://    for (int i = 0; i < numNumbers; ++i) {
-        -:   33://        input.push_back(std::rand()%100);
-        -:   34://        garantSet.insert(input.back());
-        -:   35://    }
-        -:   36://    std::vector<int> trueRes;
-        -:   37://    for (auto& it : garantSet) {
-        -:   38://        trueRes.push_back(it);
-        -:   39://    }
-        -:   40://    std::vector<int> res(trueRes.size());
-        -:   41://    avlLoadFromArray(avlTree, input.data(), input.size());
-        -:   42://    avlSaveInArray(avlTree, res.data(), avlSize(avlTree));
-        -:   43://    std::cout << "input: " << std::endl;
-        -:   44://    for (auto& it : input) {
-        -:   45://        std::cerr << it << " ";
-        -:   46://    }
-        -:   47://    std::cout << std::endl;
-        -:   48://    ASSERT_EQ(avlSize(avlTree), trueRes.size());
-        -:   49://    ASSERT_EQ(trueRes, res);
-        -:   50://}
-        -:   51:
-        2:   52:TEST(AVL_Tree, avlLoadFromArrayStress) {
-        1:   53:    AVL_Tree* avlTree = avlInit();
-        1:   54:    std::vector<int> input = {27, 80, 8, 42, 37, 59, 90, 42, 90, 46, 92, 22, 18, 0, 99, 98, 92, 18, 16, 2, 45, 75, 30, 27, 23, 34, 50, 88, 53, 75, 73, 80, 7, 33, 22, 44, 92, 65, 86, 82};
-        1:   55:    std::vector<int> trueRes = {0, 2, 7, 8, 16, 18, 22, 23, 27, 30, 33, 34, 37, 42, 44, 45, 46, 50, 53, 59, 65, 73, 75, 80, 82, 86, 88, 90, 92, 98, 99};
-        1:   56:    std::vector<int> res(trueRes.size());
-        1:   57:    avlLoadFromArray(avlTree, input.data(), input.size());
-        1:   58:    avlPrintTree_(avlTree);
-        1:   59:    avlSaveInArray(avlTree, res.data(), res.size());
-        1:   60:    ASSERT_EQ(trueRes, res);
-        -:   61:}
+    #####:   26:TEST(AVL_Tree, avlLoadFromArray1) {
+    #####:   27:    const size_t numNumbers = 100000;
+    #####:   28:    AVL_Tree* avlTree = avlInit();
+    #####:   29:    std::vector<int> input;
+    #####:   30:    std::set<int> garantSet;
+    #####:   31:    std::srand(std::time(0));
+    #####:   32:    for (int i = 0; i < numNumbers; ++i) {
+    #####:   33:        input.push_back(std::rand() % 1000);
+    #####:   34:        garantSet.insert(input.back());
+        -:   35:    }
+    #####:   36:    std::vector<int> trueRes;
+    #####:   37:    for (auto& it : garantSet) {
+    #####:   38:        trueRes.push_back(it);
+        -:   39:    }
+    #####:   40:    std::vector<int> res(trueRes.size());
+    #####:   41:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:   42:    avlSaveInArray(avlTree, res.data(), avlSize(avlTree));
+    #####:   43:    std::cout << std::endl;
+    #####:   44:    ASSERT_EQ(avlSize(avlTree), trueRes.size());
+    #####:   45:    ASSERT_EQ(trueRes, res);
+        -:   46:}
+------------------
+_ZN31AVL_Tree_avlLoadFromArray1_Test8TestBodyEv:
+    #####:   26:TEST(AVL_Tree, avlLoadFromArray1) {
+    #####:   27:    const size_t numNumbers = 100000;
+    #####:   28:    AVL_Tree* avlTree = avlInit();
+    %%%%%:   28-block  0
+    #####:   29:    std::vector<int> input;
+    %%%%%:   29-block  0
+    $$$$$:   29-block  1
+    #####:   30:    std::set<int> garantSet;
+    $$$$$:   30-block  0
+    #####:   31:    std::srand(std::time(0));
+    #####:   32:    for (int i = 0; i < numNumbers; ++i) {
+    %%%%%:   32-block  0
+    %%%%%:   32-block  1
+    #####:   33:        input.push_back(std::rand() % 1000);
+    %%%%%:   33-block  0
+    $$$$$:   33-block  1
+    #####:   34:        garantSet.insert(input.back());
+    %%%%%:   34-block  0
+        -:   35:    }
+    #####:   36:    std::vector<int> trueRes;
+    %%%%%:   36-block  0
+    $$$$$:   36-block  1
+    #####:   37:    for (auto& it : garantSet) {
+    %%%%%:   37-block  0
+    %%%%%:   37-block  1
+    %%%%%:   37-block  2
+    #####:   38:        trueRes.push_back(it);
+        -:   39:    }
+    #####:   40:    std::vector<int> res(trueRes.size());
+    %%%%%:   40-block  0
+    $$$$$:   40-block  1
+    $$$$$:   40-block  2
+    #####:   41:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:   42:    avlSaveInArray(avlTree, res.data(), avlSize(avlTree));
+    %%%%%:   42-block  0
+    %%%%%:   42-block  1
+    #####:   43:    std::cout << std::endl;
+    %%%%%:   43-block  0
+    #####:   44:    ASSERT_EQ(avlSize(avlTree), trueRes.size());
+    %%%%%:   44-block  0
+    %%%%%:   44-block  1
+    %%%%%:   44-block  2
+    %%%%%:   44-block  3
+    %%%%%:   44-block  4
+    %%%%%:   44-block  5
+    %%%%%:   44-block  6
+    $$$$$:   44-block  7
+    $$$$$:   44-block  8
+    $$$$$:   44-block  9
+    $$$$$:   44-block 10
+    $$$$$:   44-block 11
+    $$$$$:   44-block 12
+    $$$$$:   44-block 13
+    #####:   45:    ASSERT_EQ(trueRes, res);
+    %%%%%:   45-block  0
+    %%%%%:   45-block  1
+    %%%%%:   45-block  2
+    %%%%%:   45-block  3
+    %%%%%:   45-block  4
+    %%%%%:   45-block  5
+    $$$$$:   45-block  6
+    $$$$$:   45-block  7
+    $$$$$:   45-block  8
+    $$$$$:   45-block  9
+    $$$$$:   45-block 10
+        -:   46:}
+------------------
+_ZN31AVL_Tree_avlLoadFromArray1_TestC2Ev:
+    #####:   26:TEST(AVL_Tree, avlLoadFromArray1) {
+    %%%%%:   26-block  0
+------------------
+        -:   47:
+    #####:   48:TEST(AVL_Tree, avlLoadFromArrayStress) {
+    #####:   49:    AVL_Tree* avlTree = avlInit();
+    #####:   50:    std::vector<int> input = {27, 80, 8, 42, 37, 59, 90, 42, 90, 46, 92, 22, 18, 0, 99, 98, 92, 18, 16, 2, 45, 75, 30, 27, 23, 34, 50, 88, 53, 75, 73, 80, 7, 33, 22, 44, 92, 65, 86, 82};
+    #####:   51:    std::vector<int> trueRes = {0, 2, 7, 8, 16, 18, 22, 23, 27, 30, 33, 34, 37, 42, 44, 45, 46, 50, 53, 59, 65, 73, 75, 80, 82, 86, 88, 90, 92, 98, 99};
+    #####:   52:    std::vector<int> res(trueRes.size());
+    #####:   53:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:   54:    avlSaveInArray(avlTree, res.data(), res.size());
+    #####:   55:    ASSERT_EQ(trueRes, res);
+        -:   56:}
 ------------------
 _ZN36AVL_Tree_avlLoadFromArrayStress_Test8TestBodyEv:
-        1:   52:TEST(AVL_Tree, avlLoadFromArrayStress) {
-        1:   53:    AVL_Tree* avlTree = avlInit();
-        1:   53-block  0
-        1:   54:    std::vector<int> input = {27, 80, 8, 42, 37, 59, 90, 42, 90, 46, 92, 22, 18, 0, 99, 98, 92, 18, 16, 2, 45, 75, 30, 27, 23, 34, 50, 88, 53, 75, 73, 80, 7, 33, 22, 44, 92, 65, 86, 82};
-        1:   54-block  0
-    $$$$$:   54-block  1
-    $$$$$:   54-block  2
-    $$$$$:   54-block  3
-        1:   55:    std::vector<int> trueRes = {0, 2, 7, 8, 16, 18, 22, 23, 27, 30, 33, 34, 37, 42, 44, 45, 46, 50, 53, 59, 65, 73, 75, 80, 82, 86, 88, 90, 92, 98, 99};
-    $$$$$:   55-block  0
-    $$$$$:   55-block  1
-    $$$$$:   55-block  2
-        1:   56:    std::vector<int> res(trueRes.size());
-    $$$$$:   56-block  0
-    $$$$$:   56-block  1
-        1:   57:    avlLoadFromArray(avlTree, input.data(), input.size());
-        1:   58:    avlPrintTree_(avlTree);
-        1:   58-block  0
-        1:   59:    avlSaveInArray(avlTree, res.data(), res.size());
-        1:   59-block  0
-        1:   60:    ASSERT_EQ(trueRes, res);
-        1:   60-block  0
-        1:   60-block  1
-        1:   60-block  2
-        1:   60-block  3
-        1:   60-block  4
-        1:   60-block  5
-    $$$$$:   60-block  6
-    $$$$$:   60-block  7
-    $$$$$:   60-block  8
-    $$$$$:   60-block  9
-    $$$$$:   60-block 10
-        -:   61:}
+    #####:   48:TEST(AVL_Tree, avlLoadFromArrayStress) {
+    #####:   49:    AVL_Tree* avlTree = avlInit();
+    %%%%%:   49-block  0
+    #####:   50:    std::vector<int> input = {27, 80, 8, 42, 37, 59, 90, 42, 90, 46, 92, 22, 18, 0, 99, 98, 92, 18, 16, 2, 45, 75, 30, 27, 23, 34, 50, 88, 53, 75, 73, 80, 7, 33, 22, 44, 92, 65, 86, 82};
+    %%%%%:   50-block  0
+    $$$$$:   50-block  1
+    $$$$$:   50-block  2
+    $$$$$:   50-block  3
+    #####:   51:    std::vector<int> trueRes = {0, 2, 7, 8, 16, 18, 22, 23, 27, 30, 33, 34, 37, 42, 44, 45, 46, 50, 53, 59, 65, 73, 75, 80, 82, 86, 88, 90, 92, 98, 99};
+    $$$$$:   51-block  0
+    $$$$$:   51-block  1
+    $$$$$:   51-block  2
+    #####:   52:    std::vector<int> res(trueRes.size());
+    $$$$$:   52-block  0
+    $$$$$:   52-block  1
+    #####:   53:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:   54:    avlSaveInArray(avlTree, res.data(), res.size());
+    %%%%%:   54-block  0
+    #####:   55:    ASSERT_EQ(trueRes, res);
+    %%%%%:   55-block  0
+    %%%%%:   55-block  1
+    %%%%%:   55-block  2
+    %%%%%:   55-block  3
+    %%%%%:   55-block  4
+    %%%%%:   55-block  5
+    $$$$$:   55-block  6
+    $$$$$:   55-block  7
+    $$$$$:   55-block  8
+    $$$$$:   55-block  9
+    $$$$$:   55-block 10
+        -:   56:}
 ------------------
 _ZN36AVL_Tree_avlLoadFromArrayStress_TestC2Ev:
-        1:   52:TEST(AVL_Tree, avlLoadFromArrayStress) {
-        1:   52-block  0
+    #####:   48:TEST(AVL_Tree, avlLoadFromArrayStress) {
+    %%%%%:   48-block  0
 ------------------
-        -:   62:
-        2:   63:TEST(AVL_Tree, avlLoadFromArray2) {
-        1:   64:    AVL_Tree* avlTree = avlInit();
-        1:   65:    std::vector<int> input = {1, 2, 3, 4, 2};
-        1:   66:    std::vector<int> trueRes = {1, 2, 3, 4};
-        1:   67:    std::vector<int> res(trueRes.size());
-        1:   68:    avlLoadFromArray(avlTree, input.data(), input.size());
-        1:   69:    avlSaveInArray(avlTree, res.data(), res.size());
-       1*:   70:    ASSERT_EQ(trueRes, res);
-        -:   71:}
+        -:   57:
+    #####:   58:TEST(AVL_Tree, avlLoadFromArray2) {
+    #####:   59:    AVL_Tree* avlTree = avlInit();
+    #####:   60:    std::vector<int> input = {1, 2, 3, 4, 2};
+    #####:   61:    std::vector<int> trueRes = {1, 2, 3, 4};
+    #####:   62:    std::vector<int> res(trueRes.size());
+    #####:   63:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:   64:    avlSaveInArray(avlTree, res.data(), res.size());
+    #####:   65:    ASSERT_EQ(trueRes, res);
+        -:   66:}
 ------------------
 _ZN31AVL_Tree_avlLoadFromArray2_Test8TestBodyEv:
-        1:   63:TEST(AVL_Tree, avlLoadFromArray2) {
-        1:   64:    AVL_Tree* avlTree = avlInit();
-        1:   64-block  0
-        1:   65:    std::vector<int> input = {1, 2, 3, 4, 2};
-        1:   65-block  0
-    $$$$$:   65-block  1
-    $$$$$:   65-block  2
-    $$$$$:   65-block  3
-        1:   66:    std::vector<int> trueRes = {1, 2, 3, 4};
-    $$$$$:   66-block  0
-    $$$$$:   66-block  1
-    $$$$$:   66-block  2
-        1:   67:    std::vector<int> res(trueRes.size());
-    $$$$$:   67-block  0
-    $$$$$:   67-block  1
-        1:   68:    avlLoadFromArray(avlTree, input.data(), input.size());
-        1:   69:    avlSaveInArray(avlTree, res.data(), res.size());
-        1:   69-block  0
-       1*:   70:    ASSERT_EQ(trueRes, res);
-        1:   70-block  0
-        1:   70-block  1
-    %%%%%:   70-block  2
-    %%%%%:   70-block  3
-    %%%%%:   70-block  4
-    %%%%%:   70-block  5
-    $$$$$:   70-block  6
-    $$$$$:   70-block  7
-    $$$$$:   70-block  8
-    $$$$$:   70-block  9
-    $$$$$:   70-block 10
-        -:   71:}
+    #####:   58:TEST(AVL_Tree, avlLoadFromArray2) {
+    #####:   59:    AVL_Tree* avlTree = avlInit();
+    %%%%%:   59-block  0
+    #####:   60:    std::vector<int> input = {1, 2, 3, 4, 2};
+    %%%%%:   60-block  0
+    $$$$$:   60-block  1
+    $$$$$:   60-block  2
+    $$$$$:   60-block  3
+    #####:   61:    std::vector<int> trueRes = {1, 2, 3, 4};
+    $$$$$:   61-block  0
+    $$$$$:   61-block  1
+    $$$$$:   61-block  2
+    #####:   62:    std::vector<int> res(trueRes.size());
+    $$$$$:   62-block  0
+    $$$$$:   62-block  1
+    #####:   63:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:   64:    avlSaveInArray(avlTree, res.data(), res.size());
+    %%%%%:   64-block  0
+    #####:   65:    ASSERT_EQ(trueRes, res);
+    %%%%%:   65-block  0
+    %%%%%:   65-block  1
+    %%%%%:   65-block  2
+    %%%%%:   65-block  3
+    %%%%%:   65-block  4
+    %%%%%:   65-block  5
+    $$$$$:   65-block  6
+    $$$$$:   65-block  7
+    $$$$$:   65-block  8
+    $$$$$:   65-block  9
+    $$$$$:   65-block 10
+        -:   66:}
 ------------------
 _ZN31AVL_Tree_avlLoadFromArray2_TestC2Ev:
-        1:   63:TEST(AVL_Tree, avlLoadFromArray2) {
-        1:   63-block  0
+    #####:   58:TEST(AVL_Tree, avlLoadFromArray2) {
+    %%%%%:   58-block  0
 ------------------
-        -:   72:
-        2:   73:TEST(AVL_Tree, avlLoadFromArray3) {
-        1:   74:    AVL_Tree* avlTree = avlInit();
-        1:   75:    std::vector<int> input = { 0, 1, 3};
-        1:   76:    std::vector<int> trueRes = { 0, 1, 3};
-        1:   77:    std::vector<int> res(trueRes.size());
-        1:   78:    avlLoadFromArray(avlTree, input.data(), input.size());
-        1:   79:    avlSaveInArray(avlTree, res.data(), res.size());
-       1*:   80:    ASSERT_EQ(trueRes, res);
-        -:   81:}
+        -:   67:
+    #####:   68:TEST(AVL_Tree, avlLoadFromArray3) {
+    #####:   69:    AVL_Tree* avlTree = avlInit();
+    #####:   70:    std::vector<int> input = { 0, 1, 3};
+    #####:   71:    std::vector<int> trueRes = { 0, 1, 3};
+    #####:   72:    std::vector<int> res(trueRes.size());
+    #####:   73:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:   74:    avlSaveInArray(avlTree, res.data(), res.size());
+    #####:   75:    ASSERT_EQ(trueRes, res);
+        -:   76:}
 ------------------
 _ZN31AVL_Tree_avlLoadFromArray3_Test8TestBodyEv:
-        1:   73:TEST(AVL_Tree, avlLoadFromArray3) {
-        1:   74:    AVL_Tree* avlTree = avlInit();
-        1:   74-block  0
-        1:   75:    std::vector<int> input = { 0, 1, 3};
-        1:   75-block  0
-    $$$$$:   75-block  1
-    $$$$$:   75-block  2
-    $$$$$:   75-block  3
-        1:   76:    std::vector<int> trueRes = { 0, 1, 3};
-    $$$$$:   76-block  0
-    $$$$$:   76-block  1
-    $$$$$:   76-block  2
-        1:   77:    std::vector<int> res(trueRes.size());
-    $$$$$:   77-block  0
-    $$$$$:   77-block  1
-        1:   78:    avlLoadFromArray(avlTree, input.data(), input.size());
-        1:   79:    avlSaveInArray(avlTree, res.data(), res.size());
-        1:   79-block  0
-       1*:   80:    ASSERT_EQ(trueRes, res);
-        1:   80-block  0
-        1:   80-block  1
-    %%%%%:   80-block  2
-    %%%%%:   80-block  3
-    %%%%%:   80-block  4
-    %%%%%:   80-block  5
-    $$$$$:   80-block  6
-    $$$$$:   80-block  7
-    $$$$$:   80-block  8
-    $$$$$:   80-block  9
-    $$$$$:   80-block 10
-        -:   81:}
+    #####:   68:TEST(AVL_Tree, avlLoadFromArray3) {
+    #####:   69:    AVL_Tree* avlTree = avlInit();
+    %%%%%:   69-block  0
+    #####:   70:    std::vector<int> input = { 0, 1, 3};
+    %%%%%:   70-block  0
+    $$$$$:   70-block  1
+    $$$$$:   70-block  2
+    $$$$$:   70-block  3
+    #####:   71:    std::vector<int> trueRes = { 0, 1, 3};
+    $$$$$:   71-block  0
+    $$$$$:   71-block  1
+    $$$$$:   71-block  2
+    #####:   72:    std::vector<int> res(trueRes.size());
+    $$$$$:   72-block  0
+    $$$$$:   72-block  1
+    #####:   73:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:   74:    avlSaveInArray(avlTree, res.data(), res.size());
+    %%%%%:   74-block  0
+    #####:   75:    ASSERT_EQ(trueRes, res);
+    %%%%%:   75-block  0
+    %%%%%:   75-block  1
+    %%%%%:   75-block  2
+    %%%%%:   75-block  3
+    %%%%%:   75-block  4
+    %%%%%:   75-block  5
+    $$$$$:   75-block  6
+    $$$$$:   75-block  7
+    $$$$$:   75-block  8
+    $$$$$:   75-block  9
+    $$$$$:   75-block 10
+        -:   76:}
 ------------------
 _ZN31AVL_Tree_avlLoadFromArray3_TestC2Ev:
-        1:   73:TEST(AVL_Tree, avlLoadFromArray3) {
-        1:   73-block  0
+    #####:   68:TEST(AVL_Tree, avlLoadFromArray3) {
+    %%%%%:   68-block  0
 ------------------
-        -:   82:
-        2:   83:TEST(AVL_Tree, avlLoadFromArray4) {
-        1:   84:    AVL_Tree* avlTree = avlInit();
-        1:   85:    std::vector<int> input = { 0, 1, 1, 1, 3, 3, 4, 6, 7, 9 };
-        1:   86:    std::vector<int> trueRes = { 0, 1, 3, 4, 6, 7, 9 };
-        1:   87:    std::vector<int> res(trueRes.size());
-        1:   88:    avlLoadFromArray(avlTree, input.data(), input.size());
-        1:   89:    avlSaveInArray(avlTree, res.data(), res.size());
-       1*:   90:    ASSERT_EQ(trueRes, res);
-        -:   91:}
+        -:   77:
+    #####:   78:TEST(AVL_Tree, avlLoadFromArray4) {
+    #####:   79:    AVL_Tree* avlTree = avlInit();
+    #####:   80:    std::vector<int> input = { 0, 1, 1, 1, 3, 3, 4, 6, 7, 9 };
+    #####:   81:    std::vector<int> trueRes = { 0, 1, 3, 4, 6, 7, 9 };
+    #####:   82:    std::vector<int> res(trueRes.size());
+    #####:   83:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:   84:    avlSaveInArray(avlTree, res.data(), res.size());
+    #####:   85:    ASSERT_EQ(trueRes, res);
+        -:   86:}
 ------------------
 _ZN31AVL_Tree_avlLoadFromArray4_Test8TestBodyEv:
-        1:   83:TEST(AVL_Tree, avlLoadFromArray4) {
-        1:   84:    AVL_Tree* avlTree = avlInit();
-        1:   84-block  0
-        1:   85:    std::vector<int> input = { 0, 1, 1, 1, 3, 3, 4, 6, 7, 9 };
-        1:   85-block  0
-    $$$$$:   85-block  1
-    $$$$$:   85-block  2
-    $$$$$:   85-block  3
-        1:   86:    std::vector<int> trueRes = { 0, 1, 3, 4, 6, 7, 9 };
-    $$$$$:   86-block  0
-    $$$$$:   86-block  1
-    $$$$$:   86-block  2
-        1:   87:    std::vector<int> res(trueRes.size());
-    $$$$$:   87-block  0
-    $$$$$:   87-block  1
-        1:   88:    avlLoadFromArray(avlTree, input.data(), input.size());
-        1:   89:    avlSaveInArray(avlTree, res.data(), res.size());
-        1:   89-block  0
-       1*:   90:    ASSERT_EQ(trueRes, res);
-        1:   90-block  0
-        1:   90-block  1
-    %%%%%:   90-block  2
-    %%%%%:   90-block  3
-    %%%%%:   90-block  4
-    %%%%%:   90-block  5
-    $$$$$:   90-block  6
-    $$$$$:   90-block  7
-    $$$$$:   90-block  8
-    $$$$$:   90-block  9
-    $$$$$:   90-block 10
-        -:   91:}
+    #####:   78:TEST(AVL_Tree, avlLoadFromArray4) {
+    #####:   79:    AVL_Tree* avlTree = avlInit();
+    %%%%%:   79-block  0
+    #####:   80:    std::vector<int> input = { 0, 1, 1, 1, 3, 3, 4, 6, 7, 9 };
+    %%%%%:   80-block  0
+    $$$$$:   80-block  1
+    $$$$$:   80-block  2
+    $$$$$:   80-block  3
+    #####:   81:    std::vector<int> trueRes = { 0, 1, 3, 4, 6, 7, 9 };
+    $$$$$:   81-block  0
+    $$$$$:   81-block  1
+    $$$$$:   81-block  2
+    #####:   82:    std::vector<int> res(trueRes.size());
+    $$$$$:   82-block  0
+    $$$$$:   82-block  1
+    #####:   83:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:   84:    avlSaveInArray(avlTree, res.data(), res.size());
+    %%%%%:   84-block  0
+    #####:   85:    ASSERT_EQ(trueRes, res);
+    %%%%%:   85-block  0
+    %%%%%:   85-block  1
+    %%%%%:   85-block  2
+    %%%%%:   85-block  3
+    %%%%%:   85-block  4
+    %%%%%:   85-block  5
+    $$$$$:   85-block  6
+    $$$$$:   85-block  7
+    $$$$$:   85-block  8
+    $$$$$:   85-block  9
+    $$$$$:   85-block 10
+        -:   86:}
 ------------------
 _ZN31AVL_Tree_avlLoadFromArray4_TestC2Ev:
-        1:   83:TEST(AVL_Tree, avlLoadFromArray4) {
-        1:   83-block  0
+    #####:   78:TEST(AVL_Tree, avlLoadFromArray4) {
+    %%%%%:   78-block  0
 ------------------
-        -:   92:
-        2:   93:TEST(AVL_Tree, avlLoadFromArray5) {
-        1:   94:    AVL_Tree* avlTree = avlInit();
-        -:   95:    int arr[5];
-       1*:   96:    ASSERT_EQ(AVLERR_NULL_POINTER_ARG, avlLoadFromArray(avlTree, NULL, 1));
-       1*:   97:    ASSERT_EQ(AVLERR_NOT_INIT, avlLoadFromArray(NULL, arr, 5));
-       1*:   98:    ASSERT_EQ(AVLERR_OK, avlLoadFromArray(avlTree, arr, 0));
-        -:   99:}
+        -:   87:
+    #####:   88:TEST(AVL_Tree, avlLoadFromArray5) {
+    #####:   89:    AVL_Tree* avlTree = avlInit();
+        -:   90:    int arr[5];
+    #####:   91:    ASSERT_EQ(AVLERR_NULL_POINTER_ARG, avlLoadFromArray(avlTree, NULL, 1));
+    #####:   92:    ASSERT_EQ(AVLERR_NOT_INIT, avlLoadFromArray(NULL, arr, 5));
+    #####:   93:    ASSERT_EQ(AVLERR_OK, avlLoadFromArray(avlTree, arr, 0));
+        -:   94:}
 ------------------
 _ZN31AVL_Tree_avlLoadFromArray5_Test8TestBodyEv:
-        1:   93:TEST(AVL_Tree, avlLoadFromArray5) {
-        1:   94:    AVL_Tree* avlTree = avlInit();
-        1:   94-block  0
-        -:   95:    int arr[5];
-       1*:   96:    ASSERT_EQ(AVLERR_NULL_POINTER_ARG, avlLoadFromArray(avlTree, NULL, 1));
-        1:   96-block  0
-        1:   96-block  1
-        1:   96-block  2
-    %%%%%:   96-block  3
-    %%%%%:   96-block  4
-    %%%%%:   96-block  5
-    %%%%%:   96-block  6
-    $$$$$:   96-block  7
-    $$$$$:   96-block  8
-    $$$$$:   96-block  9
-    $$$$$:   96-block 10
-    $$$$$:   96-block 11
-    $$$$$:   96-block 12
-    $$$$$:   96-block 13
-       1*:   97:    ASSERT_EQ(AVLERR_NOT_INIT, avlLoadFromArray(NULL, arr, 5));
-        1:   97-block  0
-        1:   97-block  1
-        1:   97-block  2
-    %%%%%:   97-block  3
-    %%%%%:   97-block  4
-    %%%%%:   97-block  5
-    %%%%%:   97-block  6
-    $$$$$:   97-block  7
-    $$$$$:   97-block  8
-    $$$$$:   97-block  9
-    $$$$$:   97-block 10
-    $$$$$:   97-block 11
-    $$$$$:   97-block 12
-    $$$$$:   97-block 13
-       1*:   98:    ASSERT_EQ(AVLERR_OK, avlLoadFromArray(avlTree, arr, 0));
-        1:   98-block  0
-        1:   98-block  1
-        1:   98-block  2
-    %%%%%:   98-block  3
-    %%%%%:   98-block  4
-    %%%%%:   98-block  5
-    %%%%%:   98-block  6
-    $$$$$:   98-block  7
-    $$$$$:   98-block  8
-    $$$$$:   98-block  9
-    $$$$$:   98-block 10
-    $$$$$:   98-block 11
-    $$$$$:   98-block 12
-    $$$$$:   98-block 13
-        -:   99:}
+    #####:   88:TEST(AVL_Tree, avlLoadFromArray5) {
+    #####:   89:    AVL_Tree* avlTree = avlInit();
+    %%%%%:   89-block  0
+        -:   90:    int arr[5];
+    #####:   91:    ASSERT_EQ(AVLERR_NULL_POINTER_ARG, avlLoadFromArray(avlTree, NULL, 1));
+    %%%%%:   91-block  0
+    %%%%%:   91-block  1
+    %%%%%:   91-block  2
+    %%%%%:   91-block  3
+    %%%%%:   91-block  4
+    %%%%%:   91-block  5
+    %%%%%:   91-block  6
+    $$$$$:   91-block  7
+    $$$$$:   91-block  8
+    $$$$$:   91-block  9
+    $$$$$:   91-block 10
+    $$$$$:   91-block 11
+    $$$$$:   91-block 12
+    $$$$$:   91-block 13
+    #####:   92:    ASSERT_EQ(AVLERR_NOT_INIT, avlLoadFromArray(NULL, arr, 5));
+    %%%%%:   92-block  0
+    %%%%%:   92-block  1
+    %%%%%:   92-block  2
+    %%%%%:   92-block  3
+    %%%%%:   92-block  4
+    %%%%%:   92-block  5
+    %%%%%:   92-block  6
+    $$$$$:   92-block  7
+    $$$$$:   92-block  8
+    $$$$$:   92-block  9
+    $$$$$:   92-block 10
+    $$$$$:   92-block 11
+    $$$$$:   92-block 12
+    $$$$$:   92-block 13
+    #####:   93:    ASSERT_EQ(AVLERR_OK, avlLoadFromArray(avlTree, arr, 0));
+    %%%%%:   93-block  0
+    %%%%%:   93-block  1
+    %%%%%:   93-block  2
+    %%%%%:   93-block  3
+    %%%%%:   93-block  4
+    %%%%%:   93-block  5
+    %%%%%:   93-block  6
+    $$$$$:   93-block  7
+    $$$$$:   93-block  8
+    $$$$$:   93-block  9
+    $$$$$:   93-block 10
+    $$$$$:   93-block 11
+    $$$$$:   93-block 12
+    $$$$$:   93-block 13
+        -:   94:}
 ------------------
 _ZN31AVL_Tree_avlLoadFromArray5_TestC2Ev:
-        1:   93:TEST(AVL_Tree, avlLoadFromArray5) {
-        1:   93-block  0
+    #####:   88:TEST(AVL_Tree, avlLoadFromArray5) {
+    %%%%%:   88-block  0
 ------------------
-        -:  100:
-        2:  101:TEST(AVL_Tree, avlLoadFromArray6) {
-        1:  102:    AVL_Tree *avlTree = avlInit();
-        2:  103:    std::vector<int> input = {0, 1, 3, 4, 6, 7, 9};
-        1:  104:    avlLoadFromArray(avlTree, input.data(), input.size());
-        1:  105:}
+        -:   95:
+    #####:   96:TEST(AVL_Tree, avlLoadFromArray6) {
+    #####:   97:    AVL_Tree *avlTree = avlInit();
+    #####:   98:    std::vector<int> input = {0, 1, 3, 4, 6, 7, 9};
+    #####:   99:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:  100:}
 ------------------
 _ZN31AVL_Tree_avlLoadFromArray6_Test8TestBodyEv:
-        1:  101:TEST(AVL_Tree, avlLoadFromArray6) {
-        1:  102:    AVL_Tree *avlTree = avlInit();
-        1:  102-block  0
-        2:  103:    std::vector<int> input = {0, 1, 3, 4, 6, 7, 9};
-        1:  103-block  0
-        1:  103-block  1
-    $$$$$:  103-block  2
-    $$$$$:  103-block  3
-    $$$$$:  103-block  4
-        1:  104:    avlLoadFromArray(avlTree, input.data(), input.size());
-        1:  105:}
+    #####:   96:TEST(AVL_Tree, avlLoadFromArray6) {
+    #####:   97:    AVL_Tree *avlTree = avlInit();
+    %%%%%:   97-block  0
+    #####:   98:    std::vector<int> input = {0, 1, 3, 4, 6, 7, 9};
+    %%%%%:   98-block  0
+    %%%%%:   98-block  1
+    $$$$$:   98-block  2
+    $$$$$:   98-block  3
+    $$$$$:   98-block  4
+    #####:   99:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:  100:}
 ------------------
 _ZN31AVL_Tree_avlLoadFromArray6_TestC2Ev:
-        1:  101:TEST(AVL_Tree, avlLoadFromArray6) {
-        1:  101-block  0
+    #####:   96:TEST(AVL_Tree, avlLoadFromArray6) {
+    %%%%%:   96-block  0
 ------------------
-        -:  106:
-        -:  107://-------------------------------------------------------------------------------------------------------------------------------
-        -:  108:
-        2:  109:TEST(AVL_Tree, avlEmpty) {
-        1:  110:    AVL_Tree* avlTree = avlInit();
-       1*:  111:    ASSERT_TRUE(avlEmpty(avlTree));
-       1*:  112:    ASSERT_TRUE(avlEmpty(NULL));
-        1:  113:    avlInsert(avlTree, 1);
-       1*:  114:    ASSERT_FALSE(avlEmpty(avlTree));
-        -:  115:}
+        -:  101:
+        -:  102://-------------------------------------------------------------------------------------------------------------------------------
+        -:  103:
+    #####:  104:TEST(AVL_Tree, avlEmpty) {
+    #####:  105:    AVL_Tree* avlTree = avlInit();
+    #####:  106:    ASSERT_TRUE(avlEmpty(avlTree));
+    #####:  107:    ASSERT_TRUE(avlEmpty(NULL));
+    #####:  108:    avlInsert(avlTree, 1);
+    #####:  109:    ASSERT_FALSE(avlEmpty(avlTree));
+        -:  110:}
 ------------------
 _ZN22AVL_Tree_avlEmpty_Test8TestBodyEv:
-        1:  109:TEST(AVL_Tree, avlEmpty) {
-        1:  110:    AVL_Tree* avlTree = avlInit();
-        1:  110-block  0
-       1*:  111:    ASSERT_TRUE(avlEmpty(avlTree));
-        1:  111-block  0
-    %%%%%:  111-block  1
-    %%%%%:  111-block  2
-    %%%%%:  111-block  3
-    %%%%%:  111-block  4
-    %%%%%:  111-block  5
-    $$$$$:  111-block  6
-    $$$$$:  111-block  7
-    $$$$$:  111-block  8
-    $$$$$:  111-block  9
-    $$$$$:  111-block 10
-    $$$$$:  111-block 11
-    $$$$$:  111-block 12
-       1*:  112:    ASSERT_TRUE(avlEmpty(NULL));
-        1:  112-block  0
-        1:  112-block  1
-    %%%%%:  112-block  2
-    %%%%%:  112-block  3
-    %%%%%:  112-block  4
-    %%%%%:  112-block  5
-    %%%%%:  112-block  6
-    $$$$$:  112-block  7
-    $$$$$:  112-block  8
-    $$$$$:  112-block  9
-    $$$$$:  112-block 10
-    $$$$$:  112-block 11
-    $$$$$:  112-block 12
-    $$$$$:  112-block 13
-        1:  113:    avlInsert(avlTree, 1);
-        1:  113-block  0
-       1*:  114:    ASSERT_FALSE(avlEmpty(avlTree));
-        1:  114-block  0
-    %%%%%:  114-block  1
-    %%%%%:  114-block  2
-    %%%%%:  114-block  3
-    %%%%%:  114-block  4
-    %%%%%:  114-block  5
-    $$$$$:  114-block  6
-    $$$$$:  114-block  7
-    $$$$$:  114-block  8
-    $$$$$:  114-block  9
-    $$$$$:  114-block 10
-    $$$$$:  114-block 11
-    $$$$$:  114-block 12
-        -:  115:}
+    #####:  104:TEST(AVL_Tree, avlEmpty) {
+    #####:  105:    AVL_Tree* avlTree = avlInit();
+    %%%%%:  105-block  0
+    #####:  106:    ASSERT_TRUE(avlEmpty(avlTree));
+    %%%%%:  106-block  0
+    %%%%%:  106-block  1
+    %%%%%:  106-block  2
+    %%%%%:  106-block  3
+    %%%%%:  106-block  4
+    %%%%%:  106-block  5
+    $$$$$:  106-block  6
+    $$$$$:  106-block  7
+    $$$$$:  106-block  8
+    $$$$$:  106-block  9
+    $$$$$:  106-block 10
+    $$$$$:  106-block 11
+    $$$$$:  106-block 12
+    #####:  107:    ASSERT_TRUE(avlEmpty(NULL));
+    %%%%%:  107-block  0
+    %%%%%:  107-block  1
+    %%%%%:  107-block  2
+    %%%%%:  107-block  3
+    %%%%%:  107-block  4
+    %%%%%:  107-block  5
+    %%%%%:  107-block  6
+    $$$$$:  107-block  7
+    $$$$$:  107-block  8
+    $$$$$:  107-block  9
+    $$$$$:  107-block 10
+    $$$$$:  107-block 11
+    $$$$$:  107-block 12
+    $$$$$:  107-block 13
+    #####:  108:    avlInsert(avlTree, 1);
+    %%%%%:  108-block  0
+    #####:  109:    ASSERT_FALSE(avlEmpty(avlTree));
+    %%%%%:  109-block  0
+    %%%%%:  109-block  1
+    %%%%%:  109-block  2
+    %%%%%:  109-block  3
+    %%%%%:  109-block  4
+    %%%%%:  109-block  5
+    $$$$$:  109-block  6
+    $$$$$:  109-block  7
+    $$$$$:  109-block  8
+    $$$$$:  109-block  9
+    $$$$$:  109-block 10
+    $$$$$:  109-block 11
+    $$$$$:  109-block 12
+        -:  110:}
 ------------------
 _ZN22AVL_Tree_avlEmpty_TestC2Ev:
-        1:  109:TEST(AVL_Tree, avlEmpty) {
-        1:  109-block  0
+    #####:  104:TEST(AVL_Tree, avlEmpty) {
+    %%%%%:  104-block  0
 ------------------
-        -:  116:
-        -:  117://-------------------------------------------------------------------------------------------------------------------------------
-        -:  118:
-        2:  119:TEST(AVL_Tree, avlSize) {
-        1:  120:    AVL_Tree *avlTree = avlInit();
-        1:  121:    std::vector<int> input = {0, 1, 1, 1, 3, 3, 4, 6, 7, 9};
-        1:  122:    avlLoadFromArray(avlTree, input.data(), input.size());
-       1*:  123:    ASSERT_EQ(avlSize(avlTree), 7);
-       1*:  124:    ASSERT_EQ(0, std::isnan(avlSize(NULL)));
-        -:  125:}
+        -:  111:
+        -:  112://-------------------------------------------------------------------------------------------------------------------------------
+        -:  113:
+    #####:  114:TEST(AVL_Tree, avlSize) {
+    #####:  115:    AVL_Tree *avlTree = avlInit();
+    #####:  116:    std::vector<int> input = {0, 1, 1, 1, 3, 3, 4, 6, 7, 9};
+    #####:  117:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:  118:    ASSERT_EQ(avlSize(avlTree), 7);
+    #####:  119:    ASSERT_EQ(0, std::isnan(avlSize(NULL)));
+        -:  120:}
 ------------------
 _ZN21AVL_Tree_avlSize_Test8TestBodyEv:
-        1:  119:TEST(AVL_Tree, avlSize) {
-        1:  120:    AVL_Tree *avlTree = avlInit();
-        1:  120-block  0
-        1:  121:    std::vector<int> input = {0, 1, 1, 1, 3, 3, 4, 6, 7, 9};
-        1:  121-block  0
-    $$$$$:  121-block  1
-    $$$$$:  121-block  2
-    $$$$$:  121-block  3
-        1:  122:    avlLoadFromArray(avlTree, input.data(), input.size());
-       1*:  123:    ASSERT_EQ(avlSize(avlTree), 7);
-        1:  123-block  0
-        1:  123-block  1
-        1:  123-block  2
-    %%%%%:  123-block  3
-    %%%%%:  123-block  4
-    %%%%%:  123-block  5
-    %%%%%:  123-block  6
-    $$$$$:  123-block  7
-    $$$$$:  123-block  8
-    $$$$$:  123-block  9
-    $$$$$:  123-block 10
-    $$$$$:  123-block 11
-    $$$$$:  123-block 12
-    $$$$$:  123-block 13
-       1*:  124:    ASSERT_EQ(0, std::isnan(avlSize(NULL)));
-        1:  124-block  0
-        1:  124-block  1
-        1:  124-block  2
-    %%%%%:  124-block  3
-    %%%%%:  124-block  4
-    %%%%%:  124-block  5
-    %%%%%:  124-block  6
-    $$$$$:  124-block  7
-    $$$$$:  124-block  8
-    $$$$$:  124-block  9
-    $$$$$:  124-block 10
-    $$$$$:  124-block 11
-    $$$$$:  124-block 12
-    $$$$$:  124-block 13
-        -:  125:}
+    #####:  114:TEST(AVL_Tree, avlSize) {
+    #####:  115:    AVL_Tree *avlTree = avlInit();
+    %%%%%:  115-block  0
+    #####:  116:    std::vector<int> input = {0, 1, 1, 1, 3, 3, 4, 6, 7, 9};
+    %%%%%:  116-block  0
+    $$$$$:  116-block  1
+    $$$$$:  116-block  2
+    $$$$$:  116-block  3
+    #####:  117:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:  118:    ASSERT_EQ(avlSize(avlTree), 7);
+    %%%%%:  118-block  0
+    %%%%%:  118-block  1
+    %%%%%:  118-block  2
+    %%%%%:  118-block  3
+    %%%%%:  118-block  4
+    %%%%%:  118-block  5
+    %%%%%:  118-block  6
+    $$$$$:  118-block  7
+    $$$$$:  118-block  8
+    $$$$$:  118-block  9
+    $$$$$:  118-block 10
+    $$$$$:  118-block 11
+    $$$$$:  118-block 12
+    $$$$$:  118-block 13
+    #####:  119:    ASSERT_EQ(0, std::isnan(avlSize(NULL)));
+    %%%%%:  119-block  0
+    %%%%%:  119-block  1
+    %%%%%:  119-block  2
+    %%%%%:  119-block  3
+    %%%%%:  119-block  4
+    %%%%%:  119-block  5
+    %%%%%:  119-block  6
+    $$$$$:  119-block  7
+    $$$$$:  119-block  8
+    $$$$$:  119-block  9
+    $$$$$:  119-block 10
+    $$$$$:  119-block 11
+    $$$$$:  119-block 12
+    $$$$$:  119-block 13
+        -:  120:}
 ------------------
 _ZN21AVL_Tree_avlSize_TestC2Ev:
-        1:  119:TEST(AVL_Tree, avlSize) {
-        1:  119-block  0
+    #####:  114:TEST(AVL_Tree, avlSize) {
+    %%%%%:  114-block  0
 ------------------
-        -:  126:
-        -:  127://-------------------------------------------------------------------------------------------------------------------------------
-        -:  128:
-        2:  129:TEST(AVL_Tree, avlEraseByValue1) {
-        1:  130:    AVL_Tree* avlTree = avlInit();
-        1:  131:    std::vector<int> input = { 0, 1, 3, 4, 6, 7, 9 };
-        1:  132:    avlLoadFromArray(avlTree, input.data(), input.size());
-       1*:  133:    ASSERT_EQ(AVLERR_NULL_POINTER_ARG, avlEraseByValue(NULL, -1));
-       1*:  134:    ASSERT_EQ(AVLERR_OK, avlEraseByValue(avlTree, -1));
-       1*:  135:    ASSERT_EQ(AVLERR_OK, avlEraseByValue(avlTree, 1));
-        1:  136:    std::vector<int> res(6);
-        1:  137:    std::vector<int> trueRes = {0, 3, 4, 6, 7, 9};
-        1:  138:    avlSaveInArray(avlTree, res.data(), res.size());
-       1*:  139:    ASSERT_EQ(res, trueRes);
-        -:  140:}
-        -:  141:
+        -:  121:
+        -:  122://-------------------------------------------------------------------------------------------------------------------------------
+        -:  123:
+    #####:  124:TEST(AVL_Tree, avlEraseByValue1) {
+    #####:  125:    AVL_Tree* avlTree = avlInit();
+    #####:  126:    std::vector<int> input = { 0, 1, 3, 4, 6, 7, 9 };
+    #####:  127:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:  128:    ASSERT_EQ(AVLERR_NULL_POINTER_ARG, avlEraseByValue(NULL, -1));
+    #####:  129:    ASSERT_EQ(AVLERR_OK, avlEraseByValue(avlTree, -1));
+    #####:  130:    ASSERT_EQ(AVLERR_OK, avlEraseByValue(avlTree, 1));
+    #####:  131:    std::vector<int> res(6);
+    #####:  132:    std::vector<int> trueRes = {0, 3, 4, 6, 7, 9};
+    #####:  133:    avlSaveInArray(avlTree, res.data(), res.size());
+    #####:  134:    ASSERT_EQ(res, trueRes);
+        -:  135:}
+------------------
+_ZN30AVL_Tree_avlEraseByValue1_Test8TestBodyEv:
+    #####:  124:TEST(AVL_Tree, avlEraseByValue1) {
+    #####:  125:    AVL_Tree* avlTree = avlInit();
+    %%%%%:  125-block  0
+    #####:  126:    std::vector<int> input = { 0, 1, 3, 4, 6, 7, 9 };
+    %%%%%:  126-block  0
+    $$$$$:  126-block  1
+    $$$$$:  126-block  2
+    $$$$$:  126-block  3
+    #####:  127:    avlLoadFromArray(avlTree, input.data(), input.size());
+    #####:  128:    ASSERT_EQ(AVLERR_NULL_POINTER_ARG, avlEraseByValue(NULL, -1));
+    %%%%%:  128-block  0
+    %%%%%:  128-block  1
+    %%%%%:  128-block  2
+    %%%%%:  128-block  3
+    %%%%%:  128-block  4
+    %%%%%:  128-block  5
+    %%%%%:  128-block  6
+    $$$$$:  128-block  7
+    $$$$$:  128-block  8
+    $$$$$:  128-block  9
+    $$$$$:  128-block 10
+    $$$$$:  128-block 11
+    $$$$$:  128-block 12
+    $$$$$:  128-block 13
+    #####:  129:    ASSERT_EQ(AVLERR_OK, avlEraseByValue(avlTree, -1));
+    %%%%%:  129-block  0
+    %%%%%:  129-block  1
+    %%%%%:  129-block  2
+    %%%%%:  129-block  3
+    %%%%%:  129-block  4
+    %%%%%:  129-block  5
+    %%%%%:  129-block  6
+    $$$$$:  129-block  7
+    $$$$$:  129-block  8
+    $$$$$:  129-block  9
+    $$$$$:  129-block 10
+    $$$$$:  129-block 11
+    $$$$$:  129-block 12
+    $$$$$:  129-block 13
+    #####:  130:    ASSERT_EQ(AVLERR_OK, avlEraseByValue(avlTree, 1));
+    %%%%%:  130-block  0
+    %%%%%:  130-block  1
+    %%%%%:  130-block  2
+    %%%%%:  130-block  3
+    %%%%%:  130-block  4
+    %%%%%:  130-block  5
+    %%%%%:  130-block  6
+    $$$$$:  130-block  7
+    $$$$$:  130-block  8
+    $$$$$:  130-block  9
+    $$$$$:  130-block 10
+    $$$$$:  130-block 11
+    $$$$$:  130-block 12
+    $$$$$:  130-block 13
+    #####:  131:    std::vector<int> res(6);
+    %%%%%:  131-block  0
+    $$$$$:  131-block  1
+    $$$$$:  131-block  2
+    #####:  132:    std::vector<int> trueRes = {0, 3, 4, 6, 7, 9};
+    $$$$$:  132-block  0
+    $$$$$:  132-block  1
+    $$$$$:  132-block  2
+    #####:  133:    avlSaveInArray(avlTree, res.data(), res.size());
+    #####:  134:    ASSERT_EQ(res, trueRes);
+    %%%%%:  134-block  0
+    %%%%%:  134-block  1
+    %%%%%:  134-block  2
+    %%%%%:  134-block  3
+    %%%%%:  134-block  4
+    %%%%%:  134-block  5
+    $$$$$:  134-block  6
+    $$$$$:  134-block  7
+    $$$$$:  134-block  8
+    $$$$$:  134-block  9
+    $$$$$:  134-block 10
+        -:  135:}
+------------------
+_ZN30AVL_Tree_avlEraseByValue1_TestC2Ev:
+    #####:  124:TEST(AVL_Tree, avlEraseByValue1) {
+    %%%%%:  124-block  0
+------------------
+        -:  136:
+        -:  137://-------------------------------------------------------------------------------------------------------------------------------
+        -:  138:
+    #####:  139:TEST(AVL_Tree, avlSaveInArray) {
+    #####:  140:    AVL_Tree* avlTree = avlInit();
+    #####:  141:    int arr[5] = {};
+    #####:  142:    ASSERT_EQ(avlSaveInArray(NULL, NULL, 0), AVLERR_NOT_INIT);
+    #####:  143:    ASSERT_EQ(avlSaveInArray(avlTree, arr, 0), AVLERR_OK);
+    #####:  144:    ASSERT_EQ(avlSaveInArray(avlTree, NULL, 5), AVLERR_NULL_POINTER_ARG);
+        -:  145:}

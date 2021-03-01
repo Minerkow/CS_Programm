@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/c++/9/ext/alloc_traits.h
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// Allocator traits -*- C++ -*-
         -:    2:
         -:    3:// Copyright (C) 2011-2019 Free Software Foundation, Inc.

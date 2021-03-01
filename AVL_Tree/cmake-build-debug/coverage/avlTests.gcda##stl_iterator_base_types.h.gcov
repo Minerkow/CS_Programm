@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/c++/9/bits/stl_iterator_base_types.h
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// Types used in iterator implementation -*- C++ -*-
         -:    2:
         -:    3:// Copyright (C) 2001-2019 Free Software Foundation, Inc.
@@ -206,8 +206,8 @@
         -:  202:  template<typename _Iter>
         -:  203:    inline _GLIBCXX_CONSTEXPR
         -:  204:    typename iterator_traits<_Iter>::iterator_category
-      12*:  205:    __iterator_category(const _Iter&)
-      12*:  206:    { return typename iterator_traits<_Iter>::iterator_category(); }
+    #####:  205:    __iterator_category(const _Iter&)
+    #####:  206:    { return typename iterator_traits<_Iter>::iterator_category(); }
 ------------------
 _ZSt19__iterator_categoryIPcENSt15iterator_traitsIT_E17iterator_categoryERKS2_:
     #####:  205:    __iterator_category(const _Iter&)
@@ -220,9 +220,9 @@ _ZSt19__iterator_categoryIPKcENSt15iterator_traitsIT_E17iterator_categoryERKS3_:
     %%%%%:  206-block  0
 ------------------
 _ZSt19__iterator_categoryIPKiENSt15iterator_traitsIT_E17iterator_categoryERKS3_:
-       12:  205:    __iterator_category(const _Iter&)
-       12:  206:    { return typename iterator_traits<_Iter>::iterator_category(); }
-       12:  206-block  0
+    #####:  205:    __iterator_category(const _Iter&)
+    #####:  206:    { return typename iterator_traits<_Iter>::iterator_category(); }
+    %%%%%:  206-block  0
 ------------------
         -:  207:
         -:  208:  //@}

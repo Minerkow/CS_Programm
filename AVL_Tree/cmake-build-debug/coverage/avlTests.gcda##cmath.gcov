@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/c++/9/cmath
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// -*- C++ -*- C forwarding header.
         -:    2:
         -:    3:// Copyright (C) 1997-2019 Free Software Foundation, Inc.
@@ -633,9 +633,9 @@
         -:  629:  template<typename _Tp>
         -:  630:    constexpr typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value,
         -:  631:                                              bool>::__type
-        1:  632:    isnan(_Tp __x)
-        1:  633:    { return false; }
-        1:  633-block  0
+    #####:  632:    isnan(_Tp __x)
+    #####:  633:    { return false; }
+    %%%%%:  633-block  0
         -:  634:#endif
         -:  635:
         -:  636:#ifndef __CORRECT_ISO_CPP11_MATH_H_PROTO_FP

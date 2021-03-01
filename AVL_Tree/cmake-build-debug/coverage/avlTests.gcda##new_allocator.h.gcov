@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/c++/9/ext/new_allocator.h
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// Allocator that wraps operator new -*- C++ -*-
         -:    2:
         -:    3:// Copyright (C) 2001-2019 Free Software Foundation, Inc.
@@ -81,20 +81,23 @@
         -:   77:#endif
         -:   78:
         -:   79:      _GLIBCXX20_CONSTEXPR
-      17*:   80:      new_allocator() _GLIBCXX_USE_NOEXCEPT { }
+    #####:   80:      new_allocator() _GLIBCXX_USE_NOEXCEPT { }
+------------------
+_ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIiEEC2Ev:
+    #####:   80:      new_allocator() _GLIBCXX_USE_NOEXCEPT { }
 ------------------
 _ZN9__gnu_cxx13new_allocatorIiEC2Ev:
-       17:   80:      new_allocator() _GLIBCXX_USE_NOEXCEPT { }
+    #####:   80:      new_allocator() _GLIBCXX_USE_NOEXCEPT { }
 ------------------
 _ZN9__gnu_cxx13new_allocatorIcEC2Ev:
     #####:   80:      new_allocator() _GLIBCXX_USE_NOEXCEPT { }
 ------------------
         -:   81:
         -:   82:      _GLIBCXX20_CONSTEXPR
-      34*:   83:      new_allocator(const new_allocator&) _GLIBCXX_USE_NOEXCEPT { }
+    #####:   83:      new_allocator(const new_allocator&) _GLIBCXX_USE_NOEXCEPT { }
 ------------------
 _ZN9__gnu_cxx13new_allocatorIiEC2ERKS1_:
-       34:   83:      new_allocator(const new_allocator&) _GLIBCXX_USE_NOEXCEPT { }
+    #####:   83:      new_allocator(const new_allocator&) _GLIBCXX_USE_NOEXCEPT { }
 ------------------
 _ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_:
     #####:   83:      new_allocator(const new_allocator&) _GLIBCXX_USE_NOEXCEPT { }
@@ -104,10 +107,13 @@ _ZN9__gnu_cxx13new_allocatorIcEC2ERKS1_:
         -:   86:	_GLIBCXX20_CONSTEXPR
         -:   87:	new_allocator(const new_allocator<_Tp1>&) _GLIBCXX_USE_NOEXCEPT { }
         -:   88:
-      51*:   89:      ~new_allocator() _GLIBCXX_USE_NOEXCEPT { }
+    #####:   89:      ~new_allocator() _GLIBCXX_USE_NOEXCEPT { }
+------------------
+_ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIiEED2Ev:
+    #####:   89:      ~new_allocator() _GLIBCXX_USE_NOEXCEPT { }
 ------------------
 _ZN9__gnu_cxx13new_allocatorIiED2Ev:
-       51:   89:      ~new_allocator() _GLIBCXX_USE_NOEXCEPT { }
+    #####:   89:      ~new_allocator() _GLIBCXX_USE_NOEXCEPT { }
 ------------------
 _ZN9__gnu_cxx13new_allocatorIcED2Ev:
     #####:   89:      ~new_allocator() _GLIBCXX_USE_NOEXCEPT { }
@@ -124,10 +130,26 @@ _ZN9__gnu_cxx13new_allocatorIcED2Ev:
         -:   99:      // NB: __n is permitted to be 0.  The C++ standard says nothing
         -:  100:      // about what the return value is when __n == 0.
         -:  101:      _GLIBCXX_NODISCARD pointer
-       17:  102:      allocate(size_type __n, const void* = static_cast<const void*>(0))
+    #####:  102:      allocate(size_type __n, const void* = static_cast<const void*>(0))
         -:  103:      {
-       17:  104:	if (__n > this->max_size())
-       17:  104-block  0
+    #####:  104:	if (__n > this->max_size())
+    #####:  105:	  std::__throw_bad_alloc();
+        -:  106:
+        -:  107:#if __cpp_aligned_new
+        -:  108:	if (alignof(_Tp) > __STDCPP_DEFAULT_NEW_ALIGNMENT__)
+        -:  109:	  {
+        -:  110:	    std::align_val_t __al = std::align_val_t(alignof(_Tp));
+        -:  111:	    return static_cast<_Tp*>(::operator new(__n * sizeof(_Tp), __al));
+        -:  112:	  }
+        -:  113:#endif
+    #####:  114:	return static_cast<_Tp*>(::operator new(__n * sizeof(_Tp)));
+        -:  115:      }
+------------------
+_ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIiEE8allocateEmPKv:
+    #####:  102:      allocate(size_type __n, const void* = static_cast<const void*>(0))
+        -:  103:      {
+    #####:  104:	if (__n > this->max_size())
+    %%%%%:  104-block  0
     #####:  105:	  std::__throw_bad_alloc();
     %%%%%:  105-block  0
         -:  106:
@@ -138,13 +160,33 @@ _ZN9__gnu_cxx13new_allocatorIcED2Ev:
         -:  111:	    return static_cast<_Tp*>(::operator new(__n * sizeof(_Tp), __al));
         -:  112:	  }
         -:  113:#endif
-       17:  114:	return static_cast<_Tp*>(::operator new(__n * sizeof(_Tp)));
-       17:  114-block  0
+    #####:  114:	return static_cast<_Tp*>(::operator new(__n * sizeof(_Tp)));
+    %%%%%:  114-block  0
         -:  115:      }
+------------------
+_ZN9__gnu_cxx13new_allocatorIiE8allocateEmPKv:
+    #####:  102:      allocate(size_type __n, const void* = static_cast<const void*>(0))
+        -:  103:      {
+    #####:  104:	if (__n > this->max_size())
+    %%%%%:  104-block  0
+    #####:  105:	  std::__throw_bad_alloc();
+    %%%%%:  105-block  0
+        -:  106:
+        -:  107:#if __cpp_aligned_new
+        -:  108:	if (alignof(_Tp) > __STDCPP_DEFAULT_NEW_ALIGNMENT__)
+        -:  109:	  {
+        -:  110:	    std::align_val_t __al = std::align_val_t(alignof(_Tp));
+        -:  111:	    return static_cast<_Tp*>(::operator new(__n * sizeof(_Tp), __al));
+        -:  112:	  }
+        -:  113:#endif
+    #####:  114:	return static_cast<_Tp*>(::operator new(__n * sizeof(_Tp)));
+    %%%%%:  114-block  0
+        -:  115:      }
+------------------
         -:  116:
         -:  117:      // __p is not permitted to be a null pointer.
         -:  118:      void
-       17:  119:      deallocate(pointer __p, size_type)
+    #####:  119:      deallocate(pointer __p, size_type)
         -:  120:      {
         -:  121:#if __cpp_aligned_new
         -:  122:	if (alignof(_Tp) > __STDCPP_DEFAULT_NEW_ALIGNMENT__)
@@ -153,34 +195,117 @@ _ZN9__gnu_cxx13new_allocatorIcED2Ev:
         -:  125:	    return;
         -:  126:	  }
         -:  127:#endif
-       17:  128:	::operator delete(__p);
-       17:  128-block  0
-       17:  129:      }
+    #####:  128:	::operator delete(__p);
+    #####:  129:      }
+------------------
+_ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIiEE10deallocateEPS2_m:
+    #####:  119:      deallocate(pointer __p, size_type)
+        -:  120:      {
+        -:  121:#if __cpp_aligned_new
+        -:  122:	if (alignof(_Tp) > __STDCPP_DEFAULT_NEW_ALIGNMENT__)
+        -:  123:	  {
+        -:  124:	    ::operator delete(__p, std::align_val_t(alignof(_Tp)));
+        -:  125:	    return;
+        -:  126:	  }
+        -:  127:#endif
+    #####:  128:	::operator delete(__p);
+    %%%%%:  128-block  0
+    #####:  129:      }
+------------------
+_ZN9__gnu_cxx13new_allocatorIiE10deallocateEPim:
+    #####:  119:      deallocate(pointer __p, size_type)
+        -:  120:      {
+        -:  121:#if __cpp_aligned_new
+        -:  122:	if (alignof(_Tp) > __STDCPP_DEFAULT_NEW_ALIGNMENT__)
+        -:  123:	  {
+        -:  124:	    ::operator delete(__p, std::align_val_t(alignof(_Tp)));
+        -:  125:	    return;
+        -:  126:	  }
+        -:  127:#endif
+    #####:  128:	::operator delete(__p);
+    %%%%%:  128-block  0
+    #####:  129:      }
+------------------
         -:  130:
         -:  131:      size_type
-       34:  132:      max_size() const _GLIBCXX_USE_NOEXCEPT
+    #####:  132:      max_size() const _GLIBCXX_USE_NOEXCEPT
         -:  133:      {
         -:  134:#if __PTRDIFF_MAX__ < __SIZE_MAX__
-       34:  135:	return size_t(__PTRDIFF_MAX__) / sizeof(_Tp);
-       34:  135-block  0
+    #####:  135:	return size_t(__PTRDIFF_MAX__) / sizeof(_Tp);
         -:  136:#else
         -:  137:	return size_t(-1) / sizeof(_Tp);
         -:  138:#endif
         -:  139:      }
+------------------
+_ZNK9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIiEE8max_sizeEv:
+    #####:  132:      max_size() const _GLIBCXX_USE_NOEXCEPT
+        -:  133:      {
+        -:  134:#if __PTRDIFF_MAX__ < __SIZE_MAX__
+    #####:  135:	return size_t(__PTRDIFF_MAX__) / sizeof(_Tp);
+    %%%%%:  135-block  0
+        -:  136:#else
+        -:  137:	return size_t(-1) / sizeof(_Tp);
+        -:  138:#endif
+        -:  139:      }
+------------------
+_ZNK9__gnu_cxx13new_allocatorIiE8max_sizeEv:
+    #####:  132:      max_size() const _GLIBCXX_USE_NOEXCEPT
+        -:  133:      {
+        -:  134:#if __PTRDIFF_MAX__ < __SIZE_MAX__
+    #####:  135:	return size_t(__PTRDIFF_MAX__) / sizeof(_Tp);
+    %%%%%:  135-block  0
+        -:  136:#else
+        -:  137:	return size_t(-1) / sizeof(_Tp);
+        -:  138:#endif
+        -:  139:      }
+------------------
         -:  140:
         -:  141:#if __cplusplus >= 201103L
         -:  142:      template<typename _Up, typename... _Args>
         -:  143:	void
-        -:  144:	construct(_Up* __p, _Args&&... __args)
+    #####:  144:	construct(_Up* __p, _Args&&... __args)
         -:  145:	noexcept(noexcept(::new((void *)__p)
         -:  146:			    _Up(std::forward<_Args>(__args)...)))
-        -:  147:	{ ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    #####:  147:	{ ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+------------------
+_ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIiEE9constructIiJRKiEEEvPT_DpOT0_:
+    #####:  144:	construct(_Up* __p, _Args&&... __args)
+        -:  145:	noexcept(noexcept(::new((void *)__p)
+        -:  146:			    _Up(std::forward<_Args>(__args)...)))
+    #####:  147:	{ ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    %%%%%:  147-block  0
+------------------
+_ZN9__gnu_cxx13new_allocatorIiE9constructIiJiEEEvPT_DpOT0_:
+    #####:  144:	construct(_Up* __p, _Args&&... __args)
+        -:  145:	noexcept(noexcept(::new((void *)__p)
+        -:  146:			    _Up(std::forward<_Args>(__args)...)))
+    #####:  147:	{ ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    %%%%%:  147-block  0
+------------------
+_ZN9__gnu_cxx13new_allocatorIiE9constructIiJRKiEEEvPT_DpOT0_:
+    #####:  144:	construct(_Up* __p, _Args&&... __args)
+        -:  145:	noexcept(noexcept(::new((void *)__p)
+        -:  146:			    _Up(std::forward<_Args>(__args)...)))
+    #####:  147:	{ ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    %%%%%:  147-block  0
+------------------
         -:  148:
         -:  149:      template<typename _Up>
         -:  150:	void
-        -:  151:	destroy(_Up* __p)
+    #####:  151:	destroy(_Up* __p)
         -:  152:	noexcept(noexcept( __p->~_Up()))
-        -:  153:	{ __p->~_Up(); }
+    #####:  153:	{ __p->~_Up(); }
+------------------
+_ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIiEE7destroyIiEEvPT_:
+    #####:  151:	destroy(_Up* __p)
+        -:  152:	noexcept(noexcept( __p->~_Up()))
+    #####:  153:	{ __p->~_Up(); }
+------------------
+_ZN9__gnu_cxx13new_allocatorIiE7destroyIiEEvPT_:
+    #####:  151:	destroy(_Up* __p)
+        -:  152:	noexcept(noexcept( __p->~_Up()))
+    #####:  153:	{ __p->~_Up(); }
+------------------
         -:  154:#else
         -:  155:      // _GLIBCXX_RESOLVE_LIB_DEFECTS
         -:  156:      // 402. wrong new expression in [some_] allocator::construct

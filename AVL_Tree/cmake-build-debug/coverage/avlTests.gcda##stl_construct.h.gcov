@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/c++/9/bits/stl_construct.h
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// nonstandard construct and destroy functions -*- C++ -*-
         -:    2:
         -:    3:// Copyright (C) 2001-2019 Free Software Foundation, Inc.
@@ -118,7 +118,7 @@
         -:  114:    {
         -:  115:      template<typename _ForwardIterator>
         -:  116:        static void
-       17:  117:        __destroy(_ForwardIterator, _ForwardIterator) { }
+    #####:  117:        __destroy(_ForwardIterator, _ForwardIterator) { }
         -:  118:    };
         -:  119:
         -:  120:  /**
@@ -128,7 +128,7 @@
         -:  124:   */
         -:  125:  template<typename _ForwardIterator>
         -:  126:    inline void
-       17:  127:    _Destroy(_ForwardIterator __first, _ForwardIterator __last)
+    #####:  127:    _Destroy(_ForwardIterator __first, _ForwardIterator __last)
         -:  128:    {
         -:  129:      typedef typename iterator_traits<_ForwardIterator>::value_type
         -:  130:                       _Value_type;
@@ -138,9 +138,9 @@
         -:  134:		    "value type is destructible");
         -:  135:#endif
         -:  136:      std::_Destroy_aux<__has_trivial_destructor(_Value_type)>::
-       17:  137:	__destroy(__first, __last);
-       17:  137-block  0
-       17:  138:    }
+    #####:  137:	__destroy(__first, __last);
+    %%%%%:  137-block  0
+    #####:  138:    }
         -:  139:
         -:  140:  template<bool>
         -:  141:    struct _Destroy_n_aux
@@ -205,12 +205,12 @@
         -:  200:
         -:  201:  template<typename _ForwardIterator, typename _Tp>
         -:  202:    inline void
-       17:  203:    _Destroy(_ForwardIterator __first, _ForwardIterator __last,
+    #####:  203:    _Destroy(_ForwardIterator __first, _ForwardIterator __last,
         -:  204:	     allocator<_Tp>&)
         -:  205:    {
-       17:  206:      _Destroy(__first, __last);
-       17:  206-block  0
-       17:  207:    }
+    #####:  206:      _Destroy(__first, __last);
+    %%%%%:  206-block  0
+    #####:  207:    }
         -:  208:
         -:  209:#if __cplusplus > 201402L
         -:  210:  template <typename _Tp>

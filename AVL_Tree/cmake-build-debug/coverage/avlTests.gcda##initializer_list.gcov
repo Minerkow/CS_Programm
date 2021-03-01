@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/c++/9/initializer_list
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// std::initializer_list support -*- C++ -*-
         -:    2:
         -:    3:// Copyright (C) 2008-2019 Free Software Foundation, Inc.
@@ -72,18 +72,18 @@
         -:   68:
         -:   69:      // Number of elements.
         -:   70:      constexpr size_type
-       12:   71:      size() const noexcept { return _M_len; }
-       12:   71-block  0
+    #####:   71:      size() const noexcept { return _M_len; }
+    %%%%%:   71-block  0
         -:   72:
         -:   73:      // First element.
         -:   74:      constexpr const_iterator
-       24:   75:      begin() const noexcept { return _M_array; }
-       24:   75-block  0
+    #####:   75:      begin() const noexcept { return _M_array; }
+    %%%%%:   75-block  0
         -:   76:
         -:   77:      // One past the last element.
         -:   78:      constexpr const_iterator
-       12:   79:      end() const noexcept { return begin() + size(); }
-       12:   79-block  0
+    #####:   79:      end() const noexcept { return begin() + size(); }
+    %%%%%:   79-block  0
         -:   80:    };
         -:   81:
         -:   82:  /**

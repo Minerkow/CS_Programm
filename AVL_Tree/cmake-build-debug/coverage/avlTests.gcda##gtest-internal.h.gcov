@@ -1,7 +1,7 @@
         -:    0:Source:/usr/include/gtest/internal/gtest-internal.h
         -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcno
-        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.gcda
-        -:    0:Runs:1
+        -:    0:Data:-
+        -:    0:Runs:0
         -:    1:// Copyright 2005, Google Inc.
         -:    2:// All rights reserved.
         -:    3://
@@ -443,14 +443,14 @@
         -:  439:// of a Test object.
         -:  440:class TestFactoryBase {
         -:  441: public:
-      11*:  442:  virtual ~TestFactoryBase() {}
+    #####:  442:  virtual ~TestFactoryBase() {}
 ------------------
 _ZN7testing8internal15TestFactoryBaseD0Ev:
     #####:  442:  virtual ~TestFactoryBase() {}
     %%%%%:  442-block  0
 ------------------
 _ZN7testing8internal15TestFactoryBaseD2Ev:
-       11:  442:  virtual ~TestFactoryBase() {}
+    #####:  442:  virtual ~TestFactoryBase() {}
 ------------------
         -:  443:
         -:  444:  // Creates a test instance to run. The instance is both created and destroyed
@@ -458,7 +458,7 @@ _ZN7testing8internal15TestFactoryBaseD2Ev:
         -:  446:  virtual Test* CreateTest() = 0;
         -:  447:
         -:  448: protected:
-       11:  449:  TestFactoryBase() {}
+    #####:  449:  TestFactoryBase() {}
         -:  450:
         -:  451: private:
         -:  452:  GTEST_DISALLOW_COPY_AND_ASSIGN_(TestFactoryBase);
@@ -469,83 +469,97 @@ _ZN7testing8internal15TestFactoryBaseD2Ev:
         -:  457:template <class TestClass>
         -:  458:class TestFactoryImpl : public TestFactoryBase {
         -:  459: public:
-       11:  460:  Test* CreateTest() override { return new TestClass; }
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
 ------------------
 _ZN7testing8internal15TestFactoryImplI24AVL_Tree_avlInsert1_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
 _ZN7testing8internal15TestFactoryImplI24AVL_Tree_avlInsert2_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
+    $$$$$:  460-block  3
+------------------
+_ZN7testing8internal15TestFactoryImplI31AVL_Tree_avlLoadFromArray1_TestE10CreateTestEv:
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
 _ZN7testing8internal15TestFactoryImplI36AVL_Tree_avlLoadFromArrayStress_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
 _ZN7testing8internal15TestFactoryImplI31AVL_Tree_avlLoadFromArray2_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
 _ZN7testing8internal15TestFactoryImplI31AVL_Tree_avlLoadFromArray3_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
 _ZN7testing8internal15TestFactoryImplI31AVL_Tree_avlLoadFromArray4_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
 _ZN7testing8internal15TestFactoryImplI31AVL_Tree_avlLoadFromArray5_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
 _ZN7testing8internal15TestFactoryImplI31AVL_Tree_avlLoadFromArray6_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
 _ZN7testing8internal15TestFactoryImplI22AVL_Tree_avlEmpty_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
 _ZN7testing8internal15TestFactoryImplI21AVL_Tree_avlSize_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
 _ZN7testing8internal15TestFactoryImplI30AVL_Tree_avlEraseByValue1_TestE10CreateTestEv:
-        1:  460:  Test* CreateTest() override { return new TestClass; }
-        1:  460-block  0
-        1:  460-block  1
-        1:  460-block  2
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
+    $$$$$:  460-block  3
+------------------
+_ZN7testing8internal15TestFactoryImplI28AVL_Tree_avlSaveInArray_TestE10CreateTestEv:
+    #####:  460:  Test* CreateTest() override { return new TestClass; }
+    %%%%%:  460-block  0
+    %%%%%:  460-block  1
+    %%%%%:  460-block  2
     $$$$$:  460-block  3
 ------------------
         -:  461:};
@@ -568,9 +582,9 @@ _ZN7testing8internal15TestFactoryImplI30AVL_Tree_avlEraseByValue1_TestE10CreateT
         -:  478:using TearDownTestSuiteFunc = void (*)();
         -:  479:
         -:  480:struct CodeLocation {
-       11:  481:  CodeLocation(const std::string& a_file, int a_line)
-       11:  482:      : file(a_file), line(a_line) {}
-       11:  482-block  0
+    #####:  481:  CodeLocation(const std::string& a_file, int a_line)
+    #####:  482:      : file(a_file), line(a_line) {}
+    %%%%%:  482-block  0
         -:  483:
         -:  484:  std::string file;
         -:  485:  int line;
@@ -582,13 +596,13 @@ _ZN7testing8internal15TestFactoryImplI30AVL_Tree_avlEraseByValue1_TestE10CreateT
         -:  491:// Utility functions to help SuiteApiResolver
         -:  492:using SetUpTearDownSuiteFuncType = void (*)();
         -:  493:
-       44:  494:inline SetUpTearDownSuiteFuncType GetNotDefaultOrNull(
+    #####:  494:inline SetUpTearDownSuiteFuncType GetNotDefaultOrNull(
         -:  495:    SetUpTearDownSuiteFuncType a, SetUpTearDownSuiteFuncType def) {
-      44*:  496:  return a == def ? nullptr : a;
-       44:  496-block  0
+    #####:  496:  return a == def ? nullptr : a;
+    %%%%%:  496-block  0
     %%%%%:  496-block  1
-       44:  496-block  2
-       44:  496-block  3
+    %%%%%:  496-block  2
+    %%%%%:  496-block  3
         -:  497:}
         -:  498:
         -:  499:template <typename T>
@@ -601,19 +615,19 @@ _ZN7testing8internal15TestFactoryImplI30AVL_Tree_avlEraseByValue1_TestE10CreateT
         -:  506:  using Test =
         -:  507:      typename std::conditional<sizeof(T) != 0, ::testing::Test, void>::type;
         -:  508:
-       11:  509:  static SetUpTearDownSuiteFuncType GetSetUpCaseOrSuite(const char* filename,
+    #####:  509:  static SetUpTearDownSuiteFuncType GetSetUpCaseOrSuite(const char* filename,
         -:  510:                                                        int line_num) {
         -:  511:    SetUpTearDownSuiteFuncType test_case_fp =
-       11:  512:        GetNotDefaultOrNull(&T::SetUpTestCase, &Test::SetUpTestCase);
-       11:  512-block  0
+    #####:  512:        GetNotDefaultOrNull(&T::SetUpTestCase, &Test::SetUpTestCase);
+    %%%%%:  512-block  0
         -:  513:    SetUpTearDownSuiteFuncType test_suite_fp =
-       11:  514:        GetNotDefaultOrNull(&T::SetUpTestSuite, &Test::SetUpTestSuite);
+    #####:  514:        GetNotDefaultOrNull(&T::SetUpTestSuite, &Test::SetUpTestSuite);
         -:  515:
-      11*:  516:    GTEST_CHECK_(!test_case_fp || !test_suite_fp)
+    #####:  516:    GTEST_CHECK_(!test_case_fp || !test_suite_fp)
     %%%%%:  516-block  0
-       11:  516-block  1
+    %%%%%:  516-block  1
     %%%%%:  516-block  2
-       11:  516-block  3
+    %%%%%:  516-block  3
     %%%%%:  516-block  4
     %%%%%:  516-block  5
     $$$$$:  516-block  6
@@ -625,27 +639,27 @@ _ZN7testing8internal15TestFactoryImplI30AVL_Tree_avlEraseByValue1_TestE10CreateT
     %%%%%:  519-block  2
     %%%%%:  519-block  3
         -:  520:
-      11*:  521:    return test_case_fp != nullptr ? test_case_fp : test_suite_fp;
-       11:  521-block  0
+    #####:  521:    return test_case_fp != nullptr ? test_case_fp : test_suite_fp;
+    %%%%%:  521-block  0
     %%%%%:  521-block  1
-       11:  521-block  2
-       11:  521-block  3
-       11:  521-block  4
+    %%%%%:  521-block  2
+    %%%%%:  521-block  3
+    %%%%%:  521-block  4
         -:  522:  }
         -:  523:
-       11:  524:  static SetUpTearDownSuiteFuncType GetTearDownCaseOrSuite(const char* filename,
+    #####:  524:  static SetUpTearDownSuiteFuncType GetTearDownCaseOrSuite(const char* filename,
         -:  525:                                                           int line_num) {
         -:  526:    SetUpTearDownSuiteFuncType test_case_fp =
-       11:  527:        GetNotDefaultOrNull(&T::TearDownTestCase, &Test::TearDownTestCase);
-       11:  527-block  0
+    #####:  527:        GetNotDefaultOrNull(&T::TearDownTestCase, &Test::TearDownTestCase);
+    %%%%%:  527-block  0
         -:  528:    SetUpTearDownSuiteFuncType test_suite_fp =
-       11:  529:        GetNotDefaultOrNull(&T::TearDownTestSuite, &Test::TearDownTestSuite);
+    #####:  529:        GetNotDefaultOrNull(&T::TearDownTestSuite, &Test::TearDownTestSuite);
         -:  530:
-      11*:  531:    GTEST_CHECK_(!test_case_fp || !test_suite_fp)
+    #####:  531:    GTEST_CHECK_(!test_case_fp || !test_suite_fp)
     %%%%%:  531-block  0
-       11:  531-block  1
+    %%%%%:  531-block  1
     %%%%%:  531-block  2
-       11:  531-block  3
+    %%%%%:  531-block  3
     %%%%%:  531-block  4
     %%%%%:  531-block  5
     $$$$$:  531-block  6
@@ -657,12 +671,12 @@ _ZN7testing8internal15TestFactoryImplI30AVL_Tree_avlEraseByValue1_TestE10CreateT
     %%%%%:  534-block  2
     %%%%%:  534-block  3
         -:  535:
-      11*:  536:    return test_case_fp != nullptr ? test_case_fp : test_suite_fp;
-       11:  536-block  0
+    #####:  536:    return test_case_fp != nullptr ? test_case_fp : test_suite_fp;
+    %%%%%:  536-block  0
     %%%%%:  536-block  1
-       11:  536-block  2
-       11:  536-block  3
-       11:  536-block  4
+    %%%%%:  536-block  2
+    %%%%%:  536-block  3
+    %%%%%:  536-block  4
         -:  537:  }
         -:  538:};
         -:  539:
