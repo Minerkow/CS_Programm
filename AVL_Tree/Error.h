@@ -6,4 +6,4 @@ enum AvlError_t {AVLERR_OK = 0,
                  AVLERR = -1,
                  AVLERR_INSERT,
                  AVLERR_BALANCE
-                 };
+                };

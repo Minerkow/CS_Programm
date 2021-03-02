@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="AVL_Tree"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="AVL_Tree_Test">
+				<Option output="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/AVL_Tree_Test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 AVL_Tree_Test"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="AVL_Tree_Test/fast">
+				<Option output="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/AVL_Tree_Test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 AVL_Tree_Test/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="AVL_Tree">
+				<Option output="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/AVL_Tree" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 AVL_Tree"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="AVL_Tree/fast">
+				<Option output="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/AVL_Tree" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 AVL_Tree/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Iterator.c">
+			<Option target="AVL_Tree_Test"/>
+			<Option target="AVL_Tree"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.c">
+			<Option target="AVL_Tree_Test"/>
+			<Option target="AVL_Tree"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.h">
+			<Option target="AVL_Tree_Test"/>
+			<Option target="AVL_Tree"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_iterator.h">
+			<Option target="AVL_Tree"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/Error.h">
+			<Option target="AVL_Tree"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/main.c">
+			<Option target="AVL_Tree"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/avlTests.cpp">
+			<Option target="AVL_Tree_Test"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

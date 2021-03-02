@@ -191,6 +191,9 @@ enum AvlError_t avlSaveInArray(struct AVL_Tree* avlTree, int* array, size_t lenA
     if (array == NULL) {
         return AVLERR_NULL_POINTER_ARG;
     }
+    if (avlTree->top_ == NULL) {
+        return AVLERR_OK;
+    }
     struct Node_t* it = avlBeginIt_(avlTree);
     for (size_t i = 0; i < lenArray; ++i) {
         if (it == NULL) {

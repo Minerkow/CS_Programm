@@ -30,7 +30,7 @@ static struct Node_t* avlBigRightRotation_ (struct AVL_Tree* avlTree, struct Nod
 
 static int avlGetBalanceFactor_(struct Node_t* top);
 
-static struct Node_t* avlCreateNode_(int data);
+static struct Node_t* avlCreateNode_(struct AVL_Tree* avlTree, int data);
 
 static struct Node_t* avlBalancing_(struct AVL_Tree* avlTree, struct Node_t* top);
 
@@ -41,11 +41,12 @@ static enum AvlError_t avlEraseByIt_(struct AVL_Tree* avlTree, struct Node_t* it
 
 //*If the data is in the table, it returns an iterator on it,
 //*otherwise it returns a null iterator
-static struct Node_t* avlFind_(struct AVL_Tree* avlTree, int data);
+struct Node_t* avlFind_(struct AVL_Tree* avlTree, int data);
 
 static void avlPrintNode_ (struct Node_t* top);
 
 static int avlNodeHeight_(struct Node_t* top);
+static void avlInorder_(struct Node_t* top);
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 enum AvlError_t avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t arraySize) {
@@ -76,10 +77,11 @@ enum AvlError_t avlInsert(struct AVL_Tree* avlTree, int data) {
         return AVLERR_NOT_INIT;
     }
     if (avlTree->top_ == NULL) {
-        avlTree->top_ = avlCreateNode_(data);
-        avlTree->top_->height_ = 1;
+        avlTree->top_ = avlCreateNode_(avlTree, data);
+        if (!avlTree->top_) {
+            return AVLERR_INSERT;
+        }
         avlTree->top_->prev_ = NULL;
-        avlTree->size_ = 1;
         return AVLERR_OK;
     }
     struct Node_t* tmp = avlTree->top_;
@@ -98,10 +100,12 @@ enum AvlError_t avlInsert(struct AVL_Tree* avlTree, int data) {
             return AVLERR_OK;
         }
     }
-    struct Node_t* newNode = avlCreateNode_(data);
+    struct Node_t* newNode = avlCreateNode_(avlTree, data);
+    if (!newNode) {
+        return AVLERR_INSERT;
+    }
     newNode->prev_ = current;
 
-    avlTree->size_++;
     if (data > current->data_) {
         current->right_ = newNode;
     } else {
@@ -124,7 +128,6 @@ enum AvlError_t avlInsert(struct AVL_Tree* avlTree, int data) {
 }
 
 struct Node_t* avlFind_(struct AVL_Tree* avlTree, int data) {
-    struct Node_t* it;
     if (avlTree == NULL) {
         fprintf(stderr, "NULL argument in avlFind");
         return NULL;
@@ -142,8 +145,7 @@ struct Node_t* avlFind_(struct AVL_Tree* avlTree, int data) {
             continue;
         }
         if (data == tmp->data_) {
-            it = tmp;
-            return it;
+            return tmp;
         }
     }
     return NULL;
@@ -159,10 +161,15 @@ bool avlEmpty(struct AVL_Tree* avlTree) {
     return false;
 }
 
-struct Node_t* avlCreateNode_(int data) {
+struct Node_t* avlCreateNode_(struct AVL_Tree* avlTree, int data) {
     struct Node_t* node = (struct Node_t*)calloc(1, sizeof(struct Node_t));
+    if (node == NULL) {
+        fprintf(stderr, "kek");
+        return NULL;
+    }
     node->data_ = data;
     node->height_ = 1;
+    avlTree->size_++;
     return node;
 }
 
@@ -175,7 +182,7 @@ struct Node_t* avlBalancing_(struct AVL_Tree* avlTree, struct Node_t* top) {
         return NULL;
     }
 
-    struct Node_t* previous = top->prev_;
+    struct Node_t *previous = top->prev_;
     int place = 0;
     if (previous != NULL) {
         if (previous->right_ == top) {
@@ -184,48 +191,57 @@ struct Node_t* avlBalancing_(struct AVL_Tree* avlTree, struct Node_t* top) {
             place = -1;
         }
     }
-    if (avlGetBalanceFactor_(top) >= 2) {
+
+    if (avlGetBalanceFactor_(top) == 2) {
         if (avlGetBalanceFactor_(top->right_) >= 0) {
-            struct Node_t* newTop = avlSmallLeftRotation_(avlTree, top);
+            struct Node_t *tmp = avlSmallLeftRotation_(avlTree, top);
+            if (tmp == NULL) {
+                return NULL;
+            }
             if (place == 1) {
-                previous->right_ = newTop;
+                previous->right_ = tmp;
             }
             if (place == -1) {
-                previous->left_ = newTop;
+                previous->left_ = tmp;
             }
-            return newTop;
         } else {
-            struct Node_t* newTop = avlBigLeftRotation_(avlTree, top);
+            struct Node_t *tmp = avlBigLeftRotation_(avlTree, top);
+            if (tmp == NULL) {
+                return NULL;
+            }
             if (place == 1) {
-                previous->right_ = newTop;
+                previous->right_ = tmp;
             }
             if (place == -1) {
-                previous->left_ = newTop;
+                previous->left_ = tmp;
             }
-            return newTop;
         }
     }
-    if (avlGetBalanceFactor_(top) <= -2) {
-        if (avlGetBalanceFactor_(top->right_) >= 0) {
-            struct Node_t* newTop = avlSmallRightRotation_(avlTree, top);
+
+    if (avlGetBalanceFactor_(top) == -2) {
+        if (avlGetBalanceFactor_(top->left_) <= 0) {
+            struct Node_t *tmp = avlSmallRightRotation_(avlTree, top);
+            if (tmp == NULL) {
+                return NULL;
+            }
             if (place == 1) {
-                previous->right_ = newTop;
+                previous->right_ = tmp;
             }
-            if (place == -1) {
-                previous->left_ = newTop;
-            }
-            return newTop;
+            if (place == -1)
+                previous->left_ = tmp;
         } else {
-            struct Node_t* newTop = avlBigRightRotation_(avlTree, top);
+            struct Node_t *tmp = avlBigRightRotation_(avlTree, top);
+            if (tmp == NULL) {
+                return NULL;
+            }
             if (place == 1) {
-                previous->right_ = newTop;
+                previous->right_ = tmp;
             }
             if (place == -1) {
-                previous->left_ = newTop;
+                previous->left_ = tmp;
             }
-            return newTop;
-        }
     }
+}
     assert(1 && "Oooops");
     return top;
 }
@@ -484,23 +500,9 @@ int avlGetBalanceFactor_(struct Node_t* top) {
     return balanceFactor;
 }
 
-void avlPerror(enum AvlError_t err) {
-    switch (err) {
-        case AVLERR_NOT_INIT:
-            fprintf(stderr, "AVL: AVL Tree don't init\n"); return;
-        case AVLERR_NULL_POINTER_ARG:
-            fprintf(stderr, "AVL: NULL argument is supplied as an argument\n"); return;
-        case AVLERR:
-            fprintf(stderr, "AVL: Error\n"); return;
-        case AVLERR_INSERT:
-            fprintf(stderr, "AVL: Insert ERROR\n"); return;
-        default:
-            return;
-    }
-}
-
 struct AVL_Tree* avlInit() {
     struct AVL_Tree* avlTree = calloc(1, sizeof(struct AVL_Tree));
+    avlTree->size_ = 0;
     if (avlTree == NULL) {
         return NULL;
     }
@@ -518,44 +520,6 @@ enum AvlError_t avlNodeBalancing_(struct Node_t* node) {
         node->height_ = avlNodeHeight_(node->left_) + 1;
     }
     return AVLERR_OK;
-}
-
-void avlPrintTree_(struct AVL_Tree* avlTree) {
-    avlPrintNode_(avlTree->top_);
-}
-void avlPrintNode_(struct Node_t* top) {
-    if (top == NULL){
-        fprintf (stderr, "Error: top is NULL, line - %d\n", __LINE__);
-        return;
-    }
-    if (top->left_ == NULL && top->right_ == NULL)
-        return;
-
-    printf("%d ", top->data_);
-
-    if (top->left_ == NULL) {
-        printf ("NULL ");
-        //return;
-    } else {
-        printf("%d ", top->left_->data_);
-    }
-
-    if (top->right_ == NULL)
-    {
-        //printf ("_%d_", top->right->lexem.lex.num);
-        printf("NULL ");
-        //return;
-    } else {
-        printf("%d ", top->right_->data_);
-    }
-
-    printf ("\n");
-    if (top->left_ != NULL) {
-        avlPrintNode_(top->left_);
-    }
-    if (top->right_ != NULL) {
-        avlPrintNode_(top->right_);
-    }
 }
 
 size_t avlSize(struct AVL_Tree* avlTree) {
@@ -598,18 +562,29 @@ enum AvlError_t avlEraseByIt_(struct AVL_Tree* avlTree, struct Node_t* it) {
     } else {
         struct Node_t* tmp = ptr->left_;
         struct Node_t* current = tmp;
+        if (current == NULL) {
+            avlTree->top_ = ptr->right_;
+            ptr->right_->prev_ = NULL;
+            free(ptr);
+            return AVLERR_OK;
+        }
         while (tmp != NULL) {
             current = tmp;
             tmp = tmp->right_;
         }
-        assert(current->right_ == NULL);
 
         struct Node_t* prev = current->prev_;
         ptr->data_ = current->data_;
-        ptr->left_ = current->left_;
-        if (current->left_ != NULL) {
-            current->left_->prev_ = ptr;
+
+        if (current->prev_->right_ == current) {
+            current->prev_->right_ = current->left_;
+            current->left_->prev_ = current->prev_;
         }
+        if (current->prev_->left_ == current) {
+            current->prev_->left_ = current->left_;
+            current->left_->prev_ = current->prev_;
+        }
+
 
         free(current);
         avlTree->size_--;
@@ -636,5 +611,76 @@ int avlNodeHeight_(struct Node_t* top) {
         return 0;
     } else {
         return top->height_;
+    }
+}
+
+int avlClear(struct AVL_Tree* avlTree) {
+    if (!avlTree) {
+        return -1;
+    }
+    avlInorder_(avlTree->top_);
+    free(avlTree);
+    return 1;
+}
+
+void avlInorder_(struct Node_t* top) {
+    if (top == NULL)
+        return;
+    avlInorder_(top->left_);
+    avlInorder_(top->right_);
+    free(top);
+}
+
+void avlPerror(enum AvlError_t err) {
+    switch (err) {
+        case AVLERR_NOT_INIT:
+            fprintf(stderr, "AVL: AVL Tree don't init\n"); return;
+        case AVLERR_NULL_POINTER_ARG:
+            fprintf(stderr, "AVL: NULL argument is supplied as an argument\n"); return;
+        case AVLERR:
+            fprintf(stderr, "AVL: Error\n"); return;
+        case AVLERR_INSERT:
+            fprintf(stderr, "AVL: Insert ERROR\n"); return;
+        default:
+            return;
+    }
+}
+
+void avlPrintTree_(struct AVL_Tree* avlTree) {
+    avlPrintNode_(avlTree->top_);
+}
+
+void avlPrintNode_(struct Node_t* top) {
+    if (top == NULL){
+        fprintf (stderr, "Error: top is NULL, line - %d\n", __LINE__);
+        return;
+    }
+    if (top->left_ == NULL && top->right_ == NULL)
+        return;
+
+    printf("%d ", top->data_);
+
+    if (top->left_ == NULL) {
+        printf ("NULL ");
+        //return;
+    } else {
+        printf("%d ", top->left_->data_);
+    }
+
+    if (top->right_ == NULL)
+    {
+        //printf ("_%d_", top->right->lexem.lex.num);
+        printf("NULL ");
+        //return;
+    } else {
+        printf("%d ", top->right_->data_);
+    }
+
+    printf ("\n");
+    if (top->left_ != NULL) {
+        avlPrintNode_(top->left_);
+    }
+    if (top->right_ != NULL) {
+        avlPrintNode_(top->right_);
     }
 }

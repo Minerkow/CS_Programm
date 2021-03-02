@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.h
+stdio.h
+-
+stdbool.h
+-
+stdlib.h
+-
+assert.h
+-
+string.h
+-
+math.h
+-
+Error.h
+/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/Error.h
+
+/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/Error.h
+
+/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/main.c
+AVL_Tree.h
+/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.h
+

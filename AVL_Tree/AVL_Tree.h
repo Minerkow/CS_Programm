@@ -51,5 +51,8 @@ void avlForEach(void (*foo)(struct Node_t* it, void* data), void* data);
 
 //#ifdef DEBUG
 void avlPrintTree_(struct AVL_Tree* avlTree);
+struct Node_t* avlFind_(struct AVL_Tree* avlTree, int data);
 //#endif
+
+
 
