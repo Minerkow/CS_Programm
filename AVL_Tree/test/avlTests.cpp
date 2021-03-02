@@ -25,30 +25,30 @@ TEST(AVL_Tree, avlInsert2) {
 
 //-----------------------------------------------------------------------------------------------------------------
 
-//TEST(AVL_Tree, avlLoadFromArray1) {
-//    const size_t numNumbers = 100000;
-//    AVL_Tree* avlTree = avlInit();
-//    std::vector<int> input;
-//    std::set<int> garantSet;
-//    std::srand(std::time(0));
-//    for (int i = 0; i < numNumbers; ++i) {
-//        input.push_back(std::rand() % 10000000);
-//        garantSet.insert(input.back());
-//        avlInsert(avlTree, input.back());
-//    }
-//    ASSERT_EQ(avlSize(avlTree), garantSet.size());
-//    std::vector<int> trueRes;
-//    for (auto& it : garantSet) {
-//        trueRes.push_back(it);
-//    }
-//    std::vector<int> res(trueRes.size());
-//    avlSaveInArray(avlTree, res.data(), avlSize(avlTree));
-//    //std::cout << std::endl;
-//    //avlPrintTree_(avlTree);
-//    ASSERT_EQ(avlSize(avlTree), garantSet.size());
-//    ASSERT_EQ(trueRes, res);
-//    avlClear(avlTree);
-//}
+TEST(AVL_Tree, avlLoadFromArray1) {
+    const size_t numNumbers = 100000;
+    AVL_Tree* avlTree = avlInit();
+    std::vector<int> input;
+    std::set<int> garantSet;
+    std::srand(std::time(0));
+    for (int i = 0; i < numNumbers; ++i) {
+        input.push_back(std::rand() % 10000000);
+        garantSet.insert(input.back());
+        avlInsert(avlTree, input.back());
+    }
+    ASSERT_EQ(avlSize(avlTree), garantSet.size());
+    std::vector<int> trueRes;
+    for (auto& it : garantSet) {
+        trueRes.push_back(it);
+    }
+    std::vector<int> res(trueRes.size());
+    avlSaveInArray(avlTree, res.data(), avlSize(avlTree));
+    //std::cout << std::endl;
+    //avlPrintTree_(avlTree);
+    ASSERT_EQ(avlSize(avlTree), garantSet.size());
+    ASSERT_EQ(trueRes, res);
+    avlClear(avlTree);
+}
 
 TEST(AVL_Tree, avlLoadFromArrayStress) {
     AVL_Tree* avlTree = avlInit();
@@ -177,10 +177,7 @@ TEST(AVL_Tree, avlEraseByValue4) {
     AVL_Tree* avlTree = avlInit();
     std::vector<int> input = { 0, 1, 3, 4, 6, 7, 9 };
     avlLoadFromArray(avlTree, input.data(), input.size());
-    avlPrintTree_(avlTree);
-    printf("\n");
     avlEraseByValue(avlTree, 4);
-    avlPrintTree_(avlTree);
     std::vector<int> res(6);
     std::vector<int> trueRes = {0, 1, 3, 6, 7, 9 };
     avlSaveInArray(avlTree, res.data(), res.size());
@@ -188,65 +185,65 @@ TEST(AVL_Tree, avlEraseByValue4) {
     avlClear(avlTree);
 }
 
-//TEST(AVL_Tree, avlEraseByValue5) {
-//    AVL_Tree* avlTree = avlInit();
-//    std::vector<int> input = { 0, 1, 3, 4, 6, 7, 9 };
-//    avlLoadFromArray(avlTree, input.data(), input.size());
-//    avlEraseByValue(avlTree, 6);
-//    std::vector<int> res(6);
-//    std::vector<int> trueRes = {0, 1, 3, 4, 7, 9 };
-//    avlSaveInArray(avlTree, res.data(), res.size());
-//    ASSERT_EQ(res, trueRes);
-//    avlClear(avlTree);
-//}
-//
-//TEST(AVL_Tree, avlEraseByValue6) {
-//    AVL_Tree* avlTree = avlInit();
-//    std::vector<int> input = { 0};
-//    avlLoadFromArray(avlTree, input.data(), input.size());
-//    avlEraseByValue(avlTree, 0);
-//    ASSERT_TRUE(avlEmpty(avlTree));
-//    avlClear(avlTree);
-//}
-//
-//TEST(AVL_Tree, avlEraseByValue7) {
-//    AVL_Tree* avlTree = avlInit();
-//    std::vector<int> input = { 0, 1};
-//    avlLoadFromArray(avlTree, input.data(), input.size());
-//    avlEraseByValue(avlTree, 0);
-//    std::vector<int> res(1);
-//    std::vector<int> trueRes = {1};
-//    avlSaveInArray(avlTree, res.data(), res.size());
-//    ASSERT_EQ(res, trueRes);
-//    avlClear(avlTree);
-//}
-//
-//TEST(AVL_Tree, avlEraseByValue8) {
-//    AVL_Tree* avlTree = avlInit();
-//    std::vector<int> input = { 1, 3, 0, 2};
-//    avlLoadFromArray(avlTree, input.data(), input.size());
-//    avlEraseByValue(avlTree, 2);
-//    std::vector<int> res(3);
-//    std::vector<int> trueRes = {0, 1, 3};
-//    avlSaveInArray(avlTree, res.data(), res.size());
-//    ASSERT_EQ(res, trueRes);
-//    avlClear(avlTree);
-//}
-//
-////-------------------------------------------------------------------------------------------------------------------------------
-//
-//TEST(AVL_Tree, avlSaveInArray) {
-//    AVL_Tree* avlTree = avlInit();
-//    int arr[5] = {};
-//    ASSERT_EQ(avlSaveInArray(NULL, NULL, 0), AVLERR_NOT_INIT);
-//    ASSERT_EQ(avlSaveInArray(avlTree, arr, 0), AVLERR_OK);
-//    ASSERT_EQ(avlSaveInArray(avlTree, NULL, 5), AVLERR_NULL_POINTER_ARG);
-//    ASSERT_EQ(avlSaveInArray(avlTree, arr, 1), AVLERR_OK);
-//    avlClear(avlTree);
-//}
-//
-////-------------------------------------------------------------------------------------------------------------------------------
-//
-//TEST(AVL_Tree, avlClear) {
-//    avlClear(NULL);
-//}
+TEST(AVL_Tree, avlEraseByValue5) {
+    AVL_Tree* avlTree = avlInit();
+    std::vector<int> input = { 0, 1, 3, 4, 6, 7, 9 };
+    avlLoadFromArray(avlTree, input.data(), input.size());
+    avlEraseByValue(avlTree, 6);
+    std::vector<int> res(6);
+    std::vector<int> trueRes = {0, 1, 3, 4, 7, 9 };
+    avlSaveInArray(avlTree, res.data(), res.size());
+    ASSERT_EQ(res, trueRes);
+    avlClear(avlTree);
+}
+
+TEST(AVL_Tree, avlEraseByValue6) {
+    AVL_Tree* avlTree = avlInit();
+    std::vector<int> input = { 0};
+    avlLoadFromArray(avlTree, input.data(), input.size());
+    avlEraseByValue(avlTree, 0);
+    ASSERT_TRUE(avlEmpty(avlTree));
+    avlClear(avlTree);
+}
+
+TEST(AVL_Tree, avlEraseByValue7) {
+    AVL_Tree* avlTree = avlInit();
+    std::vector<int> input = { 0, 1};
+    avlLoadFromArray(avlTree, input.data(), input.size());
+    avlEraseByValue(avlTree, 0);
+    std::vector<int> res(1);
+    std::vector<int> trueRes = {1};
+    avlSaveInArray(avlTree, res.data(), res.size());
+    ASSERT_EQ(res, trueRes);
+    avlClear(avlTree);
+}
+
+TEST(AVL_Tree, avlEraseByValue8) {
+    AVL_Tree* avlTree = avlInit();
+    std::vector<int> input = { 1, 3, 0, -1, -2};
+    avlLoadFromArray(avlTree, input.data(), input.size());
+    avlEraseByValue(avlTree, 0);
+    std::vector<int> res(4);
+    std::vector<int> trueRes = {-2, -1, 1, 3};
+    avlSaveInArray(avlTree, res.data(), res.size());
+    ASSERT_EQ(res, trueRes);
+    avlClear(avlTree);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------
+
+TEST(AVL_Tree, avlSaveInArray) {
+    AVL_Tree* avlTree = avlInit();
+    int arr[5] = {};
+    ASSERT_EQ(avlSaveInArray(NULL, NULL, 0), AVLERR_NOT_INIT);
+    ASSERT_EQ(avlSaveInArray(avlTree, arr, 0), AVLERR_OK);
+    ASSERT_EQ(avlSaveInArray(avlTree, NULL, 5), AVLERR_NULL_POINTER_ARG);
+    ASSERT_EQ(avlSaveInArray(avlTree, arr, 1), AVLERR_OK);
+    avlClear(avlTree);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------
+
+TEST(AVL_Tree, avlClear) {
+    avlClear(NULL);
+}
