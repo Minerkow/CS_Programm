@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 extern "C" {
-    #include "../AVL_Tree.h"
-    #include "../TestHelper.h"
+    #include "../headers/AVL_Tree.h"
+    #include "../headers/TestHelper.h"
 }
 
 
@@ -13,23 +13,27 @@ int main() {
 TEST(AVL_Tree, stressTest1) {
     AVL_Tree* avlTree = avlInit();
     ASSERT_TRUE(!avlTree);
+    avlClear(avlTree);
 }
 
 TEST(AVL_Tree, stressTest2) {
     AVL_Tree* avlTree = avlInit();
     ASSERT_EQ(AVLERR_INSERT, avlInsert(avlTree, 1));
+    avlClear(avlTree);
 }
 
 TEST(AVL_Tree, stressTest3) {
     AVL_Tree* avlTree = avlInit();
     avlInsert(avlTree, 1);
     ASSERT_EQ(AVLERR_INSERT, avlInsert(avlTree, 2));
+    avlClear(avlTree);
 }
 
 TEST(AVL_Tree, stressTest4) {
     AVL_Tree* avlTree = avlInit();
     int arr[] = {1};
     ASSERT_EQ(AVLERR_INSERT, avlLoadFromArray(avlTree, arr, 1));
+    avlClear(avlTree);
 }
 
 
@@ -50,7 +54,7 @@ TEST(AVL_Tree, avlInsert2) {
 //-----------------------------------------------------------------------------------------------------------------
 
 TEST(AVL_Tree, avlLoadFromArray1) {
-    const size_t numNumbers = 1000000;
+    const size_t numNumbers = 100000;
     AVL_Tree* avlTree = avlInit();
     std::vector<int> input;
     std::set<int> garantSet;
@@ -289,6 +293,7 @@ TEST(AVL_Tree, avlForEach1) {
     avlLoadFromArray(avlTree, input.data(), input.size());
     avlForEach(avlTree, Sum, &sum);
     ASSERT_EQ(sum, 10);
+    avlClear(avlTree);
 }
 
 TEST(AVL_Tree, avlForEach2) {
@@ -296,16 +301,19 @@ TEST(AVL_Tree, avlForEach2) {
     ASSERT_EQ(AVLERR_NOT_INIT, avlForEach(NULL, Sum, NULL));
     ASSERT_EQ(AVLERR_OK, avlForEach(avlTree, Sum, NULL));
     ASSERT_EQ(AVLERR_NULL_POINTER_ARG, avlForEach(avlTree, NULL, NULL));
+    avlClear(avlTree);
 }
 
 TEST(AVL_Tree, avlGetMaxElem) {
     ASSERT_TRUE(!isnan(avlGetMaxElem(NULL)));
     AVL_Tree* avlTree = avlInit();
     ASSERT_TRUE(!isnan(avlGetMaxElem(avlTree)));
+    avlClear(avlTree);
 }
 
 TEST(AVL_Tree, avlGetMinElem) {
     ASSERT_TRUE(!isnan(avlGetMinElem(NULL)));
     AVL_Tree* avlTree = avlInit();
     ASSERT_TRUE(!isnan(avlGetMinElem(avlTree)));
+    avlClear(avlTree);
 }
