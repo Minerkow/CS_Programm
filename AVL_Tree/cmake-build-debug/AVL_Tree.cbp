@@ -138,19 +138,21 @@
 			<Option target="AVL_Tree_Test"/>
 			<Option target="AVL_Tree"/>
 		</Unit>
-		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_iterator.h">
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/Error.h">
 			<Option target="AVL_Tree"/>
 		</Unit>
-		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/Error.h">
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.c">
+			<Option target="AVL_Tree_Test"/>
+			<Option target="AVL_Tree"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.h">
+			<Option target="AVL_Tree_Test"/>
 			<Option target="AVL_Tree"/>
 		</Unit>
 		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/main.c">
 			<Option target="AVL_Tree"/>
 		</Unit>
 		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/avlTests.cpp">
-			<Option target="AVL_Tree_Test"/>
-		</Unit>
-		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/stressTest.cpp">
 			<Option target="AVL_Tree_Test"/>
 		</Unit>
 		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/CMakeLists.txt">

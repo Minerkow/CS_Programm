@@ -116,25 +116,25 @@ CMakeFiles/AVL_Tree_Test.dir/AVL_Iterator.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/AVL_Tree_Test.dir/AVL_Iterator.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Iterator.c" -o CMakeFiles/AVL_Tree_Test.dir/AVL_Iterator.c.s
 
-CMakeFiles/AVL_Tree_Test.dir/test/stressTest.o: CMakeFiles/AVL_Tree_Test.dir/flags.make
-CMakeFiles/AVL_Tree_Test.dir/test/stressTest.o: ../test/stressTest.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/AVL_Tree_Test.dir/test/stressTest.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/AVL_Tree_Test.dir/test/stressTest.o -c "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/stressTest.cpp"
+CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o: CMakeFiles/AVL_Tree_Test.dir/flags.make
+CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o: ../TestHelper.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o   -c "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.c"
 
-CMakeFiles/AVL_Tree_Test.dir/test/stressTest.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/AVL_Tree_Test.dir/test/stressTest.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/stressTest.cpp" > CMakeFiles/AVL_Tree_Test.dir/test/stressTest.i
+CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.c" > CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.i
 
-CMakeFiles/AVL_Tree_Test.dir/test/stressTest.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/AVL_Tree_Test.dir/test/stressTest.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/stressTest.cpp" -o CMakeFiles/AVL_Tree_Test.dir/test/stressTest.s
+CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.c" -o CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.s
 
 # Object files for target AVL_Tree_Test
 AVL_Tree_Test_OBJECTS = \
 "CMakeFiles/AVL_Tree_Test.dir/test/avlTests.o" \
 "CMakeFiles/AVL_Tree_Test.dir/AVL_Tree.c.o" \
 "CMakeFiles/AVL_Tree_Test.dir/AVL_Iterator.c.o" \
-"CMakeFiles/AVL_Tree_Test.dir/test/stressTest.o"
+"CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o"
 
 # External object files for target AVL_Tree_Test
 AVL_Tree_Test_EXTERNAL_OBJECTS =
@@ -142,7 +142,7 @@ AVL_Tree_Test_EXTERNAL_OBJECTS =
 AVL_Tree_Test: CMakeFiles/AVL_Tree_Test.dir/test/avlTests.o
 AVL_Tree_Test: CMakeFiles/AVL_Tree_Test.dir/AVL_Tree.c.o
 AVL_Tree_Test: CMakeFiles/AVL_Tree_Test.dir/AVL_Iterator.c.o
-AVL_Tree_Test: CMakeFiles/AVL_Tree_Test.dir/test/stressTest.o
+AVL_Tree_Test: CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o
 AVL_Tree_Test: CMakeFiles/AVL_Tree_Test.dir/build.make
 AVL_Tree_Test: /usr/lib/x86_64-linux-gnu/libgtest.a
 AVL_Tree_Test: CMakeFiles/AVL_Tree_Test.dir/link.txt

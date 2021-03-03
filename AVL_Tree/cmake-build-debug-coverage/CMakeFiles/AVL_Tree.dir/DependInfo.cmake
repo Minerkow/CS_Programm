@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_C
   "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Iterator.c" "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/CMakeFiles/AVL_Tree.dir/AVL_Iterator.c.o"
   "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.c" "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/CMakeFiles/AVL_Tree.dir/AVL_Tree.c.o"
+  "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.c" "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/CMakeFiles/AVL_Tree.dir/TestHelper.c.o"
   "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/main.c" "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug-coverage/CMakeFiles/AVL_Tree.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

@@ -216,6 +216,36 @@ AVL_Tree.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree.dir/build.make CMakeFiles/AVL_Tree.dir/AVL_Tree.c.s
 .PHONY : AVL_Tree.c.s
 
+TestHelper.o: TestHelper.c.o
+
+.PHONY : TestHelper.o
+
+# target to build an object file
+TestHelper.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree_Test.dir/build.make CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree.dir/build.make CMakeFiles/AVL_Tree.dir/TestHelper.c.o
+.PHONY : TestHelper.c.o
+
+TestHelper.i: TestHelper.c.i
+
+.PHONY : TestHelper.i
+
+# target to preprocess a source file
+TestHelper.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree_Test.dir/build.make CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree.dir/build.make CMakeFiles/AVL_Tree.dir/TestHelper.c.i
+.PHONY : TestHelper.c.i
+
+TestHelper.s: TestHelper.c.s
+
+.PHONY : TestHelper.s
+
+# target to generate assembly for a file
+TestHelper.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree_Test.dir/build.make CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree.dir/build.make CMakeFiles/AVL_Tree.dir/TestHelper.c.s
+.PHONY : TestHelper.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -258,21 +288,6 @@ test/avlTests.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree_Test.dir/build.make CMakeFiles/AVL_Tree_Test.dir/test/avlTests.s
 .PHONY : test/avlTests.s
 
-# target to build an object file
-test/stressTest.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree_Test.dir/build.make CMakeFiles/AVL_Tree_Test.dir/test/stressTest.o
-.PHONY : test/stressTest.o
-
-# target to preprocess a source file
-test/stressTest.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree_Test.dir/build.make CMakeFiles/AVL_Tree_Test.dir/test/stressTest.i
-.PHONY : test/stressTest.i
-
-# target to generate assembly for a file
-test/stressTest.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree_Test.dir/build.make CMakeFiles/AVL_Tree_Test.dir/test/stressTest.s
-.PHONY : test/stressTest.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -289,15 +304,15 @@ help:
 	@echo "... AVL_Tree.o"
 	@echo "... AVL_Tree.i"
 	@echo "... AVL_Tree.s"
+	@echo "... TestHelper.o"
+	@echo "... TestHelper.i"
+	@echo "... TestHelper.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
 	@echo "... test/avlTests.o"
 	@echo "... test/avlTests.i"
 	@echo "... test/avlTests.s"
-	@echo "... test/stressTest.o"
-	@echo "... test/stressTest.i"
-	@echo "... test/stressTest.s"
 .PHONY : help
 
 

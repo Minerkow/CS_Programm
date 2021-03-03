@@ -9,9 +9,14 @@ CMakeFiles/AVL_Tree_Test.dir/AVL_Tree.c.o
  /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.c
  /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.h
  /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/Error.h
+ /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.h
+CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o
+ /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.h
+ /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/Error.h
+ /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.c
+ /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.h
 CMakeFiles/AVL_Tree_Test.dir/test/avlTests.o
  /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.h
  /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/Error.h
+ /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.h
  /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/avlTests.cpp
-CMakeFiles/AVL_Tree_Test.dir/test/stressTest.o
- /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/stressTest.cpp

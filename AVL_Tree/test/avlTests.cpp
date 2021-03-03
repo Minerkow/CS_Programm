@@ -1,12 +1,37 @@
 #include <gtest/gtest.h>
 extern "C" {
     #include "../AVL_Tree.h"
+    #include "../TestHelper.h"
 }
+
 
 int main() {
     testing::InitGoogleTest();
     return RUN_ALL_TESTS();
 }
+
+TEST(AVL_Tree, stressTest1) {
+    AVL_Tree* avlTree = avlInit();
+    ASSERT_TRUE(!avlTree);
+}
+
+TEST(AVL_Tree, stressTest2) {
+    AVL_Tree* avlTree = avlInit();
+    ASSERT_EQ(AVLERR_INSERT, avlInsert(avlTree, 1));
+}
+
+TEST(AVL_Tree, stressTest3) {
+    AVL_Tree* avlTree = avlInit();
+    avlInsert(avlTree, 1);
+    ASSERT_EQ(AVLERR_INSERT, avlInsert(avlTree, 2));
+}
+
+TEST(AVL_Tree, stressTest4) {
+    AVL_Tree* avlTree = avlInit();
+    int arr[] = {1};
+    ASSERT_EQ(AVLERR_INSERT, avlLoadFromArray(avlTree, arr, 1));
+}
+
 
 //---------------------------------------------------------------------------------------------------------------------------------------
 
@@ -20,13 +45,12 @@ TEST(AVL_Tree, avlInsert1) {
 TEST(AVL_Tree, avlInsert2) {
     int err = avlInsert(NULL, 1);
     ASSERT_EQ(err, AVLERR_NOT_INIT);
-
 }
 
 //-----------------------------------------------------------------------------------------------------------------
 
 TEST(AVL_Tree, avlLoadFromArray1) {
-    const size_t numNumbers = 100000;
+    const size_t numNumbers = 1000000;
     AVL_Tree* avlTree = avlInit();
     std::vector<int> input;
     std::set<int> garantSet;
@@ -246,4 +270,42 @@ TEST(AVL_Tree, avlSaveInArray) {
 
 TEST(AVL_Tree, avlClear) {
     avlClear(NULL);
+}
+
+void Sum(Node_t* it, void* data) {
+    if (avlEmptyIt(it)) {
+        return;
+    }
+    avlEmptyIt(NULL);
+    avlGetDataByIt(NULL);
+    int* ptr = (int*)data;
+    *ptr += avlGetDataByIt(it);
+}
+
+TEST(AVL_Tree, avlForEach1) {
+    AVL_Tree* avlTree = avlInit();
+    int sum = 0;
+    std::vector<int> input = { 0, 1, 2, 3, 4};
+    avlLoadFromArray(avlTree, input.data(), input.size());
+    avlForEach(avlTree, Sum, &sum);
+    ASSERT_EQ(sum, 10);
+}
+
+TEST(AVL_Tree, avlForEach2) {
+    AVL_Tree* avlTree = avlInit();
+    ASSERT_EQ(AVLERR_NOT_INIT, avlForEach(NULL, Sum, NULL));
+    ASSERT_EQ(AVLERR_OK, avlForEach(avlTree, Sum, NULL));
+    ASSERT_EQ(AVLERR_NULL_POINTER_ARG, avlForEach(avlTree, NULL, NULL));
+}
+
+TEST(AVL_Tree, avlGetMaxElem) {
+    ASSERT_TRUE(!isnan(avlGetMaxElem(NULL)));
+    AVL_Tree* avlTree = avlInit();
+    ASSERT_TRUE(!isnan(avlGetMaxElem(avlTree)));
+}
+
+TEST(AVL_Tree, avlGetMinElem) {
+    ASSERT_TRUE(!isnan(avlGetMinElem(NULL)));
+    AVL_Tree* avlTree = avlInit();
+    ASSERT_TRUE(!isnan(avlGetMinElem(avlTree)));
 }

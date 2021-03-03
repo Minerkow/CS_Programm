@@ -14,9 +14,9 @@ include_directories(
         ${GTEST_INCLUDE_DIRS}
 )
 
-add_executable(AVL_Tree main.c AVL_Tree.c AVL_Tree.h AVL_Iterator.c Error.h AVL_iterator.h)
+add_executable(AVL_Tree main.c AVL_Tree.c AVL_Tree.h AVL_Iterator.c Error.h TestHelper.h TestHelper.c)
 
-add_executable(AVL_Tree_Test test/avlTests.cpp AVL_Tree.h AVL_Tree.c AVL_Iterator.c test/stressTest.cpp)
+add_executable(AVL_Tree_Test test/avlTests.cpp AVL_Tree.h AVL_Tree.c AVL_Iterator.c TestHelper.c TestHelper.h)
 
 target_link_libraries(
         AVL_Tree_Test ${GTEST_LIBRARIES} Threads::Threads

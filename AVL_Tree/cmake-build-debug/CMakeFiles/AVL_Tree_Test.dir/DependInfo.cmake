@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_C
   "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Iterator.c" "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/AVL_Iterator.c.o"
   "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.c" "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/AVL_Tree.c.o"
+  "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/TestHelper.c" "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
@@ -15,7 +16,6 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/avlTests.cpp" "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/avlTests.o"
-  "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/stressTest.cpp" "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/stressTest.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

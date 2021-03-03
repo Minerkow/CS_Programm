@@ -8,10 +8,15 @@ CMakeFiles/AVL_Tree_Test.dir/AVL_Iterator.c.o: ../Error.h
 CMakeFiles/AVL_Tree_Test.dir/AVL_Tree.c.o: ../AVL_Tree.c
 CMakeFiles/AVL_Tree_Test.dir/AVL_Tree.c.o: ../AVL_Tree.h
 CMakeFiles/AVL_Tree_Test.dir/AVL_Tree.c.o: ../Error.h
+CMakeFiles/AVL_Tree_Test.dir/AVL_Tree.c.o: ../TestHelper.h
+
+CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o: ../AVL_Tree.h
+CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o: ../Error.h
+CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o: ../TestHelper.c
+CMakeFiles/AVL_Tree_Test.dir/TestHelper.c.o: ../TestHelper.h
 
 CMakeFiles/AVL_Tree_Test.dir/test/avlTests.o: ../AVL_Tree.h
 CMakeFiles/AVL_Tree_Test.dir/test/avlTests.o: ../Error.h
+CMakeFiles/AVL_Tree_Test.dir/test/avlTests.o: ../TestHelper.h
 CMakeFiles/AVL_Tree_Test.dir/test/avlTests.o: ../test/avlTests.cpp
-
-CMakeFiles/AVL_Tree_Test.dir/test/stressTest.o: ../test/stressTest.cpp
 

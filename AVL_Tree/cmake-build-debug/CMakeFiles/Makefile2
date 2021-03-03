@@ -96,7 +96,7 @@ clean: CMakeFiles/AVL_Tree.dir/clean
 CMakeFiles/AVL_Tree_Test.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree_Test.dir/build.make CMakeFiles/AVL_Tree_Test.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree_Test.dir/build.make CMakeFiles/AVL_Tree_Test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles" --progress-num=5,6,7,8,9 "Built target AVL_Tree_Test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles" --progress-num=6,7,8,9,10 "Built target AVL_Tree_Test"
 .PHONY : CMakeFiles/AVL_Tree_Test.dir/all
 
 # Build rule for subdir invocation for target.
@@ -123,12 +123,12 @@ CMakeFiles/AVL_Tree_Test.dir/clean:
 CMakeFiles/AVL_Tree.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree.dir/build.make CMakeFiles/AVL_Tree.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AVL_Tree.dir/build.make CMakeFiles/AVL_Tree.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles" --progress-num=1,2,3,4 "Built target AVL_Tree"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles" --progress-num=1,2,3,4,5 "Built target AVL_Tree"
 .PHONY : CMakeFiles/AVL_Tree.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/AVL_Tree.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles" 4
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles" 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/AVL_Tree.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles" 0
 .PHONY : CMakeFiles/AVL_Tree.dir/rule

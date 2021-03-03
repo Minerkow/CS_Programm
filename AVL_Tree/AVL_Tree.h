@@ -15,9 +15,6 @@ struct Node_t;
 //enum AvlError_t avlInitByArray(struct AVL_Tree* avlTree);
 struct AVL_Tree* avlInit();
 
-//*Load data to AVL_Tree from array
-enum AvlError_t avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t arraySize);
-
 //*Insert data in tree and return iterator on them,
 //*if such data is already stored in the tree, return an iterator on it.
 enum AvlError_t avlInsert(struct AVL_Tree* avlTree, int data);
@@ -47,12 +44,11 @@ int avlGetMinElem(struct AVL_Tree* avlTree);
 //*else return NULL
 enum AvlError_t avlSaveInArray(struct AVL_Tree* avlTree, int* array, size_t lenArray);
 
-void avlForEach(void (*foo)(struct Node_t* it, void* data), void* data);
+enum AvlError_t avlForEach(struct AVL_Tree* avlTree, void (*foo)(struct Node_t* it, void* data), void* data);
 
-//#ifdef DEBUG
-void avlPrintTree_(struct AVL_Tree* avlTree);
-struct Node_t* avlFind_(struct AVL_Tree* avlTree, int data);
-//#endif
+int avlGetDataByIt(struct Node_t* it);
+
+bool avlEmptyIt(struct Node_t* it);
 
 
 

@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "AVL_Tree.pdb"
   "CMakeFiles/AVL_Tree.dir/AVL_Iterator.c.o"
   "CMakeFiles/AVL_Tree.dir/AVL_Tree.c.o"
+  "CMakeFiles/AVL_Tree.dir/TestHelper.c.o"
   "CMakeFiles/AVL_Tree.dir/main.c.o"
 )
 

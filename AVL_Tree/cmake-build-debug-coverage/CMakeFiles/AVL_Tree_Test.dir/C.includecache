@@ -6,11 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.c
+/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Iterator.c
 AVL_Tree.h
 /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.h
-Error.h
-/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/Error.h
 
 /home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/AVL_Tree.h
 stdio.h
