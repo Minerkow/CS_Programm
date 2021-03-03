@@ -1,1 +1,0 @@
-/usr/bin/cc -g -O0 --coverage -fprofile-arcs -ftest-coverage -g  -rdynamic CMakeFiles/AVL_Tree.dir/main.c.o CMakeFiles/AVL_Tree.dir/AVL_Tree.c.o CMakeFiles/AVL_Tree.dir/AVL_Iterator.c.o CMakeFiles/AVL_Tree.dir/TestHelper.c.o  -o AVL_Tree 
