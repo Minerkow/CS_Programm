@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="AVL_Tree" targetName="AVL_Tree_Test" />
+      <config projectName="AVL_Tree" targetName="AVL_Tree" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
+      <configuration PROFILE_NAME="Debug-Coverage" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_CXX_FLAGS=--coverage -DCMAKE_C_FLAGS=--coverage" ENABLED="true" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4358a677-bbcd-4589-86d5-1d2729c90771" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/AVL_Tree.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/AVL_Tree.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/TestHelper.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/TestHelper.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/AVL_Tree.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/AVL_Tree.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/TestHelper.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/avlTests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/avlTests.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/Minerkow/CS_Programm" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1occxsjgwx31ODerfJLYxurwZMr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowDebug.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/CMakeLists.txt" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test" />
+      <recent name="$PROJECT_DIR$/source" />
+      <recent name="$PROJECT_DIR$/headers" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Makefile.clean">
+    <configuration name="AVL_Tree.stressTest1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PROGRAM_PARAMS="-D TEST" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AVL_Tree" TARGET_NAME="AVL_Tree_Test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AVL_Tree" RUN_TARGET_NAME="AVL_Tree_Test" TEST_CLASS="AVL_Tree" TEST_METHOD="stressTest1" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AVL_Tree" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AVL_Tree" TARGET_NAME="AVL_Tree" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AVL_Tree" RUN_TARGET_NAME="AVL_Tree">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AVL_Tree_Test" type="CMakeRunConfiguration" factoryName="Application" temporary="true" PROGRAM_PARAMS="-D TEST" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AVL_Tree" TARGET_NAME="AVL_Tree_Test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AVL_Tree" RUN_TARGET_NAME="AVL_Tree_Test">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="clean" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="clean" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="coverage" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="coverage" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="test_build" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="test_build" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.AVL_Tree" />
+      <item itemvalue="CMake Application.AVL_Tree_Test" />
+      <item itemvalue="Google Test.AVL_Tree.stressTest1" />
+      <item itemvalue="Makefile.test_build" />
+      <item itemvalue="Makefile.coverage" />
+      <item itemvalue="Makefile.clean" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile.clean" />
+        <item itemvalue="Makefile.coverage" />
+        <item itemvalue="Google Test.AVL_Tree.stressTest1" />
+        <item itemvalue="Makefile.test_build" />
+        <item itemvalue="CMake Application.AVL_Tree_Test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4358a677-bbcd-4589-86d5-1d2729c90771" name="Default Changelist" comment="" />
+      <created>1613589568648</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1613589568648</updated>
+      <workItem from="1613589569868" duration="6692000" />
+      <workItem from="1613735709976" duration="16000" />
+      <workItem from="1614068863979" duration="4975000" />
+      <workItem from="1614073854941" duration="5756000" />
+      <workItem from="1614086348613" duration="409000" />
+      <workItem from="1614086817702" duration="1594000" />
+      <workItem from="1614088422595" duration="1207000" />
+      <workItem from="1614089639593" duration="599000" />
+      <workItem from="1614090248529" duration="4325000" />
+      <workItem from="1614111107212" duration="6011000" />
+      <workItem from="1614161480990" duration="15115000" />
+      <workItem from="1614342365304" duration="7430000" />
+      <workItem from="1614432757902" duration="79000" />
+      <workItem from="1614455870378" duration="323000" />
+      <workItem from="1614456203149" duration="5405000" />
+      <workItem from="1614506208288" duration="13019000" />
+      <workItem from="1614627834334" duration="6264000" />
+      <workItem from="1614643278983" duration="55179000" />
+      <workItem from="1615331943540" duration="7175000" />
+      <workItem from="1615372574520" duration="1630000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="CMakeGoogleTestRunConfigurationType">
+        <watch expression="avlTree-&gt;top_-&gt;right_" />
+        <watch expression="array[i]" language="ObjectiveC" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="../../../Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug" NAME="AVL_Tree_Test Coverage Results" MODIFIED="1614086269279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="gcov/llvm" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="../../../Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug" NAME="AVL_Tree.stressTest1 Coverage Results" MODIFIED="1615372716785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="gcov/llvm" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

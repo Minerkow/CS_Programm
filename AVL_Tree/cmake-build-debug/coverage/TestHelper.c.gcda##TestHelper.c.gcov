@@ -1,0 +1,53 @@
+        -:    0:Source:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/test/TestHelper.c
+        -:    0:Graph:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/TestHelper.c.gcno
+        -:    0:Data:/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir/test/TestHelper.c.gcda
+        -:    0:Runs:1
+        -:    1:#include "../headers/TestHelper.h"
+        -:    2:
+    99628:    3:void* CallocHelper(size_t nmemb, size_t size) {
+        -:    4:    static int flag = 0;
+    99628:    5:    if (flag == 0 || flag == 2 || flag == 5 || flag == 7) {
+    99628:    5-block  0
+    99627:    5-block  1
+    99626:    5-block  2
+    99625:    5-block  3
+        4:    6:        flag++;
+        4:    7:        return NULL;
+        4:    7-block  0
+        -:    8:    } else {
+    99624:    9:        flag++;
+    99624:   10:        return calloc(nmemb, size);
+    99624:   10-block  0
+        -:   11:    }
+        -:   12:}
+        -:   13:
+       19:   14:enum AvlError_t avlLoadFromArray(struct AVL_Tree* avlTree, int* array, size_t arraySize) {
+       19:   15:    if (array == NULL) {
+       19:   15-block  0
+        1:   16:        return AVLERR_NULL_POINTER_ARG;
+        1:   16-block  0
+        -:   17:    }
+       18:   18:    if (avlTree == NULL) {
+       18:   18-block  0
+        1:   19:        return AVLERR_NOT_INIT;
+        1:   19-block  0
+        -:   20:    }
+       17:   21:    if (arraySize == 0) {
+       17:   21-block  0
+        1:   22:        return AVLERR_OK;
+        1:   22-block  0
+        -:   23:    }
+      140:   24:    for (size_t i = 0; i < arraySize; ++i) {
+       16:   24-block  0
+      124:   24-block  1
+      140:   24-block  2
+      124:   25:        if (avlInsert(avlTree, array[i]) != AVLERR_OK) {
+      124:   25-block  0
+    #####:   26:            return AVLERR_INSERT;
+    %%%%%:   26-block  0
+        -:   27:        }
+        -:   28:    }
+       16:   29:    return AVLERR_OK;
+       16:   29-block  0
+        -:   30:}
+        -:   31:

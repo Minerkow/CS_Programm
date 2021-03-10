@@ -1,14 +1,8 @@
 #include <gtest/gtest.h>
-extern "C" {
-    #include "../headers/AVL_Tree.h"
-    #include "../headers/TestHelper.h"
-}
-
-
-int main() {
-    testing::InitGoogleTest();
-    return RUN_ALL_TESTS();
-}
+//extern "C" {
+#include "../headers/AVL_Tree.h"
+#include "../headers/TestHelper.h"
+//}
 
 TEST(AVL_Tree, stressTest1) {
     AVL_Tree* avlTree = avlInit();
@@ -141,12 +135,12 @@ TEST(AVL_Tree, avlLoadFromArray6) {
 
 //-------------------------------------------------------------------------------------------------------------------------------
 
-TEST(AVL_Tree, avlEmpty) {
+TEST(AVL_Tree, avlIsEmpty) {
     AVL_Tree* avlTree = avlInit();
-    ASSERT_TRUE(avlEmpty(avlTree));
-    ASSERT_TRUE(avlEmpty(NULL));
+    ASSERT_TRUE(avlIsEmpty(avlTree));
+    ASSERT_TRUE(avlIsEmpty(NULL));
     avlInsert(avlTree, 1);
-    ASSERT_FALSE(avlEmpty(avlTree));
+    ASSERT_FALSE(avlIsEmpty(avlTree));
     avlClear(avlTree);
 }
 
@@ -230,7 +224,7 @@ TEST(AVL_Tree, avlEraseByValue6) {
     std::vector<int> input = { 0};
     avlLoadFromArray(avlTree, input.data(), input.size());
     avlEraseByValue(avlTree, 0);
-    ASSERT_TRUE(avlEmpty(avlTree));
+    ASSERT_TRUE(avlIsEmpty(avlTree));
     avlClear(avlTree);
 }
 

@@ -8,7 +8,7 @@
 //#ifdef TEST
 #define CALLOC(x, y) CallocHelper((x), (y))
 //#else
-//#define CALLOC(x, y) calloc(x, y)
+//#define CALLOC(x, y) calloc((x), (y))
 //#endif
 
 void* CallocHelper(size_t nmemb, size_t size);

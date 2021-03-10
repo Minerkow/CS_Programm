@@ -120,7 +120,7 @@ struct Node_t* avlFind_(struct AVL_Tree* avlTree, int data) {
     return NULL;
 }
 
-bool avlEmpty(struct AVL_Tree* avlTree) {
+bool avlIsEmpty(struct AVL_Tree* avlTree) {
     if (avlTree == NULL) {
         return true;
     }
@@ -401,7 +401,7 @@ int avlGetBalanceFactor_(struct Node_t* top) {
 }
 
 struct AVL_Tree* avlInit() {
-    struct AVL_Tree* avlTree = CALLOC(1, sizeof(struct AVL_Tree));
+    struct AVL_Tree* avlTree = (struct AVL_Tree*)CALLOC(1, sizeof(struct AVL_Tree));
     if (avlTree == NULL) {
         return NULL;
     }

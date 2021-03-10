@@ -29,10 +29,7 @@ size_t avlSize(struct AVL_Tree* avlTree);
 int avlClear(struct AVL_Tree* avlTree);
 
 //*Check on empty
-bool avlEmpty(struct AVL_Tree* avlTree);
-
-//*Check on ERROR
-void avlPerror(enum AvlError_t err);
+bool avlIsEmpty(struct AVL_Tree* avlTree);
 
 //*Return max elem
 int avlGetMaxElem(struct AVL_Tree* avlTree);
@@ -49,6 +46,3 @@ enum AvlError_t avlForEach(struct AVL_Tree* avlTree, void (*foo)(struct Node_t* 
 int avlGetDataByIt(struct Node_t* it);
 
 bool avlEmptyIt(struct Node_t* it);
-
-
-
