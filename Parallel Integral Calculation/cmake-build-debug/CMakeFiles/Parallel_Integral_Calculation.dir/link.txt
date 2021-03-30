@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/Parallel_Integral_Calculation.dir/main.c.o  -o Parallel_Integral_Calculation 

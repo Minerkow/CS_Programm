@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Parallel_Integral_Calculation"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Parallel_Integral_Calculation">
+				<Option output="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/Parallel_Integral_Calculation" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 Parallel_Integral_Calculation"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Parallel_Integral_Calculation/fast">
+				<Option output="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/Parallel_Integral_Calculation" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 Parallel_Integral_Calculation/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/minerkow/Рабочий\ стол/CS_Programm/Parallel\ Integral\ Calculation/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/main.c">
+			<Option target="Parallel_Integral_Calculation"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
