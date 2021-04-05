@@ -143,32 +143,59 @@ Parallel_Integral_Calculation/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Parallel_Integral_Calculation.dir/build.make CMakeFiles/Parallel_Integral_Calculation.dir/build
 .PHONY : Parallel_Integral_Calculation/fast
 
-Integrator.o: Integrator.c.o
+IntegralCalculator.o: IntegralCalculator.c.o
 
-.PHONY : Integrator.o
+.PHONY : IntegralCalculator.o
 
 # target to build an object file
-Integrator.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Parallel_Integral_Calculation.dir/build.make CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.o
-.PHONY : Integrator.c.o
+IntegralCalculator.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Parallel_Integral_Calculation.dir/build.make CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.o
+.PHONY : IntegralCalculator.c.o
 
-Integrator.i: Integrator.c.i
+IntegralCalculator.i: IntegralCalculator.c.i
 
-.PHONY : Integrator.i
+.PHONY : IntegralCalculator.i
 
 # target to preprocess a source file
-Integrator.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Parallel_Integral_Calculation.dir/build.make CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.i
-.PHONY : Integrator.c.i
+IntegralCalculator.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Parallel_Integral_Calculation.dir/build.make CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.i
+.PHONY : IntegralCalculator.c.i
 
-Integrator.s: Integrator.c.s
+IntegralCalculator.s: IntegralCalculator.c.s
 
-.PHONY : Integrator.s
+.PHONY : IntegralCalculator.s
 
 # target to generate assembly for a file
-Integrator.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Parallel_Integral_Calculation.dir/build.make CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.s
-.PHONY : Integrator.c.s
+IntegralCalculator.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Parallel_Integral_Calculation.dir/build.make CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.s
+.PHONY : IntegralCalculator.c.s
+
+ParseInfo.o: ParseInfo.c.o
+
+.PHONY : ParseInfo.o
+
+# target to build an object file
+ParseInfo.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Parallel_Integral_Calculation.dir/build.make CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.o
+.PHONY : ParseInfo.c.o
+
+ParseInfo.i: ParseInfo.c.i
+
+.PHONY : ParseInfo.i
+
+# target to preprocess a source file
+ParseInfo.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Parallel_Integral_Calculation.dir/build.make CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.i
+.PHONY : ParseInfo.c.i
+
+ParseInfo.s: ParseInfo.c.s
+
+.PHONY : ParseInfo.s
+
+# target to generate assembly for a file
+ParseInfo.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Parallel_Integral_Calculation.dir/build.make CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.s
+.PHONY : ParseInfo.c.s
 
 main.o: main.c.o
 
@@ -206,9 +233,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Parallel_Integral_Calculation"
-	@echo "... Integrator.o"
-	@echo "... Integrator.i"
-	@echo "... Integrator.s"
+	@echo "... IntegralCalculator.o"
+	@echo "... IntegralCalculator.i"
+	@echo "... IntegralCalculator.s"
+	@echo "... ParseInfo.o"
+	@echo "... ParseInfo.i"
+	@echo "... ParseInfo.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

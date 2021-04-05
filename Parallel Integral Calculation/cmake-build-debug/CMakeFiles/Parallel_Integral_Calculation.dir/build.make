@@ -90,32 +90,47 @@ CMakeFiles/Parallel_Integral_Calculation.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Parallel_Integral_Calculation.dir/main.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/main.c" -o CMakeFiles/Parallel_Integral_Calculation.dir/main.c.s
 
-CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.o: CMakeFiles/Parallel_Integral_Calculation.dir/flags.make
-CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.o: ../Integrator.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.o   -c "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/Integrator.c"
+CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.o: CMakeFiles/Parallel_Integral_Calculation.dir/flags.make
+CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.o: ../ParseInfo.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.o   -c "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/ParseInfo.c"
 
-CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/Integrator.c" > CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.i
+CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/ParseInfo.c" > CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.i
 
-CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/Integrator.c" -o CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.s
+CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/ParseInfo.c" -o CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.s
+
+CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.o: CMakeFiles/Parallel_Integral_Calculation.dir/flags.make
+CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.o: ../IntegralCalculator.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.o   -c "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/IntegralCalculator.c"
+
+CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/IntegralCalculator.c" > CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.i
+
+CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/IntegralCalculator.c" -o CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.s
 
 # Object files for target Parallel_Integral_Calculation
 Parallel_Integral_Calculation_OBJECTS = \
 "CMakeFiles/Parallel_Integral_Calculation.dir/main.c.o" \
-"CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.o"
+"CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.o" \
+"CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.o"
 
 # External object files for target Parallel_Integral_Calculation
 Parallel_Integral_Calculation_EXTERNAL_OBJECTS =
 
 Parallel_Integral_Calculation: CMakeFiles/Parallel_Integral_Calculation.dir/main.c.o
-Parallel_Integral_Calculation: CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.o
+Parallel_Integral_Calculation: CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.o
+Parallel_Integral_Calculation: CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.o
 Parallel_Integral_Calculation: CMakeFiles/Parallel_Integral_Calculation.dir/build.make
 Parallel_Integral_Calculation: CMakeFiles/Parallel_Integral_Calculation.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable Parallel_Integral_Calculation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable Parallel_Integral_Calculation"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Parallel_Integral_Calculation.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

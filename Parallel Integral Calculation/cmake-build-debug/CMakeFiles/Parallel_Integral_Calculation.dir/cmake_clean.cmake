@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.o"
+  "CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.o"
+  "CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.o"
   "CMakeFiles/Parallel_Integral_Calculation.dir/main.c.o"
   "Parallel_Integral_Calculation"
   "Parallel_Integral_Calculation.pdb"

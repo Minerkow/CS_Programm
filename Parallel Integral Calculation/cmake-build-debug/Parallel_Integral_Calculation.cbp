@@ -76,10 +76,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/Integrator.c">
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/IntegralCalculator.c">
 			<Option target="Parallel_Integral_Calculation"/>
 		</Unit>
-		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/Integrator.h">
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/IntegralCalculator.h">
+			<Option target="Parallel_Integral_Calculation"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/ParseInfo.c">
+			<Option target="Parallel_Integral_Calculation"/>
+		</Unit>
+		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/ParseInfo.h">
 			<Option target="Parallel_Integral_Calculation"/>
 		</Unit>
 		<Unit filename="/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/main.c">

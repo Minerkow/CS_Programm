@@ -4,7 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/Integrator.c" "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/CMakeFiles/Parallel_Integral_Calculation.dir/Integrator.c.o"
+  "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/IntegralCalculator.c" "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.o"
+  "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/ParseInfo.c" "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.o"
   "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/main.c" "/home/minerkow/Рабочий стол/CS_Programm/Parallel Integral Calculation/cmake-build-debug/CMakeFiles/Parallel_Integral_Calculation.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
