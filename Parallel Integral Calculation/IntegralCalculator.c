@@ -115,7 +115,7 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
 
     for (size_t itThread = 0; itThread < numThreads; ++itThread) {
         size_t curCore = GetCoreId_(coresInfo, numCores, itThread);
-
+        fprintf(stderr, "[%zu]", curCore);
         struct CoreInfo_t* curCoreInfo = GetCoreInfoById(coresInfo, numCores, curCore);
         if (!curCoreInfo) {
             return CORES_INFO_ERROR;
@@ -133,6 +133,7 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
         pthread_attr_destroy(&pthreadAttr);
     }
 
+
     for (size_t itThread = 0; itThread < numThreads; ++itThread) {
         if (pthread_join(pthreads[itThread], NULL) != 0) {
             return SYSTEM_ERROR;
@@ -140,9 +141,12 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
         *res += ((struct ThreadInfo_t*)(threadsInfo + itThread * sizeThreadInfo))->result;
     }
 
+    PrintThreadInfo_(threadsInfo, sizeThreadInfo, numThreads);
+
+    PrintCoresInfo(coresInfo, numCores);
+
     free(pthreads);
     free(threadsInfo);
-    PrintCoresInfo(coresInfo, numCores);
     FreeCoresInfo(coresInfo, numCores);
     return SUCCESS;
 }
@@ -198,10 +202,10 @@ static size_t GetCoreId_(struct CoreInfo_t* coreInfo, size_t numCore, size_t thr
     size_t counter = threadNum;
     while (1) {
         for (size_t itCore = 0; itCore < numCore; ++itCore) {
-            if (counter < coreInfo[numCore].numCpu) {
+            if (counter < coreInfo[itCore].numCpu) {
                 return itCore;
             }
-            counter -= coreInfo[numCore].numCpu;
+            counter -= coreInfo[itCore].numCpu;
         }
     }
 }

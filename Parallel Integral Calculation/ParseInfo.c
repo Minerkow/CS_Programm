@@ -136,7 +136,7 @@ static size_t ShrinkToFitCoreInfos(struct CoreInfo_t** ptrCoresInfo, size_t curS
     size_t newSize = curSize;
     for (size_t itCoreInfo = 0; itCoreInfo < curSize; ++itCoreInfo) {
         if (coreInfo[itCoreInfo].numCpu == 0) {
-            free(coreInfo[itCoreInfo].numCpu);
+            free(coreInfo[itCoreInfo].cpusNum);
             newSize--;
         }
     }
@@ -167,6 +167,7 @@ void PrintCoresInfo(const struct CoreInfo_t* coreInfo, size_t size)
         fprintf(stderr, "\n--- Core id = %zu ---\n", coreInfo[itCoresInfo].coreId);
         fprintf(stderr, "num CPUs = %zu, ",      coreInfo[itCoresInfo].numCpu);
         fprintf(stderr, "num alloc CPUs = %zu, ", coreInfo[itCoresInfo].numAllocCpus);
+        fprintf(stderr, "num working CPUs = %zu, ", coreInfo[itCoresInfo].numWorkingCpu);
         //fprintf(stderr, "num busy CPUs = %zu:\n", CIs[iNumCI].nBusyCpus);
         fprintf(stderr, "numCpus : [");
         //assert(coreInfo[itCoresInfo].cpusNum);
