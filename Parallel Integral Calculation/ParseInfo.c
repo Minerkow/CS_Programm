@@ -1,4 +1,4 @@
-#include "ParseThreadInfo.h"
+#include "ParseInfo.h"
 
 struct CoreInfo_t {
     size_t coreId;
@@ -12,7 +12,7 @@ struct CoreInfo_t {
 static const char TOPOLOGY_PATH_[] = "/sys/devices/system/cpu/cpu%zu/topology/core_id";
 enum {PARSE_ERROR = -1};
 
-//-----------------------------------------------------------------------------------
+//---------------------------------Parse Core Info-----------------------------------
 
 static size_t GetCoreId_(size_t coreNum);
 static struct CoreInfo_t* UpdateCoreInfo_(struct CoreInfo_t* coresInfo, size_t size, size_t coreId, size_t numCpu);
@@ -20,7 +20,7 @@ static struct CoreInfo_t* GetCoreInfo_(struct CoreInfo_t* coresInfo, size_t size
 static struct CoreInfo_t* CreateCoreInfo_(struct CoreInfo_t* coresInfo, size_t size);
 static size_t ShrinkToFitCoreInfos(struct CoreInfo_t** coresInfo, size_t curSize);
 
-//-----------------------------------------------------------------------------------
+//---------------------------------Parse Core Info-----------------------------------
 
 struct CoreInfo_t* GetCoresInfo(size_t* size) {
     assert(size);
@@ -176,3 +176,5 @@ void PrintCoresInfo(const struct CoreInfo_t* coreInfo, size_t size)
             fprintf(stderr, "]\n");
     }
 }
+
+
