@@ -5,7 +5,9 @@ struct CoreInfo_t {
     size_t numCpu;
     size_t* cpusNum;
     size_t numAllocCpus;
+    size_t numWorkingCpu;
 };
+
 
 //-----------------------------------------------------------------------------------
 
@@ -16,7 +18,6 @@ enum {PARSE_ERROR = -1};
 
 static size_t GetCoreId_(size_t coreNum);
 static struct CoreInfo_t* UpdateCoreInfo_(struct CoreInfo_t* coresInfo, size_t size, size_t coreId, size_t numCpu);
-static struct CoreInfo_t* GetCoreInfo_(struct CoreInfo_t* coresInfo, size_t size, size_t coreId);
 static struct CoreInfo_t* CreateCoreInfo_(struct CoreInfo_t* coresInfo, size_t size);
 static size_t ShrinkToFitCoreInfos(struct CoreInfo_t** coresInfo, size_t curSize);
 
@@ -75,7 +76,7 @@ static size_t GetCoreId_(size_t coreNum) {
 static struct CoreInfo_t* UpdateCoreInfo_(struct CoreInfo_t* coresInfo, size_t size, size_t coreId, size_t numCpu) {
     assert(coresInfo);
 
-    struct CoreInfo_t* curCoreInfo = GetCoreInfo_(coresInfo, size, coreId);
+    struct CoreInfo_t* curCoreInfo = GetCoreInfoById(coresInfo, size, coreId);
 
     if (curCoreInfo == NULL || curCoreInfo->numCpu == 0) {
         curCoreInfo = CreateCoreInfo_(coresInfo, size);
@@ -99,10 +100,8 @@ static struct CoreInfo_t* UpdateCoreInfo_(struct CoreInfo_t* coresInfo, size_t s
     return curCoreInfo;
 }
 
-static struct CoreInfo_t* GetCoreInfo_(struct CoreInfo_t* coresInfo, size_t size, size_t coreId) {
+struct CoreInfo_t* GetCoreInfoById(struct CoreInfo_t* coresInfo, size_t size, size_t coreId) {
     assert(coresInfo);
-
-    struct CoreInfo_t* curCoreInfo = NULL;
     for (size_t itCore = 0; itCore < size; ++itCore) {
         if (coresInfo[itCore].coreId == coreId) {
             return &coresInfo[itCore];
