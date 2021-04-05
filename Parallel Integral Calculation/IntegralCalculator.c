@@ -94,7 +94,7 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
     if (!coresInfo) {
         return CORES_INFO_ERROR;
     }
-    PrintCoresInfo(coresInfo, numCores);
+    //PrintCoresInfo(coresInfo, numCores);
     size_t sizeThreadInfo = 0;
     void* threadsInfo = GetThreadsInfo_(numThreads, &sizeThreadInfo);
     if (!threadsInfo) {
@@ -105,7 +105,7 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
                                           .delta = DELTA,
                                           .func = integral.func};
     DistributeLoadThreads_(threadsInfo, sizeThreadInfo, numThreads, &integralInfo);
-    PrintThreadInfo_(threadsInfo, sizeThreadInfo, numThreads);
+    //PrintThreadInfo_(threadsInfo, sizeThreadInfo, numThreads);
     //size_t numHyperThread = GetNumHyperThreads_(coresInfo, numCores);
     pthread_t* pthreads = (pthread_t*)calloc(numThreads, sizeof(pthread_t));
     if (!pthreads) {
@@ -142,7 +142,8 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
 
     free(pthreads);
     free(threadsInfo);
-    //FreeCoresInfo(coresInfo, numCores);
+    PrintCoresInfo(coresInfo, numCores);
+    FreeCoresInfo(coresInfo, numCores);
     return SUCCESS;
 }
 

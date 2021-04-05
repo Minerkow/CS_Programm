@@ -153,7 +153,7 @@ void FreeCoresInfo(struct CoreInfo_t* coreInfo, size_t size) {
     assert(coreInfo);
 
     for (size_t itCoreInfo = 0; itCoreInfo < size; ++itCoreInfo) {
-        free(coreInfo[itCoreInfo].numCpu);
+        free(coreInfo[itCoreInfo].cpusNum);
     }
     free(coreInfo);
 }
