@@ -25,17 +25,18 @@ struct CoreInfo_t {
 
 //---------------------------------Get Thread Info-----------------------------------
 
-static void* GetThreadsInfo_(size_t numThread, size_t* sizeThreadsInfo);
+static void* GetThreadsInfo_(size_t numThreads, size_t* sizeThreadsInfo);
 static void DistributeLoadThreads_(void* threadsInfo, size_t sizeThreadsInfo, size_t numThread,
-                                   struct IntegralInfo_t* integralInfo);
+                                   size_t numRealThread, struct IntegralInfo_t* integralInfo);
 static void Calculate(struct ThreadInfo_t* threadInfo);
 static int InitPthreadAttr(struct CoreInfo_t* coreInfo, pthread_attr_t* attr);
 static size_t GetNumHyperThreads_(struct CoreInfo_t* coreInfo, size_t numCore);
 static size_t GetCoreId_(struct CoreInfo_t* coreInfo, size_t numCore, size_t threadNum);
+static size_t GetRoundedThread_(struct CoreInfo_t* coresInfo, size_t numCore, size_t numThreads);
 //---------------------------------Get Thread Info-----------------------------------
 
 
-static void* GetThreadsInfo_(size_t numThread, size_t* sizeThreadsInfo) {
+static void* GetThreadsInfo_(size_t numThreads, size_t* sizeThreadsInfo) {
     assert(sizeThreadsInfo);
 
     long sizeCacheLine = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
@@ -45,14 +46,14 @@ static void* GetThreadsInfo_(size_t numThread, size_t* sizeThreadsInfo) {
     }
 
     *sizeThreadsInfo = (sizeof(struct ThreadInfo_t) / sizeCacheLine + 1) * sizeCacheLine;
-    void* threadsInfo = calloc(numThread, *sizeThreadsInfo);
+    void* threadsInfo = calloc(numThreads, *sizeThreadsInfo);
     return threadsInfo;
 }
 
 
 //Expect that end > begin
 static void DistributeLoadThreads_(void* threadsInfo, size_t sizeThreadsInfo, size_t numThread,
-                                   struct IntegralInfo_t* integralInfo) {
+                                   size_t numRealThread, struct IntegralInfo_t* integralInfo) {
     assert(threadsInfo);
     assert(integralInfo);
     assert(integralInfo->end - integralInfo->begin > 0);
@@ -66,6 +67,9 @@ static void DistributeLoadThreads_(void* threadsInfo, size_t sizeThreadsInfo, si
                 integralInfo->begin + (itThread + 1) * dataStep;
         ((struct ThreadInfo_t*)(&threadsInfo[itThread*sizeThreadsInfo]))->integralInfo.delta = integralInfo->delta;
         ((struct ThreadInfo_t*)(&threadsInfo[itThread*sizeThreadsInfo]))->integralInfo.func = integralInfo->func;
+    }
+    for (size_t itFictThread = numThread; itFictThread < numRealThread; ++itFictThread) {
+        memcpy(&threadsInfo[itFictThread*sizeThreadsInfo], threadsInfo, sizeof(struct ThreadInfo_t));
     }
 }
 
@@ -94,9 +98,13 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
     if (!coresInfo) {
         return CORES_INFO_ERROR;
     }
-    //PrintCoresInfo(coresInfo, numCores);
+
+//    PrintCoresInfo(coresInfo, numCores);
+
     size_t sizeThreadInfo = 0;
-    void* threadsInfo = GetThreadsInfo_(numThreads, &sizeThreadInfo);
+    size_t numRealThread = GetRoundedThread_(coresInfo, numCores, numThreads);
+
+    void* threadsInfo = GetThreadsInfo_(numRealThread, &sizeThreadInfo);
     if (!threadsInfo) {
         return THREADS_INFO_ERROR;
     }
@@ -104,18 +112,18 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
                                           .end = integral.end,
                                           .delta = DELTA,
                                           .func = integral.func};
-    DistributeLoadThreads_(threadsInfo, sizeThreadInfo, numThreads, &integralInfo);
-    //PrintThreadInfo_(threadsInfo, sizeThreadInfo, numThreads);
-    //size_t numHyperThread = GetNumHyperThreads_(coresInfo, numCores);
-    pthread_t* pthreads = (pthread_t*)calloc(numThreads, sizeof(pthread_t));
+    DistributeLoadThreads_(threadsInfo, sizeThreadInfo, numThreads, numRealThread, &integralInfo);
+
+//    PrintThreadInfo_(threadsInfo, sizeThreadInfo, numRealThread);
+
+    pthread_t* pthreads = (pthread_t*)calloc(numRealThread, sizeof(pthread_t));
     if (!pthreads) {
         perror("calloc");
         return SYSTEM_ERROR;
     }
 
-    for (size_t itThread = 0; itThread < numThreads; ++itThread) {
+    for (size_t itThread = 0; itThread < numRealThread; ++itThread) {
         size_t curCore = GetCoreId_(coresInfo, numCores, itThread);
-        fprintf(stderr, "[%zu]", curCore);
         struct CoreInfo_t* curCoreInfo = GetCoreInfoById(coresInfo, numCores, curCore);
         if (!curCoreInfo) {
             return CORES_INFO_ERROR;
@@ -140,10 +148,15 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
         }
         *res += ((struct ThreadInfo_t*)(threadsInfo + itThread * sizeThreadInfo))->result;
     }
+    for (size_t itFictThread = numThreads; itFictThread < numRealThread; ++itFictThread) {
+        if (pthread_join(pthreads[itFictThread], NULL) != 0) {
+            return SYSTEM_ERROR;
+        }
+    }
 
-    PrintThreadInfo_(threadsInfo, sizeThreadInfo, numThreads);
+    //PrintThreadInfo_(threadsInfo, sizeThreadInfo, numThreads);
 
-    PrintCoresInfo(coresInfo, numCores);
+    //PrintCoresInfo(coresInfo, numCores);
 
     free(pthreads);
     free(threadsInfo);
@@ -210,6 +223,10 @@ static size_t GetCoreId_(struct CoreInfo_t* coreInfo, size_t numCore, size_t thr
     }
 }
 
+static size_t GetRoundedThread_(struct CoreInfo_t* coresInfo, size_t numCore, size_t numThreads) {
+    size_t numHyperThread = GetNumHyperThreads_(coresInfo, numCore);
+    return numThreads + numHyperThread - (numThreads % numHyperThread);
+}
 
 //---------------------------------Test(debug) function-----------------------------------
 

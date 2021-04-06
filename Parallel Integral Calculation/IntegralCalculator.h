@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <sched.h>
+#include <string.h>
 
 
 
