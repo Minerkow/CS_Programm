@@ -27,17 +27,17 @@ long long int Read_Number_from_Text(const char* text) {
 }
 
 int main(int argc, char *argv[]) {
-    //size_t size = 0;
-    //struct CoreInfo_t* coreInfo = GetCoresInfo(&size);
-    //fprintf(stderr, "\n%p\n", coreInfo);
-    //PrintCoresInfo(coreInfo, size);
+    if (argc != 2) {
+        fprintf(stderr, "Error: few arguments");
+        return -1;
+    }
     struct Integral_t integral = {.func = Func,
                                   .begin = 0,
                                   .end = 100000};
     double res = 0;
     double start = clock();
     long long int k = Read_Number_from_Text(argv[1]);
-    IntegralCalculate(integral, 2, &res);
+    IntegralCalculate(integral, k, &res);
     fprintf(stdout, "\n%f\n", res);
     printf("\ntime : %f", (clock() - start) / CLOCKS_PER_SEC);
     return 0;
