@@ -12,4 +12,4 @@ add_executable(Parallel_Integral_Calculation
                     ParseInfo.c
                     IntegralCalculator.h
                     IntegralCalculator.c
-              )
+        )

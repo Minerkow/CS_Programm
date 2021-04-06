@@ -109,9 +109,9 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
         return THREADS_INFO_ERROR;
     }
     struct IntegralInfo_t integralInfo = {.begin = integral.begin,
-                                          .end = integral.end,
-                                          .delta = DELTA,
-                                          .func = integral.func};
+            .end = integral.end,
+            .delta = DELTA,
+            .func = integral.func};
     DistributeLoadThreads_(threadsInfo, sizeThreadInfo, numThreads, numRealThread, &integralInfo);
 
 //    PrintThreadInfo_(threadsInfo, sizeThreadInfo, numRealThread);
@@ -212,15 +212,7 @@ static size_t GetNumHyperThreads_(struct CoreInfo_t* coreInfo, size_t numCore) {
 }
 
 static size_t GetCoreId_(struct CoreInfo_t* coreInfo, size_t numCore, size_t threadNum) {
-    size_t counter = threadNum;
-    while (1) {
-        for (size_t itCore = 0; itCore < numCore; ++itCore) {
-            if (counter < coreInfo[itCore].numCpu) {
-                return itCore;
-            }
-            counter -= coreInfo[itCore].numCpu;
-        }
-    }
+    return threadNum % numCore;
 }
 
 static size_t GetRoundedThread_(struct CoreInfo_t* coresInfo, size_t numCore, size_t numThreads) {
@@ -237,6 +229,5 @@ static size_t GetRoundedThread_(struct CoreInfo_t* coresInfo, size_t numCore, si
 //    DistributeLoadThreads_(threadsInfo, sizeThreadInfo, 8, &integralInfo);
 //    PrintThreadInfo_(threadsInfo, sizeThreadInfo, 8);
 //}
-
 
 
