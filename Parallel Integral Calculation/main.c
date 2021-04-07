@@ -33,12 +33,26 @@ int main(int argc, char *argv[]) {
     }
     struct Integral_t integral = {.func = Func,
                                   .begin = 0,
-                                  .end = 100000};
+                                  .end = 70000};
     double res = 0;
-    double start = clock();
     long long int k = Read_Number_from_Text(argv[1]);
-    IntegralCalculate(integral, k, &res);
-    fprintf(stdout, "\n%f\n", res);
-    printf("\ntime : %f", (clock() - start) / CLOCKS_PER_SEC);
+
+//    FILE*  threadMaxFile = fopen("/proc/sys/kernel/threads-max", "r");
+//    if (!threadMaxFile) {
+//        return -1;
+//    }
+//    long long int maxNumThreads;
+//    fscanf(threadMaxFile, "%zu", &maxNumThreads);
+//    fclose(threadMaxFile);
+//    if (k > maxNumThreads) {
+//        printf("Many threads\n");
+//        return -1;
+//    }
+    if (IntegralCalculate(integral, k, &res) != SUCCESS) {
+        printf("ERROR");
+        return -2;
+    }
+    //fprintf(stdout, "\n%f\n", res);
+    //printf("\ntime : %f", (clock() - start) / CLOCKS_PER_SEC);
     return 0;
 }

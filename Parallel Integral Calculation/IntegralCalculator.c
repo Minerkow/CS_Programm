@@ -109,12 +109,13 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
         return THREADS_INFO_ERROR;
     }
     struct IntegralInfo_t integralInfo = {.begin = integral.begin,
-            .end = integral.end,
-            .delta = DELTA,
-            .func = integral.func};
-    DistributeLoadThreads_(threadsInfo, sizeThreadInfo, numThreads, numRealThread, &integralInfo);
+                                            .end = integral.end,
+                                            .delta = DELTA,
+                                            .func = integral.func};
+    DistributeLoadThreads_(threadsInfo, sizeThreadInfo, numThreads,
+                           numRealThread, &integralInfo);
 
-//    PrintThreadInfo_(threadsInfo, sizeThreadInfo, numRealThread);
+    //PrintThreadInfo_(threadsInfo, sizeThreadInfo, numRealThread);
 
     pthread_t* pthreads = (pthread_t*)calloc(numRealThread, sizeof(pthread_t));
     if (!pthreads) {
@@ -134,11 +135,14 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
             return SYSTEM_ERROR;
         }
 
-        if (pthread_create(&pthreads[itThread], &pthreadAttr, Calculate, threadsInfo + itThread * sizeThreadInfo)) {
+        if (pthread_create(&pthreads[itThread], &pthreadAttr, Calculate,
+                           threadsInfo + itThread * sizeThreadInfo) != 0) {
             return SYSTEM_ERROR;
         }
 
-        pthread_attr_destroy(&pthreadAttr);
+        if (pthread_attr_destroy(&pthreadAttr) != 0) {
+            return SYSTEM_ERROR;
+        }
     }
 
 
@@ -188,6 +192,10 @@ static int InitPthreadAttr(struct CoreInfo_t* coreInfo, pthread_attr_t* attr) {
     assert(attr);
     assert(coreInfo->cpusNum);
 
+    if (pthread_attr_init(attr) != 0) {
+        return -1;
+    }
+
     size_t itCpu = coreInfo->numWorkingCpu % coreInfo->numCpu;
     size_t cpuId = coreInfo->cpusNum[itCpu];
 
@@ -217,7 +225,11 @@ static size_t GetCoreId_(struct CoreInfo_t* coreInfo, size_t numCore, size_t thr
 
 static size_t GetRoundedThread_(struct CoreInfo_t* coresInfo, size_t numCore, size_t numThreads) {
     size_t numHyperThread = GetNumHyperThreads_(coresInfo, numCore);
-    return numThreads + numHyperThread - (numThreads % numHyperThread);
+    if (numThreads % numHyperThread != 0) {
+        return numThreads + numHyperThread - (numThreads % numHyperThread);
+    } else {
+        return numThreads;
+    }
 }
 
 //---------------------------------Test(debug) function-----------------------------------
