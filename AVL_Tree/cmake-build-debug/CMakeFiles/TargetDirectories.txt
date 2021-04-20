@@ -1,4 +1,0 @@
-/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree_Test.dir
-/home/minerkow/Рабочий стол/CS_Programm/AVL_Tree/cmake-build-debug/CMakeFiles/AVL_Tree.dir
