@@ -7,23 +7,60 @@ struct ComputerInfo_t {
 };
 
 struct Connection_t {
+    int socket;
     struct ComputerInfo_t computerInfo;
     double res;
 };
 
-//-------------------------------------------Static functions---------------------------------------
+//-------------------------------------------Static Functions---------------------------------------
 static void FindComputers_(size_t numExpectedComputers);
 static int OpenBroadCastSocket_();
 
+
+//-------------------------------------------API----------------------------------------------------
+
+void StartMainNode(size_t numThreads, size_t numComputers) {
+    struct Connection_t* connections = calloc(numComputers, sizeof(struct Connection_t));
+
+    int socketServer = socket(AF_INET, SOCK_STREAM, 0);
+    struct sockaddr_in serverAddr = {.sin_family = AF_INET,
+                                     .sin_port = TCP_PORT,
+                                     .sin_addr.s_addr = htonl(INADDR_ANY)};
+    socklen_t socklen = sizeof(struct sockaddr_in);
+
+    if(bind(socketServer, (const struct sockaddr *) &serverAddr, socklen) < 0) {
+        perror("bind");
+        return; //TODO: ERROR
+    }
+
+    if(listen(socketServer, BACKLOG_LEN) < 0) {
+        perror("listen");
+        return; //TODO: ERROR
+    }
+
+    for (int itSockets = 0 ; itSockets < numComputers; ++itSockets) {
+
+        int clientSock = accept(socketServer, (struct sockaddr *) &serverAddr, &socklen);
+        if (clientSock < 0) {
+            perror ("accept");
+            return; //TODO: ERROR
+        }
+
+        connections[itSockets].socket = clientSock;
+    }
+}
+
+void StartSideNode() {
+
+}
+
+//-------------------------------------------Static Functions---------------------------------------
 static void FindComputers_(size_t numExpectedComputers) {
 
 }
 
 void SendBroadCast_() {
     int socketBC = OpenBroadCastSocket_();
-
-//    char curIp[SIZE_BUFF] = {};
-//    GetCurrentIpAddr(curIp);
 
     struct sockaddr_in broadcastAddr = {.sin_family = AF_INET,
                                         .sin_addr.s_addr = htonl(INADDR_BROADCAST),
@@ -48,25 +85,17 @@ void ListenBroadCast_() {
 
     socklen_t addrLen = sizeof(struct sockaddr_in);
 
-    FD_ZERO(&readFd);
-    FD_SET(socketRc, &readFd);
-
-    if (select(socketRc + 1, &readFd, NULL, NULL, NULL) < 0) {
-        perror("select");
-        return;
-    }
     if (bind(socketRc, (struct sockaddr*) &socketAddr, addrLen) < 0) {
         perror("bind");
         return;
     }
-
-    if (FD_ISSET(socketRc, &readFd)) {
-        fprintf(stderr, "kek\n");
-        if (recvfrom(socketRc, buffer, SIZE_BUFF, 0, (struct sockaddr*) &serverAddr, &addrLen) < 0) {
+    while () {
+        if (recvfrom(socketRc, buffer, SIZE_BUFF, 0, (struct sockaddr *) &serverAddr, &addrLen) < 0) {
             perror("recvfrom");
             return;
         }
-        fprintf(stderr, "\tfound server IP is %s, Port is %d\n", inet_ntoa(serverAddr.sin_addr), htons(serverAddr.sin_port));
+        fprintf(stderr, "found server IP is %s, Port is %d\n", inet_ntoa(serverAddr.sin_addr),
+                htons(serverAddr.sin_port));
     }
 }
 
