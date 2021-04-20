@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/Parallel_Integral_Calculation.dir/main.c.o CMakeFiles/Parallel_Integral_Calculation.dir/ParseInfo.c.o CMakeFiles/Parallel_Integral_Calculation.dir/IntegralCalculator.c.o  -o Parallel_Integral_Calculation 
