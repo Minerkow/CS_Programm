@@ -1,3 +1,0 @@
-/home/minerkow/Рабочий стол/CS_Programm/Distributed Integral Evaluation/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/minerkow/Рабочий стол/CS_Programm/Distributed Integral Evaluation/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/minerkow/Рабочий стол/CS_Programm/Distributed Integral Evaluation/cmake-build-debug/CMakeFiles/Distributed_Integral_Evaluation.dir
