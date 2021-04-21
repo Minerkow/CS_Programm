@@ -10,8 +10,8 @@
 #include <sched.h>
 #include <string.h>
 
-
-
+struct CoreInfo_t;
+struct ComputerInfo_t;
 
 struct Integral_t {
     double begin;
@@ -27,4 +27,6 @@ enum INTEGRAL_ERROR_t{
     SUCCESS
 };
 
-enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numThreads, double* res);
+enum INTEGRAL_ERROR_t IntegralCalculate(struct CoreInfo_t* coresInfo, struct ComputerInfo_t* computerInfo,
+                                        struct Integral_t integral, size_t numThreads, double* res);
+enum INTEGRAL_ERROR_t IntegralCalculateWithoutCoresInfo(struct Integral_t integral, size_t numThreads, double* res);

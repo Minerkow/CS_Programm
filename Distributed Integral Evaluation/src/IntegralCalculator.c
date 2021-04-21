@@ -23,6 +23,11 @@ struct CoreInfo_t {
     size_t numWorkingCpu;
 };
 
+struct ComputerInfo_t {
+    size_t numCores;
+    size_t numCPU;
+};
+
 //---------------------------------Get Thread Info-----------------------------------
 
 static void* GetThreadsInfo_(size_t numThreads, size_t* sizeThreadsInfo);
@@ -88,30 +93,25 @@ static void PrintThreadInfo_(void* threadsInfo, size_t sizeThreadsInfo, size_t n
 
 //---------------------------------API functions------------------------------------------
 
-enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numThreads, double* res) {
-    if (!res || !integral.func) {
+enum INTEGRAL_ERROR_t IntegralCalculate(struct CoreInfo_t* coresInfo, struct ComputerInfo_t* computerInfo,
+                                        struct Integral_t integral, size_t numThreads, double* res) {
+    if (!res || !integral.func || !coresInfo || !computerInfo) {
         return NULL_POINTER_ARG;
-    }
-
-    size_t numCores = 0;
-    struct CoreInfo_t* coresInfo = GetCoresInfo(&numCores);
-    if (!coresInfo) {
-        return CORES_INFO_ERROR;
     }
 
 //    PrintCoresInfo(coresInfo, numCores);
 
     size_t sizeThreadInfo = 0;
-    size_t numRealThread = GetRoundedThread_(coresInfo, numCores, numThreads);
+    size_t numRealThread = GetRoundedThread_(coresInfo, computerInfo->numCores, numThreads);
 
     void* threadsInfo = GetThreadsInfo_(numRealThread, &sizeThreadInfo);
     if (!threadsInfo) {
         return THREADS_INFO_ERROR;
     }
     struct IntegralInfo_t integralInfo = {.begin = integral.begin,
-                                            .end = integral.end,
-                                            .delta = DELTA,
-                                            .func = integral.func};
+            .end = integral.end,
+            .delta = DELTA,
+            .func = integral.func};
     DistributeLoadThreads_(threadsInfo, sizeThreadInfo, numThreads,
                            numRealThread, &integralInfo);
 
@@ -124,8 +124,8 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
     }
 
     for (size_t itThread = 0; itThread < numRealThread; ++itThread) {
-        size_t curCore = GetCoreId_(coresInfo, numCores, itThread);
-        struct CoreInfo_t* curCoreInfo = GetCoreInfoById(coresInfo, numCores, curCore);
+        size_t curCore = GetCoreId_(coresInfo, computerInfo->numCores, itThread);
+        struct CoreInfo_t* curCoreInfo = GetCoreInfoById(coresInfo, computerInfo->numCores, curCore);
         if (!curCoreInfo) {
             return CORES_INFO_ERROR;
         }
@@ -164,8 +164,18 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct Integral_t integral, size_t numTh
 
     free(pthreads);
     free(threadsInfo);
-    FreeCoresInfo(coresInfo, numCores);
+    FreeCoresInfo(coresInfo, computerInfo->numCores);
     return SUCCESS;
+}
+
+enum INTEGRAL_ERROR_t IntegralCalculateWithoutCoresInfo(struct Integral_t integral, size_t numThreads, double* res) {
+
+    struct ComputerInfo_t computerInfo = {};
+    struct CoreInfo_t* coresInfo = GetCoresInfo(&computerInfo);
+    if (!coresInfo) {
+        return CORES_INFO_ERROR;
+    }
+    return IntegralCalculate(coresInfo, &computerInfo, integral, numThreads, res);
 }
 
 

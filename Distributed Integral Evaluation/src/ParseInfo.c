@@ -8,6 +8,11 @@ struct CoreInfo_t {
     size_t numWorkingCpu;
 };
 
+struct ComputerInfo_t {
+    size_t numCores;
+    size_t numCPU;
+};
+
 
 //-----------------------------------------------------------------------------------
 
@@ -23,35 +28,35 @@ static size_t ShrinkToFitCoreInfos(struct CoreInfo_t** coresInfo, size_t curSize
 
 //---------------------------------Parse Core Info-----------------------------------
 
-struct CoreInfo_t* GetCoresInfo(size_t* size) {
-    assert(size);
+struct CoreInfo_t* GetCoresInfo(struct ComputerInfo_t* computerInfo) {
+    assert(computerInfo);
     long ret = sysconf(_SC_NPROCESSORS_CONF);
     if (ret < 0) {
         perror("sysconf(_SC_NPROCESSORS_CONF):");
         return NULL;
     }
 
-    size_t numCPU = (size_t) ret;
-    struct CoreInfo_t *coresInfo = (struct CoreInfo_t *) calloc(numCPU, sizeof(struct CoreInfo_t));
+    computerInfo->numCPU = (size_t) ret;
+    struct CoreInfo_t *coresInfo = (struct CoreInfo_t *) calloc(computerInfo->numCPU, sizeof(struct CoreInfo_t));
     if (!coresInfo) {
         perror("calloc");
         return NULL;
     }
 
-    for (size_t itCPU = 0; itCPU < numCPU; ++itCPU) {
+    for (size_t itCPU = 0; itCPU < computerInfo->numCPU; ++itCPU) {
         size_t curCoreId = GetCoreId_(itCPU);
         if (curCoreId == PARSE_ERROR) {
             //TODO: free cores info
             return NULL;
         }
 
-        struct CoreInfo_t* curCoreInfo = UpdateCoreInfo_(coresInfo, numCPU, curCoreId, itCPU);
+        struct CoreInfo_t* curCoreInfo = UpdateCoreInfo_(coresInfo, computerInfo->numCPU, curCoreId, itCPU);
         if (!curCoreInfo) {
             //TODO: free cores info
             return NULL;
         }
     }
-    *size = ShrinkToFitCoreInfos(&coresInfo, numCPU);
+    computerInfo->numCores = ShrinkToFitCoreInfos(&coresInfo, computerInfo->numCPU);
 
     return coresInfo;
 }
@@ -177,4 +182,20 @@ void PrintCoresInfo(const struct CoreInfo_t* coreInfo, size_t size)
     }
 }
 
-
+long long int Read_Number_from_Text(const char* text) {
+    char **endptr = calloc(1, sizeof(char*));
+    long long int num = strtoll(text, endptr, 10);
+    if (num < 0) {
+        fprintf(stderr, "Less 0");
+        exit(EXIT_FAILURE);
+    }
+    if (num == LONG_MAX) {
+        fprintf(stderr, "Big number");
+        exit(EXIT_FAILURE);
+    }
+    if (**endptr != '\0') {
+        fprintf(stderr, "Wrong format");
+        exit(EXIT_FAILURE);
+    }
+    return num;
+}

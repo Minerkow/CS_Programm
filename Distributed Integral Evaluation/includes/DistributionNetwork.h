@@ -9,9 +9,10 @@
 #include <arpa/inet.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-enum {BROADCAST_PORT = 8333, TCP_PORT = 8334, SIZE_BUFF = 1024, BACKLOG_LEN = 10};
 
-void GetCurrentIpAddr(char* buff);
-void SendBroadCast_();
-void ListenBroadCast_();
+enum {BROADCAST_PORT = 8337, TCP_PORT = 8338, SIZE_BUFF = 1024, BACKLOG_LEN = 10};
+
+void StartSideNode();
+void StartMainNode(size_t numThreads, size_t numComputers);
