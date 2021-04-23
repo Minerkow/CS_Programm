@@ -52,6 +52,10 @@ static void* GetThreadsInfo_(size_t numThreads, size_t* sizeThreadsInfo) {
 
     *sizeThreadsInfo = (sizeof(struct ThreadInfo_t) / sizeCacheLine + 1) * sizeCacheLine;
     void* threadsInfo = calloc(numThreads, *sizeThreadsInfo);
+    if (!threadsInfo) {
+        perror("calloc");
+        return NULL;
+    }
     return threadsInfo;
 }
 

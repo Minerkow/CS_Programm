@@ -20,7 +20,8 @@
 #include "ParseInfo.h"
 
 
-enum {BROADCAST_PORT = 8337, TCP_PORT = 8338, SIZE_BUFF = 1024, BACKLOG_LEN = 10};
+enum {BROADCAST_PORT = 8341, TCP_PORT = BROADCAST_PORT + 1, SIZE_BUFF = 1024, BACKLOG_LEN = 10};
 
 void StartSideNode();
 void StartMainNode(size_t numThreads, size_t numComputers, struct Integral_t integral, double* res);
+double func(double x);

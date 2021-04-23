@@ -3,10 +3,6 @@
 #include "DistributionNetwork.h"
 #include "ParseInfo.h"
 
-double func(double x) {
-    return x;
-}
-
 int main(int argc, char** argv) {
     if (argc < 2) {
         fprintf(stderr, "Input Error");

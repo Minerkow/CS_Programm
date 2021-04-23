@@ -29,6 +29,9 @@ size_t RoundDouble_(double number);
 //------------------------------------------------Debug Functions------------------------------------------
 static void PrintConnections_(struct Connection_t* connection, size_t numConnections);
 
+double func(double x) {
+    return x;
+}
 
 //-------------------------------------------API----------------------------------------------------
 
@@ -73,10 +76,11 @@ void StartSideNode() {
         perror("recv");
         return; //TODO: ERROR
     }
-    fprintf(stderr, "{%f}", calculateInfo.integral.end);
+    //fprintf(stderr, "{%f -> %f}", calculateInfo.integral.begin, calculateInfo.integral.end);
     fprintf(stderr, "Client:: Recved tcp msg\n");
 
     double res = 0.0;
+    calculateInfo.integral.func = func;
     IntegralCalculate(coresInfo, &computerInfo, calculateInfo.integral, calculateInfo.numUsedThreads, &res);
 
     if (send(socketServer, &res, sizeof(res), 0) < 0) {
@@ -132,7 +136,7 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
         return res;
     }
     assert(connection);
-    struct CalculateInfo_t* calculateInfos = calloc(numComputers, numComputers);
+    struct CalculateInfo_t* calculateInfos = calloc(numComputers, sizeof(struct CalculateInfo_t));
     double dataStep = (integral.end  - integral.begin) / numComputers;
     struct ComputerInfo_t thisComputerInfo = {};
     struct CoreInfo_t* coresInfo = GetCoresInfo(&thisComputerInfo);
@@ -183,15 +187,15 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
                 perror("send");
                 return NAN;
             }
-            IntegralCalculate(coresInfo, &thisComputerInfo, calculateInfos[numComputers - 1].integral,
-                              calculateInfos[numComputers - 1].numUsedThreads, &res);
-            double otherRes = 0;
-            if (read(demonPipe[READ], &otherRes, sizeof(otherRes)) < 0) {
-                perror("read");
-                return NAN;
-            }
-            return res + otherRes;
         }
+        IntegralCalculate(coresInfo, &thisComputerInfo, calculateInfos[numComputers - 1].integral,
+                          calculateInfos[numComputers - 1].numUsedThreads, &res);
+        double otherRes = 0;
+        if (read(demonPipe[READ], &otherRes, sizeof(otherRes)) < 0) {
+            perror("read");
+            return NAN;
+        }
+        return res + otherRes;
     } else {
         for (size_t itConnect = 0; itConnect < numComputers - 1; ++itConnect) {
             double connectRes = 0;
