@@ -24,7 +24,7 @@ enum INTEGRAL_ERROR_t{
     CORES_INFO_ERROR,
     THREADS_INFO_ERROR,
     SYSTEM_ERROR,
-    SUCCESS
+    INTEGRAL_SUCCESS
 };
 
 enum INTEGRAL_ERROR_t IntegralCalculate(struct CoreInfo_t* coresInfo, struct ComputerInfo_t* computerInfo,

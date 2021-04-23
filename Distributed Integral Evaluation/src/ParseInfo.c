@@ -16,7 +16,7 @@ struct ComputerInfo_t {
 
 //-----------------------------------------------------------------------------------
 
-static const char TOPOLOGY_PATH_[] = "/sys/devices/system/cpu/cpu%zu/topology/core_id";
+static const char TOPOLOGY_PATH[] = "/sys/devices/system/cpu/cpu%zu/topology/core_id";
 enum {PARSE_ERROR = -1};
 
 //---------------------------------Parse Core Info-----------------------------------
@@ -63,8 +63,8 @@ struct CoreInfo_t* GetCoresInfo(struct ComputerInfo_t* computerInfo) {
 
 static size_t GetCoreId_(size_t coreNum) {
     size_t coreId = PARSE_ERROR;
-    char curTopologyPath[sizeof(TOPOLOGY_PATH_)] = {};
-    sprintf(curTopologyPath, TOPOLOGY_PATH_, coreNum);
+    char curTopologyPath[sizeof(TOPOLOGY_PATH)] = {};
+    sprintf(curTopologyPath, TOPOLOGY_PATH, coreNum);
     //fprintf(stderr, "\n%s\n", curTopologyPath);
 
     FILE* topologyFile = fopen(curTopologyPath, "r");

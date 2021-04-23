@@ -165,7 +165,7 @@ enum INTEGRAL_ERROR_t IntegralCalculate(struct CoreInfo_t* coresInfo, struct Com
     free(pthreads);
     free(threadsInfo);
     FreeCoresInfo(coresInfo, computerInfo->numCores);
-    return SUCCESS;
+    return INTEGRAL_SUCCESS;
 }
 
 enum INTEGRAL_ERROR_t IntegralCalculateWithoutCoresInfo(struct Integral_t integral, size_t numThreads, double* res) {
