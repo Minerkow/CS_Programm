@@ -17,12 +17,14 @@ struct CalculateInfo_t {
     size_t numUsedThreads;
 };
 
+//Select где сервер ждет ответа от пользователей, keeplaive прочитать что это такое
+
 //-------------------------------------------Static Functions---------------------------------------
-static void FindAndConnectComputers_(struct Connection_t* connections, size_t numComputers);
+static bool FindAndConnectComputers_(struct Connection_t* connections, size_t numComputers);
 static double DistributionCalculation_(struct Integral_t integral, size_t numComputers, size_t numThreads,
                                        struct Connection_t *connection);
 static int OpenBroadCastSocket_();
-static void SendBroadCast_();
+static bool SendBroadCast_();
 static int ListenBroadCast_(struct sockaddr_in* serverAddr);
 int ConnectionsCompare_(struct Connection_t* conn1, struct Connection_t* conn2);
 size_t RoundDouble_(double number);
@@ -35,19 +37,22 @@ double func(double x) {
 
 //-------------------------------------------API----------------------------------------------------
 
-void StartMainNode(size_t numThreads, size_t numComputers, struct Integral_t integral, double* res) {
-    if (numComputers == 0) {
-        return; //TODO: ERROR
+DistributionError StartMainNode(size_t numThreads, size_t numComputers, struct Integral_t integral, double* res) {
+    if (numComputers == 0 || numThreads == 0) {
+        return DERROR_NULL_ARGUMENT;
     }
     struct Connection_t *connections = NULL;
     if (numComputers != 1) {
         connections = calloc(numComputers - 1, sizeof(struct Connection_t));
-        FindAndConnectComputers_(connections, numComputers - 1);
+        if (!FindAndConnectComputers_(connections, numComputers - 1)) {
+            return DERROR_FIND;
+        }
     }
     *res = DistributionCalculation_(integral, numComputers, numThreads, connections);
+    return DERROR_OK;
 }
 
-void StartSideNode() {
+DistributionError StartSideNode() {
     struct sockaddr_in serverAddr;
     ListenBroadCast_(&serverAddr);
 
@@ -59,7 +64,7 @@ void StartSideNode() {
 
     if (connect(socketServer, (const struct sockaddr*) &serverAddr, socklen) < 0) {
         perror("connect");
-        return; //TODO: ERROR
+        return DERROR_CONNECTION;
     }
 
     struct ComputerInfo_t computerInfo = {};
@@ -67,14 +72,14 @@ void StartSideNode() {
 
     if (send(socketServer, &computerInfo, sizeof(computerInfo), 0) < 0) {
         perror("send");
-        return; //TODO: ERROR
+        return DERROR_CONNECTION;
     }
 
     struct CalculateInfo_t calculateInfo = {};
     fprintf(stderr, "Client:: Recv tcp msg\n");
     if (recv(socketServer, &calculateInfo, sizeof(calculateInfo), 0) < 0) {
         perror("recv");
-        return; //TODO: ERROR
+        return DERROR_CONNECTION;
     }
     //fprintf(stderr, "{%f -> %f}", calculateInfo.integral.begin, calculateInfo.integral.end);
     fprintf(stderr, "Client:: Recved tcp msg\n");
@@ -85,12 +90,13 @@ void StartSideNode() {
 
     if (send(socketServer, &res, sizeof(res), 0) < 0) {
         perror("send");
-        return; //TODO: ERROR
+        return DERROR_CONNECTION;
     }
+    return DERROR_OK;
 }
 
 //-------------------------------------------Static Functions---------------------------------------
-static void FindAndConnectComputers_(struct Connection_t* connections, size_t numComputers) {
+static bool FindAndConnectComputers_(struct Connection_t* connections, size_t numComputers) {
     assert(connections);
 
     int socketServer = socket(AF_INET, SOCK_STREAM, 0);
@@ -101,15 +107,17 @@ static void FindAndConnectComputers_(struct Connection_t* connections, size_t nu
 
     if(bind(socketServer, (const struct sockaddr *) &serverAddr, socklen) < 0) {
         perror("bind");
-        return; //TODO: ERROR
+        return false;
     }
 
-    SendBroadCast_();
+    if (!SendBroadCast_()) {
+        return false;
+    }
     PrintConnections_(connections, numComputers - 1);
 
     if(listen(socketServer, numComputers + 1) < 0) {
         perror("listen");
-        return; //TODO: ERROR
+        return false;
     }
 
     for (int itSockets = 0 ; itSockets < numComputers; ++itSockets) {
@@ -117,19 +125,24 @@ static void FindAndConnectComputers_(struct Connection_t* connections, size_t nu
         fprintf(stderr, "User connect by TCP with IP: %s\n", inet_ntoa(serverAddr.sin_addr));
         if (clientSock < 0) {
             perror ("accept");
-            return; //TODO: ERROR
+            return false;
         }
         connections[itSockets].socket = clientSock;
         if (recv(clientSock, &connections->computerInfo, sizeof(struct ComputerInfo_t), 0) < 0) {
             perror("recv");
-            return; //TODO: ERROR
+            return false;
         }
         fprintf(stderr, "Get computer info\n");
     }
+    return true;
 }
 
 static double DistributionCalculation_(struct Integral_t integral, size_t numComputers, size_t numThreads,
                                        struct Connection_t *connection) {
+    assert(connection);
+    assert(numThreads > 0);
+    assert(numComputers > 0);
+
     if (numComputers == 1) {
         double res = 0.0;
         IntegralCalculateWithoutCoresInfo(integral, numThreads, &res);
@@ -195,7 +208,7 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
             perror("read");
             return NAN;
         }
-        return res + otherRes;
+        return res + otherRes; //TODO: It is Strange
     } else {
         for (size_t itConnect = 0; itConnect < numComputers - 1; ++itConnect) {
             double connectRes = 0;
@@ -214,8 +227,11 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
 
 }
 
-static void SendBroadCast_() {
+static bool SendBroadCast_() {
     int socketBC = OpenBroadCastSocket_();
+    if (socketBC < 0) {
+        return false;
+    }
 
     struct sockaddr_in broadcastAddr = {.sin_family = AF_INET,
                                         .sin_addr.s_addr = htonl(INADDR_BROADCAST),
@@ -223,9 +239,10 @@ static void SendBroadCast_() {
 
     if (sendto(socketBC, "IP_FOUND", strlen("IP_FOUND"), 0, (struct sockaddr*) &broadcastAddr, sizeof (broadcastAddr)) < 0) {
         perror("sendto");
-        return;
+        return false;
     }
     close(socketBC);
+    return true;
 }
 
 static int ListenBroadCast_(struct sockaddr_in* serverAddr) {
