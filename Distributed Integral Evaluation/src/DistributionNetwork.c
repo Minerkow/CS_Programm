@@ -1,3 +1,4 @@
+#include <sys/wait.h>
 #include "DistributionNetwork.h"
 
 enum {READ = 0, WRITE = 1, ERROR = -1, SUCCESS = 1};
@@ -49,6 +50,9 @@ DistributionError StartMainNode(size_t numThreads, size_t numComputers, struct I
         }
     }
     *res = DistributionCalculation_(integral, numComputers, numThreads, connections);
+    if (isnan(*res)) {
+        return DERROR_CALCULATION;
+    }
     return DERROR_OK;
 }
 
@@ -208,9 +212,29 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
             perror("read");
             return NAN;
         }
+
+        int status = 0;
+        waitpid(pid, &status, 0);
+        if (WIFEXITED(status) == 0) {
+            return NAN;
+        }
+        if (WEXITSTATUS(status) != SUCCESS) {
+            return NAN;
+        }
         return res + otherRes; //TODO: It is Strange
     } else {
         for (size_t itConnect = 0; itConnect < numComputers - 1; ++itConnect) {
+            fd_set rfds;
+            struct timeval tv = {TIMEOUT, 0};
+            FD_ZERO(&rfds);
+            FD_SET(connection[itConnect].socket, &rfds);
+            int retval;
+            retval = select(connection[itConnect].socket + 1, &rfds,
+                            NULL, NULL, &tv);
+            if (retval <= 0) {
+                exit(ERROR);
+            }
+
             double connectRes = 0;
             if (recv(connection[itConnect].socket, &connectRes, sizeof(connectRes), 0) < 0) {
                 perror("recv");
@@ -319,6 +343,10 @@ size_t RoundDouble_(double number) {
         intNum++;
     }
     return intNum;
+}
+
+bool SetKeepalive_(int socket, int keepcnt, int keepidle, int keepintvl) {
+
 }
 
 //------------------------------------------------Debug Functions------------------------------------------

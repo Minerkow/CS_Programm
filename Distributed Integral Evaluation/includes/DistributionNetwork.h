@@ -20,10 +20,10 @@
 #include "IntegralCalculator.h"
 #include "ParseInfo.h"
 
-enum DistributionError_t{DERROR_NULL_ARGUMENT, DERROR_CONNECTION, DERROR_FIND, DERROR_OK};
+enum DistributionError_t{DERROR_NULL_ARGUMENT, DERROR_CONNECTION, DERROR_FIND, DERROR_OK, DERROR_CALCULATION};
 typedef enum DistributionError_t DistributionError;
 
-enum {BROADCAST_PORT = 8350, TCP_PORT = BROADCAST_PORT + 1, SIZE_BUFF = 1024, BACKLOG_LEN = 10};
+enum {BROADCAST_PORT = 8350, TCP_PORT = BROADCAST_PORT + 1, SIZE_BUFF = 1024, BACKLOG_LEN = 10, TIMEOUT = 5};
 
 DistributionError StartSideNode();
 DistributionError StartMainNode(size_t numThreads, size_t numComputers, struct Integral_t integral, double* res);
