@@ -106,7 +106,7 @@ DistributionError StartSideNode() {
     struct ComputerInfo_t computerInfo = {};
     coresInfo = GetCoresInfo(&computerInfo);
 
-    PrintCoresInfo(coresInfo, computerInfo.numCPU);
+    fprintf(stderr, "Computer info: numCores - %zd, numCPU - %zd\n", computerInfo.numCores, computerInfo.numCPU);
 
     if (send(socketServer, &computerInfo, sizeof(computerInfo), 0) < 0) {
         perror("send");
@@ -209,6 +209,7 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
     size_t numAllCPU = thisComputerInfo.numCPU;
     for ( size_t itComputer = 0; itComputer < numComputers - 1; ++itComputer) {
         numAllCPU += connection[itComputer].computerInfo.numCPU;
+        fprintf(stderr, "Client %zd: numCPU - %zd\n", itComputer, connection[itComputer].computerInfo.numCPU);
     }
 
     for (size_t itComputer = 0; itComputer < numComputers - 1; ++itComputer) {
