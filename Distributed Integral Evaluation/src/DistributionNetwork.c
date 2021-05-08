@@ -30,6 +30,7 @@ static int ListenBroadCast_(struct sockaddr_in* serverAddr);
 int ConnectionsCompare_(struct Connection_t* conn1, struct Connection_t* conn2);
 size_t RoundDouble_(double number);
 static bool SetKeepalive_(int socket, int keepcnt, int keepidle, int keepintvl);
+static int SetServerSocketOptions_();
 //------------------------------------------------Debug Functions------------------------------------------
 static void PrintConnections_(struct Connection_t* connection, size_t numConnections);
 static void PrintCalculateInfo_(struct CalculateInfo_t calculateInfo);
@@ -44,13 +45,22 @@ double func(double x) {
 DistributionError StartMainNode(size_t numThreads, size_t numComputers, struct Integral_t integral, double* res) {
     DistributionError error = DERROR_OK;
     int serverSocket = ERROR;
+    struct Connection_t *connections = NULL;
 
     if (numComputers == 0 || numThreads == 0) {
         perror("null argument");
         error = DERROR_NULL_ARGUMENT;
         goto exit_handler;
     }
-    struct Connection_t *connections = NULL;
+    if (numComputers > numThreads) {
+        fprintf(stderr, "\n\t\t\tNUM_THREADS < NUM_COMPUTER, CALCULATION ARE PERFORMED ON ONE COMPUTER\n");
+        if (IntegralCalculateWithoutCoresInfo(integral, numThreads, res) != INTEGRAL_SUCCESS) {
+            fprintf(stderr, "Integral Calculate ERROR\n");
+            error = DERROR_CALCULATION;
+        }
+        goto exit_handler;
+    }
+
     if (numComputers != 1) {
         connections = calloc(numComputers - 1, sizeof(struct Connection_t));
         serverSocket = FindAndConnectComputers_(connections, numComputers - 1);
@@ -60,6 +70,7 @@ DistributionError StartMainNode(size_t numThreads, size_t numComputers, struct I
             goto exit_handler;
         }
     }
+
     *res = DistributionCalculation_(integral, numComputers, numThreads, connections);
     if (isnan(*res)) {
         perror("distribution ERROR");
@@ -128,7 +139,11 @@ DistributionError StartSideNode() {
 
     double res = 0.0;
     calculateInfo.integral.func = func;
-    IntegralCalculate(coresInfo, &computerInfo, calculateInfo.integral, calculateInfo.numUsedThreads, &res);
+    if (IntegralCalculate(coresInfo, &computerInfo, calculateInfo.integral, calculateInfo.numUsedThreads, &res) != INTEGRAL_SUCCESS) {
+        fprintf(stderr, "Integral Calculate ERROR\n");
+        error = DERROR_CALCULATION;
+        goto exit_handler;
+    }
 
     if (send(socketServer, &res, sizeof(res), 0) < 0) {
         perror("send");
@@ -149,7 +164,11 @@ exit_handler:
 static int FindAndConnectComputers_(struct Connection_t* connections, size_t numComputers) {
     assert(connections);
 
-    int socketServer = socket(AF_INET, SOCK_STREAM, 0);
+    int socketServer = SetServerSocketOptions_();
+    if (socketServer < 0) {
+        return -1;
+    }
+
     struct sockaddr_in serverAddr = {.sin_family = AF_INET,
                                      .sin_port = htons(TCP_PORT),
                                      .sin_addr.s_addr = htonl(INADDR_ANY)};
@@ -178,7 +197,7 @@ static int FindAndConnectComputers_(struct Connection_t* connections, size_t num
             return -1;
         }
         connections[itSockets].socket = clientSock;
-        if (recv(clientSock, &connections->computerInfo, sizeof(struct ComputerInfo_t), 0) < 0) {
+        if (recv(clientSock, &connections[itSockets].computerInfo, sizeof(struct ComputerInfo_t), 0) < 0) {
             perror("recv");
             return -1;
         }
@@ -194,30 +213,38 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
     assert(numComputers > 0);
 
     double result = NAN;
+    struct CalculateInfo_t* calculateInfos = NULL;
+    struct CoreInfo_t* coresInfo = NULL;
 
     if (numComputers == 1) {
         double res = 0.0;
-        IntegralCalculateWithoutCoresInfo(integral, numThreads, &res);
+        if (IntegralCalculateWithoutCoresInfo(integral, numThreads, &res) != INTEGRAL_SUCCESS) {
+            fprintf(stderr, "Integral Calculate ERROR\n");
+            result = NAN;
+            goto exit_handler;
+        }
         return res;
     }
     assert(connection);
-    struct CalculateInfo_t* calculateInfos = calloc(numComputers, sizeof(struct CalculateInfo_t));
+    calculateInfos = calloc(numComputers, sizeof(struct CalculateInfo_t));
     double dataStep = (integral.end  - integral.begin) / numComputers;
     struct ComputerInfo_t thisComputerInfo = {};
-    struct CoreInfo_t* coresInfo = GetCoresInfo(&thisComputerInfo);
+    coresInfo = GetCoresInfo(&thisComputerInfo);
 
     size_t numAllCPU = thisComputerInfo.numCPU;
     for ( size_t itComputer = 0; itComputer < numComputers - 1; ++itComputer) {
         numAllCPU += connection[itComputer].computerInfo.numCPU;
         fprintf(stderr, "Client %zd: numCPU - %zd\n", itComputer, connection[itComputer].computerInfo.numCPU);
     }
+    assert(numThreads - numComputers >= 0);
+    size_t distributionThreads = numThreads - numComputers;
 
     for (size_t itComputer = 0; itComputer < numComputers - 1; ++itComputer) {
         calculateInfos[itComputer].integral.begin = integral.begin + itComputer * dataStep;
         calculateInfos[itComputer].integral.end = integral.begin + (itComputer + 1) * dataStep;
         calculateInfos[itComputer].integral.func = integral.func;
-        size_t usedThread = RoundDouble_((((double)connection[itComputer].computerInfo.numCPU / (double)numAllCPU) *
-                                           (double)numThreads));
+        size_t usedThread = 1 + RoundDouble_((((double)connection[itComputer].computerInfo.numCPU / (double)numAllCPU) *
+                                           (double)distributionThreads));
         if (numThreads >= usedThread) {
             calculateInfos[itComputer].numUsedThreads = usedThread;
             numThreads -= usedThread;
@@ -259,8 +286,12 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
                 goto exit_handler;
             }
         }
-        IntegralCalculate(coresInfo, &thisComputerInfo, calculateInfos[numComputers - 1].integral,
-                          calculateInfos[numComputers - 1].numUsedThreads, &res);
+        if (IntegralCalculate(coresInfo, &thisComputerInfo, calculateInfos[numComputers - 1].integral,
+                          calculateInfos[numComputers - 1].numUsedThreads, &res) != INTEGRAL_SUCCESS) {
+            fprintf(stderr, "Integral Calculate ERROR\n");
+            result = NAN;
+            goto exit_handler;
+        }
         double otherRes = 0;
         if (read(demonPipe[READ], &otherRes, sizeof(otherRes)) < 0) {
             perror("read");
@@ -281,14 +312,18 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
             goto exit_handler;
         }
 
-        result = res + otherRes;
         goto exit_handler;
 
 exit_handler:
-        free(calculateInfos);
-        FreeCoresInfo(coresInfo, thisComputerInfo.numCores);
+        if (calculateInfos != NULL) {
+            free(calculateInfos);
+        }
+        if (coresInfo != NULL) {
+            FreeCoresInfo(coresInfo, thisComputerInfo.numCores);
+        }
 
         return res + otherRes; //TODO: It is Strange
+
     } else {
         for (size_t itConnect = 0; itConnect < numComputers - 1; ++itConnect) {
             fd_set rfds;
@@ -416,7 +451,7 @@ static bool SetKeepalive_(int socket, int keepcnt, int keepidle, int keepintvl) 
     int ret;
     int optTrue = 1;
 
-    ret = setsockopt (socket, SOL_SOCKET, SO_KEEPALIVE, &optTrue, sizeof optTrue);
+    ret = setsockopt (socket, SOL_SOCKET, SO_KEEPALIVE, &optTrue, sizeof(int));
     if (ret != 0) {
         perror ("setsockopt");
         return false;
@@ -441,6 +476,32 @@ static bool SetKeepalive_(int socket, int keepcnt, int keepidle, int keepintvl) 
     }
 
     return true;
+}
+
+static int SetServerSocketOptions_() {
+    int socketServer = socket(AF_INET, SOCK_STREAM, 0);
+    int optTrue = 1;
+
+    if (setsockopt (socketServer, SOL_SOCKET, SO_REUSEADDR, &optTrue, sizeof(int)) != 0) {
+        perror ("setsockopt for server socket:");
+        return -1;
+    }
+
+    struct timeval timeout = {
+            .tv_sec = 10,
+            .tv_usec = 0
+    };
+
+    if (setsockopt (socketServer, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof timeout) != 0) {
+        perror ("setsockopt (timeout) for server socket:");
+        return -1;
+    }
+
+    if (!SetKeepalive_(socketServer, 4, 3, 1)) {
+        return -1;
+    }
+
+    return socketServer;
 }
 
 //------------------------------------------------Debug Functions------------------------------------------
