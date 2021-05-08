@@ -24,7 +24,7 @@ enum {PARSE_ERROR = -1};
 static size_t GetCoreId_(size_t coreNum);
 static struct CoreInfo_t* UpdateCoreInfo_(struct CoreInfo_t* coresInfo, size_t size, size_t coreId, size_t numCpu);
 static struct CoreInfo_t* CreateCoreInfo_(struct CoreInfo_t* coresInfo, size_t size);
-static size_t ShrinkToFitCoreInfos(struct CoreInfo_t** coresInfo, size_t curSize);
+static size_t ShrinkToFitCoreInfos_(struct CoreInfo_t** coresInfo, size_t curSize);
 
 //---------------------------------Parse Core Info-----------------------------------
 
@@ -56,7 +56,7 @@ struct CoreInfo_t* GetCoresInfo(struct ComputerInfo_t* computerInfo) {
             return NULL;
         }
     }
-    computerInfo->numCores = ShrinkToFitCoreInfos(&coresInfo, computerInfo->numCPU);
+    computerInfo->numCores = ShrinkToFitCoreInfos_(&coresInfo, computerInfo->numCPU);
 
     return coresInfo;
 }
@@ -134,10 +134,10 @@ static struct CoreInfo_t* CreateCoreInfo_(struct CoreInfo_t* coresInfo, size_t s
     return curCoreInfo;
 }
 
-static size_t ShrinkToFitCoreInfos(struct CoreInfo_t** ptrCoresInfo, size_t curSize) {
-   assert(ptrCoresInfo);
+static size_t ShrinkToFitCoreInfos_(struct CoreInfo_t** coresInfo, size_t curSize) {
+   assert(coresInfo);
 
-   struct CoreInfo_t* coreInfo = *ptrCoresInfo;
+   struct CoreInfo_t* coreInfo = *coresInfo;
     size_t newSize = curSize;
     for (size_t itCoreInfo = 0; itCoreInfo < curSize; ++itCoreInfo) {
         if (coreInfo[itCoreInfo].numCpu == 0) {
@@ -150,7 +150,7 @@ static size_t ShrinkToFitCoreInfos(struct CoreInfo_t** ptrCoresInfo, size_t curS
         perror("realloc");
         return 0;
     }
-    *ptrCoresInfo = coreInfo;
+    *coresInfo = coreInfo;
     return newSize;
 }
 

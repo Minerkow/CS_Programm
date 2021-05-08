@@ -21,7 +21,7 @@ struct CalculateInfo_t {
 //Select где сервер ждет ответа от пользователей, keeplaive прочитать что это такое
 
 //-------------------------------------------Static Functions---------------------------------------
-static bool FindAndConnectComputers_(struct Connection_t* connections, size_t numComputers);
+static int FindAndConnectComputers_(struct Connection_t* connections, size_t numComputers);
 static double DistributionCalculation_(struct Integral_t integral, size_t numComputers, size_t numThreads,
                                        struct Connection_t *connection);
 static int OpenBroadCastSocket_();
@@ -29,8 +29,11 @@ static bool SendBroadCast_();
 static int ListenBroadCast_(struct sockaddr_in* serverAddr);
 int ConnectionsCompare_(struct Connection_t* conn1, struct Connection_t* conn2);
 size_t RoundDouble_(double number);
+static bool SetKeepalive_(int socket, int keepcnt, int keepidle, int keepintvl);
 //------------------------------------------------Debug Functions------------------------------------------
 static void PrintConnections_(struct Connection_t* connection, size_t numConnections);
+static void PrintCalculateInfo_(struct CalculateInfo_t calculateInfo);
+
 
 double func(double x) {
     return x;
@@ -39,54 +42,87 @@ double func(double x) {
 //-------------------------------------------API----------------------------------------------------
 
 DistributionError StartMainNode(size_t numThreads, size_t numComputers, struct Integral_t integral, double* res) {
+    DistributionError error = DERROR_OK;
+    int serverSocket = ERROR;
+
     if (numComputers == 0 || numThreads == 0) {
-        return DERROR_NULL_ARGUMENT;
+        perror("null argument");
+        error = DERROR_NULL_ARGUMENT;
+        goto exit_handler;
     }
     struct Connection_t *connections = NULL;
     if (numComputers != 1) {
         connections = calloc(numComputers - 1, sizeof(struct Connection_t));
-        if (!FindAndConnectComputers_(connections, numComputers - 1)) {
-            return DERROR_FIND;
+        serverSocket = FindAndConnectComputers_(connections, numComputers - 1);
+        if (serverSocket < 0) {
+            perror("find ERROR");
+            error = DERROR_FIND;
+            goto exit_handler;
         }
     }
     *res = DistributionCalculation_(integral, numComputers, numThreads, connections);
     if (isnan(*res)) {
-        return DERROR_CALCULATION;
+        perror("distribution ERROR");
+        error = DERROR_CALCULATION;
+        goto exit_handler;
     }
-    return DERROR_OK;
+
+exit_handler:
+    if (connections != NULL) {
+        for (int connect = 0; connect < numComputers - 1; ++connect) {
+            close(connections[connect].socket);
+        }
+        close(serverSocket);
+        free(connections);
+    }
+    return error;
 }
 
 DistributionError StartSideNode() {
+    DistributionError error = DERROR_OK;
     struct sockaddr_in serverAddr;
+    struct CoreInfo_t* coresInfo;
+
     ListenBroadCast_(&serverAddr);
 
     fprintf(stderr, "found server IP is %s, Port is %d\n", inet_ntoa(serverAddr.sin_addr),
             htons(serverAddr.sin_port));
 
     int socketServer = socket(AF_INET, SOCK_STREAM, 0);
+
+    if (!SetKeepalive_(socketServer, 2, 1, 1)) {
+        error = DERROR_KEEPALIVE;
+        goto exit_handler;
+    }
+
     socklen_t socklen = sizeof(struct sockaddr_in);
 
     if (connect(socketServer, (const struct sockaddr*) &serverAddr, socklen) < 0) {
         perror("connect");
-        return DERROR_CONNECTION;
+        error = DERROR_CONNECTION;
+        goto exit_handler;
     }
 
     struct ComputerInfo_t computerInfo = {};
-    struct CoreInfo_t* coresInfo = GetCoresInfo(&computerInfo);
+    coresInfo = GetCoresInfo(&computerInfo);
 
     if (send(socketServer, &computerInfo, sizeof(computerInfo), 0) < 0) {
         perror("send");
-        return DERROR_CONNECTION;
+        error = DERROR_CONNECTION;
+        goto exit_handler;
     }
 
     struct CalculateInfo_t calculateInfo = {};
     fprintf(stderr, "Client:: Recv tcp msg\n");
     if (recv(socketServer, &calculateInfo, sizeof(calculateInfo), 0) < 0) {
         perror("recv");
-        return DERROR_CONNECTION;
+        error = DERROR_CONNECTION;
+        goto exit_handler;
     }
     //fprintf(stderr, "{%f -> %f}", calculateInfo.integral.begin, calculateInfo.integral.end);
     fprintf(stderr, "Client:: Recved tcp msg\n");
+
+    PrintCalculateInfo_(calculateInfo);
 
     double res = 0.0;
     calculateInfo.integral.func = func;
@@ -94,13 +130,21 @@ DistributionError StartSideNode() {
 
     if (send(socketServer, &res, sizeof(res), 0) < 0) {
         perror("send");
-        return DERROR_CONNECTION;
+        error = DERROR_CONNECTION;
+        goto exit_handler;
     }
-    return DERROR_OK;
+
+exit_handler:
+    close(socketServer);
+    PrintCoresInfo(coresInfo, computerInfo.numCores);
+    if (coresInfo != NULL) {
+        FreeCoresInfo(coresInfo, computerInfo.numCores);
+    }
+    return error;
 }
 
 //-------------------------------------------Static Functions---------------------------------------
-static bool FindAndConnectComputers_(struct Connection_t* connections, size_t numComputers) {
+static int FindAndConnectComputers_(struct Connection_t* connections, size_t numComputers) {
     assert(connections);
 
     int socketServer = socket(AF_INET, SOCK_STREAM, 0);
@@ -111,17 +155,17 @@ static bool FindAndConnectComputers_(struct Connection_t* connections, size_t nu
 
     if(bind(socketServer, (const struct sockaddr *) &serverAddr, socklen) < 0) {
         perror("bind");
-        return false;
+        return -1;
     }
 
     if (!SendBroadCast_()) {
-        return false;
+        return -1;
     }
     PrintConnections_(connections, numComputers - 1);
 
     if(listen(socketServer, numComputers + 1) < 0) {
         perror("listen");
-        return false;
+        return -1;
     }
 
     for (int itSockets = 0 ; itSockets < numComputers; ++itSockets) {
@@ -129,16 +173,16 @@ static bool FindAndConnectComputers_(struct Connection_t* connections, size_t nu
         fprintf(stderr, "User connect by TCP with IP: %s\n", inet_ntoa(serverAddr.sin_addr));
         if (clientSock < 0) {
             perror ("accept");
-            return false;
+            return -1;
         }
         connections[itSockets].socket = clientSock;
         if (recv(clientSock, &connections->computerInfo, sizeof(struct ComputerInfo_t), 0) < 0) {
             perror("recv");
-            return false;
+            return -1;
         }
         fprintf(stderr, "Get computer info\n");
     }
-    return true;
+    return socketServer;
 }
 
 static double DistributionCalculation_(struct Integral_t integral, size_t numComputers, size_t numThreads,
@@ -146,6 +190,8 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
     assert(connection);
     assert(numThreads > 0);
     assert(numComputers > 0);
+
+    double result = NAN;
 
     if (numComputers == 1) {
         double res = 0.0;
@@ -185,24 +231,29 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
     calculateInfos[numComputers - 1].numUsedThreads = numThreads;
     double res = 0.0;
 
+    PrintCalculateInfo_(calculateInfos[numComputers - 1]);
+
     int demonPipe[2] = {};
     int ret = pipe(demonPipe);
     if (ret < 0) {
         perror("pipe");
-        return NAN;
+        result = NAN;
+        goto exit_handler;
     }
 
     pid_t pid = fork();
     if (pid < 0) {
         perror("pid");
-        return NAN;
+        result = NAN;
+        goto exit_handler;
     }
     if (pid != 0) {
         for (size_t itConnect = 0; itConnect < numComputers - 1; ++itConnect) {
             if (send(connection[itConnect].socket,
                      &calculateInfos[itConnect], sizeof(calculateInfos[itConnect]), 0) < 0) {
                 perror("send");
-                return NAN;
+                result = NAN;
+                goto exit_handler;
             }
         }
         IntegralCalculate(coresInfo, &thisComputerInfo, calculateInfos[numComputers - 1].integral,
@@ -210,17 +261,30 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
         double otherRes = 0;
         if (read(demonPipe[READ], &otherRes, sizeof(otherRes)) < 0) {
             perror("read");
-            return NAN;
+            result = NAN;
+            goto exit_handler;
         }
 
         int status = 0;
         waitpid(pid, &status, 0);
         if (WIFEXITED(status) == 0) {
-            return NAN;
+            perror("demon");
+            result = NAN;
+            goto exit_handler;
         }
         if (WEXITSTATUS(status) != SUCCESS) {
-            return NAN;
+            perror("demon");
+            result = NAN;
+            goto exit_handler;
         }
+
+        result = res + otherRes;
+        goto exit_handler;
+
+exit_handler:
+        free(calculateInfos);
+        FreeCoresInfo(coresInfo, thisComputerInfo.numCores);
+
         return res + otherRes; //TODO: It is Strange
     } else {
         for (size_t itConnect = 0; itConnect < numComputers - 1; ++itConnect) {
@@ -345,8 +409,35 @@ size_t RoundDouble_(double number) {
     return intNum;
 }
 
-bool SetKeepalive_(int socket, int keepcnt, int keepidle, int keepintvl) {
+static bool SetKeepalive_(int socket, int keepcnt, int keepidle, int keepintvl) {
+    int ret;
+    int optTrue = 1;
 
+    ret = setsockopt (socket, SOL_SOCKET, SO_KEEPALIVE, &optTrue, sizeof optTrue);
+    if (ret != 0) {
+        perror ("setsockopt");
+        return false;
+    }
+
+    ret = setsockopt(socket, IPPROTO_TCP, TCP_KEEPCNT, &keepcnt, sizeof(int));
+    if (ret != 0) {
+        perror ("tcp_keepcnt");
+        return false;
+    }
+
+    ret = setsockopt (socket, IPPROTO_TCP, TCP_KEEPIDLE, &keepidle, sizeof(int));
+    if (ret != 0) {
+        perror ("tcp_keepcnt");
+        return false;
+    }
+
+    ret = setsockopt(socket, IPPROTO_TCP, TCP_KEEPINTVL, &keepintvl, sizeof(int));
+    if (ret != 0) {
+        perror ("tcp_keepcnt");
+        return false;
+    }
+
+    return true;
 }
 
 //------------------------------------------------Debug Functions------------------------------------------
@@ -356,4 +447,11 @@ static void PrintConnections_(struct Connection_t* connection, size_t numConnect
         printf("Comp%d: numCores - %zu, numCPUByCore - %zu\n",
                i, connection[i].computerInfo.numCores, connection[i].computerInfo.numCores);
     }
+}
+
+static void PrintCalculateInfo_(struct CalculateInfo_t calculateInfo) {
+    fprintf(stderr, "---------------------------Calculate Info--------------------------------------\n");
+    fprintf(stderr, "\t\t\t\t\tNum used threads: %zu\n", calculateInfo.numUsedThreads);
+    fprintf(stderr, "\t\t\t\t\tIntegral: %f to %f\n", calculateInfo.integral.begin, calculateInfo.integral.end);
+    fprintf(stderr, "-------------------------------------------------------------------------------\n\n");
 }
