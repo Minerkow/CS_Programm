@@ -158,6 +158,7 @@ DistributionError StartSideNode() {
     int okMsg = 0;
     if (recv(socketServer, &okMsg, sizeof(res), 0) <= 0) {
         fprintf(stderr, "Recv ERROR\n");
+        error = DERROR_CONNECTION;
         goto exit_handler;
     }
 
@@ -273,21 +274,6 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
 
     PrintCalculateInfo_(calculateInfos[numComputers - 1]);
 
-    int demonPipe[2] = {};
-    int ret = pipe(demonPipe);
-    if (ret < 0) {
-        perror("pipe");
-        result = NAN;
-        goto exit_handler;
-    }
-
-    pid_t pid = fork();
-    if (pid < 0) {
-        perror("pid");
-        result = NAN;
-        goto exit_handler;
-    }
-    if (pid != 0) {
         for (size_t itConnect = 0; itConnect < numComputers - 1; ++itConnect) {
             if (send(connection[itConnect].socket,
                      &calculateInfos[itConnect], sizeof(calculateInfos[itConnect]), 0) < 0) {
@@ -302,44 +288,7 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
             result = NAN;
             goto exit_handler;
         }
-        double otherRes = 0;
-        if (read(demonPipe[READ], &otherRes, sizeof(otherRes)) < 0) {
-            perror("read");
-            result = NAN;
-            goto exit_handler;
-        }
-        if (isnan(otherRes)) {
-            result = NAN;
-            goto exit_handler;
-        }
 
-        int status = 0;
-        waitpid(pid, &status, 0);
-        if (WIFEXITED(status) == 0) {
-            perror("demon");
-            result = NAN;
-            goto exit_handler;
-        }
-        if (WEXITSTATUS(status) != SUCCESS) {
-            perror("demon");
-            result = NAN;
-            goto exit_handler;
-        }
-
-        goto exit_handler;
-
-exit_handler:
-        if (calculateInfos != NULL) {
-            free(calculateInfos);
-        }
-        if (coresInfo != NULL) {
-            FreeCoresInfo(coresInfo, thisComputerInfo.numCores);
-        }
-        close(demonPipe[READ]);
-        close(demonPipe[WRITE]);
-        return res + otherRes; //TODO: It is Strange
-
-    } else {
         for (size_t itConnect = 0; itConnect < numComputers - 1; ++itConnect) {
             fd_set rfds;
             struct timeval tv = {TIMEOUT, 0};
@@ -355,23 +304,29 @@ exit_handler:
             double connectRes = 0;
             if (recv(connection[itConnect].socket, &connectRes, sizeof(connectRes), 0) <= 0) {
                 fprintf(stderr, "Recv ERROR\n");
-                connectRes = NAN;
+                res = NAN;
+                goto exit_handler;
             }
             int okMsg = 1;
+
             if (send(connection[itConnect].socket, &okMsg, sizeof okMsg, 0) < 0) {
                 perror("send");
-                connectRes = NAN;
+                res = NAN;
+                goto exit_handler;
             }
             res += connectRes;
-            fprintf(stderr, "___%f___", res);
+        }
 
+
+exit_handler:
+        if (calculateInfos != NULL) {
+            free(calculateInfos);
         }
-        if (write(demonPipe[WRITE], &res, sizeof(res)) < 0) {
-            perror("write");
-            exit(ERROR);
+        if (coresInfo != NULL) {
+            FreeCoresInfo(coresInfo, thisComputerInfo.numCores);
         }
-        exit(SUCCESS);
-    }
+
+        return res;
 
 }
 
