@@ -86,6 +86,7 @@ exit_handler:
         close(serverSocket);
         free(connections);
     }
+
     return error;
 }
 
@@ -94,7 +95,9 @@ DistributionError StartSideNode() {
     struct sockaddr_in serverAddr;
     struct CoreInfo_t* coresInfo;
 
-    ListenBroadCast_(&serverAddr);
+    if (ListenBroadCast_(&serverAddr) < 0) {
+        return DERROR_CONNECTION;
+    }
 
     fprintf(stderr, "found server IP is %s, Port is %d\n", inet_ntoa(serverAddr.sin_addr),
             htons(serverAddr.sin_port));
@@ -127,11 +130,12 @@ DistributionError StartSideNode() {
 
     struct CalculateInfo_t calculateInfo = {};
     fprintf(stderr, "Client:: Recv tcp msg\n");
-    if (recv(socketServer, &calculateInfo, sizeof(calculateInfo), 0) < 0) {
-        perror("recv");
+    if (recv(socketServer, &calculateInfo, sizeof(calculateInfo), 0) <= 0) {
+        fprintf(stderr, "Recv ERROR");
         error = DERROR_CONNECTION;
         goto exit_handler;
     }
+
     //fprintf(stderr, "{%f -> %f}", calculateInfo.integral.begin, calculateInfo.integral.end);
     fprintf(stderr, "Client:: Recved tcp msg\n");
 
@@ -148,6 +152,12 @@ DistributionError StartSideNode() {
     if (send(socketServer, &res, sizeof(res), 0) < 0) {
         perror("send");
         error = DERROR_CONNECTION;
+        goto exit_handler;
+    }
+
+    int okMsg = 0;
+    if (recv(socketServer, &okMsg, sizeof(res), 0) <= 0) {
+        fprintf(stderr, "Recv ERROR\n");
         goto exit_handler;
     }
 
@@ -197,8 +207,8 @@ static int FindAndConnectComputers_(struct Connection_t* connections, size_t num
             return -1;
         }
         connections[itSockets].socket = clientSock;
-        if (recv(clientSock, &connections[itSockets].computerInfo, sizeof(struct ComputerInfo_t), 0) < 0) {
-            perror("recv");
+        if (recv(clientSock, &connections[itSockets].computerInfo, sizeof(struct ComputerInfo_t), 0) <= 0) {
+            fprintf(stderr, "Recv ERROR");
             return -1;
         }
         fprintf(stderr, "Get computer info\n");
@@ -298,6 +308,10 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
             result = NAN;
             goto exit_handler;
         }
+        if (isnan(otherRes)) {
+            result = NAN;
+            goto exit_handler;
+        }
 
         int status = 0;
         waitpid(pid, &status, 0);
@@ -321,7 +335,8 @@ exit_handler:
         if (coresInfo != NULL) {
             FreeCoresInfo(coresInfo, thisComputerInfo.numCores);
         }
-
+        close(demonPipe[READ]);
+        close(demonPipe[WRITE]);
         return res + otherRes; //TODO: It is Strange
 
     } else {
@@ -338,11 +353,18 @@ exit_handler:
             }
 
             double connectRes = 0;
-            if (recv(connection[itConnect].socket, &connectRes, sizeof(connectRes), 0) < 0) {
-                perror("recv");
-                exit(ERROR);
+            if (recv(connection[itConnect].socket, &connectRes, sizeof(connectRes), 0) <= 0) {
+                fprintf(stderr, "Recv ERROR\n");
+                connectRes = NAN;
+            }
+            int okMsg = 1;
+            if (send(connection[itConnect].socket, &okMsg, sizeof okMsg, 0) < 0) {
+                perror("send");
+                connectRes = NAN;
             }
             res += connectRes;
+            fprintf(stderr, "___%f___", res);
+
         }
         if (write(demonPipe[WRITE], &res, sizeof(res)) < 0) {
             perror("write");
