@@ -106,6 +106,8 @@ DistributionError StartSideNode() {
     struct ComputerInfo_t computerInfo = {};
     coresInfo = GetCoresInfo(&computerInfo);
 
+    PrintCoresInfo(coresInfo, computerInfo.numCPU);
+
     if (send(socketServer, &computerInfo, sizeof(computerInfo), 0) < 0) {
         perror("send");
         error = DERROR_CONNECTION;
