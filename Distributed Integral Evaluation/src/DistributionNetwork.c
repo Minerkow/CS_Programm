@@ -248,28 +248,47 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
         fprintf(stderr, "Client %zd: numCPU - %zd\n", itComputer, connection[itComputer].computerInfo.numCPU);
     }
     assert(numThreads - numComputers >= 0);
-    size_t distributionThreads = numThreads - numComputers;
+//    size_t distributionThreads = numThreads - numComputers;
+//
+//    for (size_t itComputer = 0; itComputer < numComputers - 1; ++itComputer) {
+//        calculateInfos[itComputer].integral.begin = integral.begin + itComputer * dataStep;
+//        calculateInfos[itComputer].integral.end = integral.begin + (itComputer + 1) * dataStep;
+//        calculateInfos[itComputer].integral.func = integral.func;
+//        size_t usedThread = 1 + RoundDouble_((((double)connection[itComputer].computerInfo.numCPU / (double)numAllCPU) *
+//                                           (double)distributionThreads));
+//        if (numThreads >= usedThread) {
+//            calculateInfos[itComputer].numUsedThreads = usedThread;
+//            numThreads -= usedThread;
+//        } else {
+//            calculateInfos[itComputer].numUsedThreads = numThreads;
+//            numThreads = 0;
+//            fprintf(stderr, "Something strange is happening");
+//        }
+//    }
+//
+//    calculateInfos[numComputers - 1].integral.begin = integral.begin + (numComputers - 1) * dataStep;
+//    calculateInfos[numComputers - 1].integral.end = integral.begin + numComputers * dataStep;
+//    calculateInfos[numComputers - 1].integral.func = integral.func;
+//    calculateInfos[numComputers - 1].numUsedThreads = numThreads;
 
-    for (size_t itComputer = 0; itComputer < numComputers - 1; ++itComputer) {
+
+    for (size_t itComputer = 0; itComputer < numComputers; ++itComputer) {
         calculateInfos[itComputer].integral.begin = integral.begin + itComputer * dataStep;
         calculateInfos[itComputer].integral.end = integral.begin + (itComputer + 1) * dataStep;
         calculateInfos[itComputer].integral.func = integral.func;
-        size_t usedThread = 1 + RoundDouble_((((double)connection[itComputer].computerInfo.numCPU / (double)numAllCPU) *
-                                           (double)distributionThreads));
-        if (numThreads >= usedThread) {
-            calculateInfos[itComputer].numUsedThreads = usedThread;
-            numThreads -= usedThread;
-        } else {
-            calculateInfos[itComputer].numUsedThreads = numThreads;
-            numThreads = 0;
-            fprintf(stderr, "Something strange is happening");
+    }
+
+    while(numThreads != 0) {
+        for (size_t itComputer = 0; itComputer < numComputers; ++itComputer) {
+            calculateInfos[itComputer].numUsedThreads++;
+            numThreads--;
+            if(numThreads == 0) {
+                break;
+            }
         }
     }
 
-    calculateInfos[numComputers - 1].integral.begin = integral.begin + (numComputers - 1) * dataStep;
-    calculateInfos[numComputers - 1].integral.end = integral.begin + numComputers * dataStep;
-    calculateInfos[numComputers - 1].integral.func = integral.func;
-    calculateInfos[numComputers - 1].numUsedThreads = numThreads;
+
     double res = 0.0;
 
     PrintCalculateInfo_(calculateInfos[numComputers - 1]);
