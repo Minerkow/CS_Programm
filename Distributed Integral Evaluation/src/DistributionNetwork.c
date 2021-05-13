@@ -47,19 +47,19 @@ DistributionError StartMainNode(size_t numThreads, size_t numComputers, struct I
     int serverSocket = ERROR;
     struct Connection_t *connections = NULL;
 
-    if (numComputers == 0 || numThreads == 0) {
+    if (numComputers == 0 ) {
         perror("null argument");
         error = DERROR_NULL_ARGUMENT;
         goto exit_handler;
     }
-    if (numComputers > numThreads) {
-        fprintf(stderr, "\n\t\t\tNUM_THREADS < NUM_COMPUTER, CALCULATION ARE PERFORMED ON ONE COMPUTER\n");
-        if (IntegralCalculateWithoutCoresInfo(integral, numThreads, res) != INTEGRAL_SUCCESS) {
-            fprintf(stderr, "Integral Calculate ERROR\n");
-            error = DERROR_CALCULATION;
-        }
-        goto exit_handler;
-    }
+//    if (numComputers > numThreads) {
+//        fprintf(stderr, "\n\t\t\tNUM_THREADS < NUM_COMPUTER, CALCULATION ARE PERFORMED ON ONE COMPUTER\n");
+//        if (IntegralCalculateWithoutCoresInfo(integral, numThreads, res) != INTEGRAL_SUCCESS) {
+//            fprintf(stderr, "Integral Calculate ERROR\n");
+//            error = DERROR_CALCULATION;
+//        }
+//        goto exit_handler;
+//    }
 
     if (numComputers != 1) {
         connections = calloc(numComputers - 1, sizeof(struct Connection_t));
@@ -72,6 +72,7 @@ DistributionError StartMainNode(size_t numThreads, size_t numComputers, struct I
     }
 
     *res = DistributionCalculation_(integral, numComputers, numThreads, connections);
+    fprintf(stderr, "[%f]", *res);
     if (isnan(*res)) {
         perror("distribution ERROR");
         error = DERROR_CALCULATION;
@@ -90,7 +91,7 @@ exit_handler:
     return error;
 }
 
-DistributionError StartSideNode() {
+DistributionError StartSideNode(size_t numThreads) {
     DistributionError error = DERROR_OK;
     struct sockaddr_in serverAddr;
     struct CoreInfo_t* coresInfo;
@@ -118,9 +119,10 @@ DistributionError StartSideNode() {
     }
 
     struct ComputerInfo_t computerInfo = {};
-    coresInfo = GetCoresInfo(&computerInfo);
+    computerInfo.numCPU = numThreads;
+    //coresInfo = GetCoresInfo(&computerInfo);
 
-    fprintf(stderr, "Computer info: numCores - %zd, numCPU - %zd\n", computerInfo.numCores, computerInfo.numCPU);
+    //fprintf(stderr, "Computer info: numCores - %zd, numCPU - %zd\n", computerInfo.numCores, computerInfo.numCPU);
 
     if (send(socketServer, &computerInfo, sizeof(computerInfo), 0) < 0) {
         perror("send");
@@ -129,7 +131,6 @@ DistributionError StartSideNode() {
     }
 
     struct CalculateInfo_t calculateInfo = {};
-    fprintf(stderr, "Client:: Recv tcp msg\n");
     if (recv(socketServer, &calculateInfo, sizeof(calculateInfo), 0) <= 0) {
         fprintf(stderr, "Recv ERROR");
         error = DERROR_CONNECTION;
@@ -139,11 +140,11 @@ DistributionError StartSideNode() {
     //fprintf(stderr, "{%f -> %f}", calculateInfo.integral.begin, calculateInfo.integral.end);
     fprintf(stderr, "Client:: Recved tcp msg\n");
 
-    PrintCalculateInfo_(calculateInfo);
+//    PrintCalculateInfo_(calculateInfo);
 
     double res = 0.0;
     calculateInfo.integral.func = func;
-    if (IntegralCalculate(coresInfo, &computerInfo, calculateInfo.integral, calculateInfo.numUsedThreads, &res) != INTEGRAL_SUCCESS) {
+    if (IntegralCalculateWithoutCoresInfo(calculateInfo.integral, calculateInfo.numUsedThreads, &res) != INTEGRAL_SUCCESS) {
         fprintf(stderr, "Integral Calculate ERROR\n");
         error = DERROR_CALCULATION;
         goto exit_handler;
@@ -219,8 +220,6 @@ static int FindAndConnectComputers_(struct Connection_t* connections, size_t num
 
 static double DistributionCalculation_(struct Integral_t integral, size_t numComputers, size_t numThreads,
                                        struct Connection_t *connection) {
-    assert(connection);
-    assert(numThreads > 0);
     assert(numComputers > 0);
 
     double result = NAN;
@@ -238,15 +237,15 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
     }
     assert(connection);
     calculateInfos = calloc(numComputers, sizeof(struct CalculateInfo_t));
-    double dataStep = (integral.end  - integral.begin) / numComputers;
     struct ComputerInfo_t thisComputerInfo = {};
     coresInfo = GetCoresInfo(&thisComputerInfo);
 
-    size_t numAllCPU = thisComputerInfo.numCPU;
+    size_t numAllCPU = numThreads;
     for ( size_t itComputer = 0; itComputer < numComputers - 1; ++itComputer) {
         numAllCPU += connection[itComputer].computerInfo.numCPU;
         fprintf(stderr, "Client %zd: numCPU - %zd\n", itComputer, connection[itComputer].computerInfo.numCPU);
     }
+    double dataStep = (integral.end  - integral.begin) / numAllCPU;
     assert(numThreads - numComputers >= 0);
 //    size_t distributionThreads = numThreads - numComputers;
 //
@@ -266,27 +265,33 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
 //        }
 //    }
 //
-//    calculateInfos[numComputers - 1].integral.begin = integral.begin + (numComputers - 1) * dataStep;
-//    calculateInfos[numComputers - 1].integral.end = integral.begin + numComputers * dataStep;
-//    calculateInfos[numComputers - 1].integral.func = integral.func;
-//    calculateInfos[numComputers - 1].numUsedThreads = numThreads;
+    double cur_begin = integral.begin;
 
 
-    for (size_t itComputer = 0; itComputer < numComputers; ++itComputer) {
-        calculateInfos[itComputer].integral.begin = integral.begin + itComputer * dataStep;
-        calculateInfos[itComputer].integral.end = integral.begin + (itComputer + 1) * dataStep;
+    for (size_t itComputer = 0; itComputer < numComputers - 1; ++itComputer) {
+        calculateInfos[itComputer].integral.begin = cur_begin;
+        calculateInfos[itComputer].integral.end = cur_begin + connection[itComputer].computerInfo.numCPU * dataStep;
+        cur_begin = calculateInfos[itComputer].integral.end;
         calculateInfos[itComputer].integral.func = integral.func;
+        calculateInfos[itComputer].numUsedThreads = connection[itComputer].computerInfo.numCPU;
     }
 
-    while(numThreads != 0) {
-        for (size_t itComputer = 0; itComputer < numComputers; ++itComputer) {
-            calculateInfos[itComputer].numUsedThreads++;
-            numThreads--;
-            if(numThreads == 0) {
-                break;
-            }
-        }
-    }
+    calculateInfos[numComputers - 1].integral.begin = cur_begin;
+    calculateInfos[numComputers - 1].integral.end = cur_begin + numThreads * dataStep;
+    cur_begin = calculateInfos[numComputers - 1].integral.end;
+    calculateInfos[numComputers - 1].integral.func = integral.func;
+    calculateInfos[numComputers - 1].numUsedThreads = numThreads;
+
+//
+//    while(numThreads != 0) {
+//        for (size_t itComputer = 0; itComputer < numComputers; ++itComputer) {
+//            calculateInfos[itComputer].numUsedThreads++;
+//            numThreads--;
+//            if(numThreads == 0) {
+//                break;
+//            }
+//        }
+//    }
 
 
     double res = 0.0;
@@ -301,13 +306,14 @@ static double DistributionCalculation_(struct Integral_t integral, size_t numCom
                 goto exit_handler;
             }
         }
-        if (IntegralCalculate(coresInfo, &thisComputerInfo, calculateInfos[numComputers - 1].integral,
-                          calculateInfos[numComputers - 1].numUsedThreads, &res) != INTEGRAL_SUCCESS) {
-            fprintf(stderr, "Integral Calculate ERROR\n");
-            result = NAN;
-            goto exit_handler;
+        if (numThreads != 0) {
+            if (IntegralCalculate(coresInfo, &thisComputerInfo, calculateInfos[numComputers - 1].integral,
+                                  calculateInfos[numComputers - 1].numUsedThreads, &res) != INTEGRAL_SUCCESS) {
+                fprintf(stderr, "Integral Calculate ERROR\n");
+                result = NAN;
+                goto exit_handler;
+            }
         }
-
         for (size_t itConnect = 0; itConnect < numComputers - 1; ++itConnect) {
             fd_set rfds;
             struct timeval tv = {TIMEOUT, 0};

@@ -160,7 +160,7 @@ void FreeCoresInfo(struct CoreInfo_t* coreInfo, size_t size) {
     for (size_t itCoreInfo = 0; itCoreInfo < size; ++itCoreInfo) {
         free(coreInfo[itCoreInfo].cpusNum);
     }
-    free(coreInfo);
+     //   free(coreInfo);
 }
 
 void PrintCoresInfo(const struct CoreInfo_t* coreInfo, size_t size)
